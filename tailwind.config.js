@@ -7,6 +7,7 @@ export default {
         background: "#121712",
         "border-color": "#2d372a",
         hover: "#0a7121",
+        "text-color-1": "#a5b6a0",
       },
       fontFamily: {
         manrope: ["Manrope", "sans-serif"],
