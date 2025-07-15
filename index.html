@@ -61,7 +61,7 @@
   </header>
 
   <main>
-
+    <!-- Dashboard -->
     <section class="py-9 section-dashboard ">
       <div class="container mx-auto max-w-[1200px] flex flex-col gap-8 px-10 lg:px-0 ">
         <!-- Portfolio header -->
@@ -94,7 +94,7 @@
           <h3 class="text-base font-medium leading-normal">Portfolio Performance</h3>
           <p class="font-bold text-[32px]">$12,345.67</p>
           <p class="text-base font-normal text-text-color-1">Last 30 days<span
-              class="font-medium text-[#0bda35] ml-2">+2.5%</span></p>
+              class="ml-2 font-medium text-change-green">+2.5%</span></p>
 
 
 
@@ -131,6 +131,80 @@
 
 
       </div>
+    </section>
+
+    <!-- Asset section -->
+    <section class="py-14 section-asset">
+      <div class="container mx-auto max-w-[1200px]  px-10 lg:px-0">
+        <h1 class="text-2xl font-bold text-white font-manrope">Your Assets</h1>
+
+        <!-- assets table -->
+        <div class="py-6">
+          <div class="flex overflow-hidden border rounded-lg border-table-color bg-table-bg">
+
+
+            <table class="flex-1">
+              <thead>
+                <tr class="text-sm font-medium leading-normal text-left text-white bg-table-bg-2 font-manrope">
+                  <th class="px-4 py-3 w-[400px] ">Coin</th>
+                  <th class="px-4 py-3 w-[400px] ">Price</th>
+                  <th class="px-4 py-3 w-[400px] ">Quantity</th>
+                  <th class="px-4 py-3 w-[400px] ">Value</th>
+                  <th class="px-4 py-3  w-[400px] ">24hr Change</th>
+                </tr>
+              </thead>
+
+              <tbody class="text-sm font-normal leading-normal text-white font-Noto">
+                <tr class="border-t border-t-tabel-top-border">
+                  <td class="h-[72px] px-4 py-2 w-[400px]">Bitcoin<span class="ml-2">(BTC)</span></td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">$97,000</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">0.01</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">$970</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px] text-change-red">-1.07%</td>
+                </tr>
+
+                <tr class="border-t border-t-tabel-top-border">
+                  <td class="h-[72px] px-4 py-2 w-[400px]">Ethereum<span class="ml-2">(ETH)</span></td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">$2,500</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">0.1</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">$250</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px] text-change-green">+5.9%</td>
+                </tr>
+
+                <tr class="border-t border-t-tabel-top-border">
+                  <td class="h-[72px] px-4 py-2 w-[400px]">Tether<span class="ml-2">(USDT)</span></td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">$1</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">2560</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">$2560</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px] text-change-green">+0.09%</td>
+                </tr>
+
+                <tr class="border-t border-t-tabel-top-border">
+                  <td class="h-[72px] px-4 py-2 w-[400px]">Solana<span class="ml-2">(SOL)</span></td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">$163.00</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">0.6</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">$101.23</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px] text-change-red">-2.0%</td>
+                </tr>
+
+                <tr class="border-t border-t-tabel-top-border">
+                  <td class="h-[72px] px-4 py-2 w-[400px]">SUI<span class="ml-2">(SUI)</span></td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">$4.7</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">10</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px]">$470</td>
+                  <td class="h-[72px] px-4 py-2 w-[400px] text-change-green">+1.7%</td>
+                </tr>
+
+
+              </tbody>
+
+            </table>
+
+
+          </div>
+        </div>
+      </div>
+
     </section>
 
   </main>
