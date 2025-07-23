@@ -24,7 +24,7 @@ proxies = {
 def sign(query_string):
     return hmac.new(secret_key.encode(), query_string.encode(), hashlib.sha256).hexdigest()
 
-def get_spot_portfolio():
+def get_spot_acct():
     timestamp = int(time.time() * 1000)
     recv_window = 60000
     query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
@@ -34,18 +34,17 @@ def get_spot_portfolio():
 
     resp = requests.get(url, headers=headers, proxies=proxies)
     data = resp.json()
+    result = {}
     if resp.status_code != 200:
-        return {"error": data}
+        return result
 
-    assets = []
     for asset in data.get("balances", []):
         total = float(asset["free"]) + float(asset["locked"])
         if total > 0:
-            name = asset["asset"].replace("LD", "")
-            assets.append({"asset": name, "total": total})
-    return assets
+            result[asset["asset"]] = total
+    return result
 
-def get_futures_portfolio():
+def get_future_acct():
     timestamp = int(time.time() * 1000)
     recv_window = 60000
     query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
@@ -55,41 +54,56 @@ def get_futures_portfolio():
 
     resp = requests.get(url, headers=headers, proxies=proxies)
     data = resp.json()
+    trade_details = []
+    acct_balance = 0
     if resp.status_code != 200:
-        return {"error": data}
+        return {"trade-details": trade_details, "acct-balance": acct_balance}
 
-    assets = []
     for asset in data.get("assets", []):
-        total = float(asset.get("walletBalance", 0))
-        if total > 0:
-            name = asset["asset"].replace("LD", "")
-            assets.append({"asset": name, "total": total})
-    return assets
+        balance = float(asset.get("walletBalance", 0))
+        if balance > 0:
+            trade_details.append(asset)
+            acct_balance += balance
 
-def get_open_futures_orders():
+    return {
+        "trade-details": trade_details,
+        "acct-balance": acct_balance
+    }
+
+def get_margin_acct():
     timestamp = int(time.time() * 1000)
     recv_window = 60000
     query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
     signature = sign(query_string)
-    url = f"https://fapi.binance.com/fapi/v1/openOrders?{query_string}&signature={signature}"
+    url = f"https://api.binance.com/sapi/v1/margin/account?{query_string}&signature={signature}"
     headers = {"X-MBX-APIKEY": api_key}
 
     resp = requests.get(url, headers=headers, proxies=proxies)
     data = resp.json()
+    trade_details = []
+    acct_balance = 0
     if resp.status_code != 200:
-        return {"error": data}
-    return data
+        return {"trade-details": trade_details, "acct-balance": acct_balance}
 
-@app.route("/full-portfolio")
-def full_portfolio():
-    spot = get_spot_portfolio()
-    futures = get_futures_portfolio()
-    open_orders = get_open_futures_orders()
+    for asset in data.get("userAssets", []):
+        total = float(asset.get("free", 0)) + float(asset.get("locked", 0))
+        if total > 0:
+            trade_details.append(asset)
+            acct_balance += total
 
+    return {
+        "trade-details": trade_details,
+        "acct-balance": acct_balance
+    }
+
+@app.route("/binance-data")
+def binance_data():
     return jsonify({
-        "spot": spot,
-        "futures": futures,
-        "open_futures_orders": open_orders
+        "Binance": {
+            "spot-acct": get_spot_acct(),
+            "future-acct": get_future_acct(),
+            "margin-acct": get_margin_acct()
+        }
     })
 
 if __name__ == "__main__":
