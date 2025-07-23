@@ -12,8 +12,8 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-api_key = os.getenv("API_KEY")
-secret_key = os.getenv("SECRET_KEY")
+binance_api_key = os.getenv("BINANCE_API_KEY")
+binance_secret_key = os.getenv("BINANCE_SECRET_KEY")
 proxy_url = os.getenv("PROXY_URL")
 
 proxies = {
@@ -22,7 +22,7 @@ proxies = {
 }
 
 def sign(query_string):
-    return hmac.new(secret_key.encode(), query_string.encode(), hashlib.sha256).hexdigest()
+    return hmac.new(binance_secret_key.encode(), query_string.encode(), hashlib.sha256).hexdigest()
 
 def get_spot_acct():
     timestamp = int(time.time() * 1000)
@@ -30,7 +30,7 @@ def get_spot_acct():
     query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
     signature = sign(query_string)
     url = f"https://api.binance.com/api/v3/account?{query_string}&signature={signature}"
-    headers = {"X-MBX-APIKEY": api_key}
+    headers = {"X-MBX-APIKEY": binance_api_key}
 
     resp = requests.get(url, headers=headers, proxies=proxies)
     data = resp.json()
@@ -50,7 +50,7 @@ def get_future_acct():
     query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
     signature = sign(query_string)
     url = f"https://fapi.binance.com/fapi/v2/account?{query_string}&signature={signature}"
-    headers = {"X-MBX-APIKEY": api_key}
+    headers = {"X-MBX-APIKEY": binance_api_key}
 
     resp = requests.get(url, headers=headers, proxies=proxies)
     data = resp.json()
@@ -70,13 +70,28 @@ def get_future_acct():
         "acct-balance": acct_balance
     }
 
+def get_spot_orders():
+    timestamp = int(time.time() * 1000)
+    recv_window = 60000
+    symbol = ""  # Leave empty for all symbols or add like 'BTCUSDT'
+    query_string = f"symbol={symbol}&recvWindow={recv_window}&timestamp={timestamp}"
+    signature = sign(query_string)
+    url = f"https://api.binance.com/api/v3/openOrders?{query_string}&signature={signature}"
+    headers = {"X-MBX-APIKEY": binance_api_key}
+
+    resp = requests.get(url, headers=headers, proxies=proxies)
+    if resp.status_code == 200:
+        return resp.json()
+    return []
+
+
 def get_margin_acct():
     timestamp = int(time.time() * 1000)
     recv_window = 60000
     query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
     signature = sign(query_string)
     url = f"https://api.binance.com/sapi/v1/margin/account?{query_string}&signature={signature}"
-    headers = {"X-MBX-APIKEY": api_key}
+    headers = {"X-MBX-APIKEY": binance_api_key}
 
     resp = requests.get(url, headers=headers, proxies=proxies)
     data = resp.json()
@@ -102,7 +117,8 @@ def binance_data():
         "Binance": {
             "spot-acct": get_spot_acct(),
             "future-acct": get_future_acct(),
-            "margin-acct": get_margin_acct()
+            "margin-acct": get_margin_acct(),
+            "spot-order": get_spot_orders()
         }
     })
 
