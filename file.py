@@ -4,6 +4,7 @@ import time
 import hashlib
 import hmac
 import os
+import json
 from dotenv import load_dotenv
 import logging
 import urllib.parse
@@ -38,7 +39,7 @@ proxies = {
 # Set up retry strategy for handling 429 errors
 retry_strategy = Retry(
     total=3,
-    backoff_factor=2,  # Increased to 2 for longer retry delays
+    backoff_factor=2,
     status_forcelist=[429],
     allowed_methods=["GET"]
 )
@@ -47,40 +48,44 @@ http = requests.Session()
 http.mount("https://", adapter)
 
 # Cache for server time
-server_time_cache = {"time": None, "last_updated": 0}
-CACHE_DURATION = 60  # Cache server time for 60 seconds
+server_time_cache = {"time": None, "last_updated": 0, "offset": 0}
+CACHE_DURATION = 5  # Cache server time for 5 seconds
 
 # Get Binance server time with caching and fallback URL
 def get_server_time():
     global server_time_cache
     current_time = time.time()
     
-    # Return cached time if still valid
-    if server_time_cache["time"] and (current_time - server_time_cache["last_updated"]) < CACHE_DURATION:
+    if server_time_cache["time"] and (current_time - server_time_cache["last_updated"]) < 10:
         logger.debug(f"Using cached server time: {server_time_cache['time']}")
         return server_time_cache["time"]
     
     base_urls = ["https://api.binance.com", "https://api-gcp.binance.com"]
+    retry_strategy = Retry(total=5, backoff_factor=1, status_forcelist=[429], allowed_methods=["GET"])
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    http_temp = requests.Session()
+    http_temp.mount("https://", adapter)
     
     for base_url in base_urls:
         try:
-            response = http.get(f"{base_url}/api/v3/time", proxies=proxies, timeout=5)
+            response = http_temp.get(f"{base_url}/api/v3/time", proxies=proxies, timeout=3)
             response.raise_for_status()
             server_time = response.json().get("serverTime")
             local_time = int(time.time() * 1000)
-            time_diff = abs(server_time - local_time)
+            time_diff = server_time - local_time
             logger.debug(f"Binance server time: {server_time}, Local time: {local_time}, Difference: {time_diff}ms")
-            if time_diff > 5000:
+            if abs(time_diff) > 5000:
                 logger.warning(f"Large time difference ({time_diff}ms) between local and Binance server time. Sync your PC clock.")
             server_time_cache["time"] = server_time
             server_time_cache["last_updated"] = current_time
+            server_time_cache["offset"] = time_diff
             return server_time
         except Exception as e:
             logger.error(f"Failed to get server time from {base_url}: {str(e)}")
             continue
     
-    logger.error("All server time requests failed, falling back to local time")
-    return int(time.time() * 1000)  # Fallback to local time
+    logger.error("All server time requests failed, using local time with offset")
+    return int(time.time() * 1000) + server_time_cache["offset"]
 
 # Get current time in milliseconds, synced with Binance server
 def get_timestamp():
@@ -104,7 +109,6 @@ def make_request(base_url, endpoint, params, use_proxy=True):
     signature = sign(query_string)
     query_string += f"&signature={signature}"
     
-    # Try primary and fallback URLs
     base_urls = [base_url, "https://api-gcp.binance.com" if base_url == "https://api.binance.com" else "https://api.binance.com"]
     
     for url in base_urls:
@@ -170,6 +174,75 @@ def filter_non_zero_assets(data, path_keys, amount_keys):
         logger.error(f"Error in filter_non_zero_assets: {str(e)}")
     return filtered
 
+# Fetch trade history for assets with non-zero USD value
+def fetch_trade_history(assets, prices, base_url, futures_base):
+    trades = {}
+    trade_file = "trades.json"
+    
+    try:
+        if os.path.exists(trade_file):
+            with open(trade_file, 'r') as f:
+                trades = json.load(f)
+        
+        current_time = get_timestamp()
+        valid_assets = [asset for asset, price in prices.items() if price["price"] > 0]
+        
+        for asset in valid_assets:
+            if asset == "USDT":
+                continue
+            symbol = f"{asset}USDT"
+            trade_data = trades.get(asset, {"total_qty": 0.0, "total_cost_usd": 0.0, "last_updated": 0})
+            last_updated = trade_data["last_updated"]
+            
+            if last_updated > 0 and (current_time - last_updated) < 3600 * 1000:
+                continue
+            
+            for endpoint, account_type in [
+                ("/api/v3/myTrades", "spot"),
+                ("/sapi/v1/margin/myTrades", "margin"),
+                ("/fapi/v1/userTrades", "futures")
+            ]:
+                params = {"symbol": symbol, "limit": 500}
+                if last_updated > 0:
+                    params["fromId"] = trade_data.get(f"{account_type}_last_trade_id", 0)
+                base = futures_base if account_type == "futures" else base_url
+                
+                response = make_request(base, endpoint, params)
+                if "error" in response:
+                    logger.warning(f"Failed to fetch {account_type} trades for {symbol}: {response['error']}")
+                    continue
+                
+                total_qty = trade_data["total_qty"]
+                total_cost_usd = trade_data["total_cost_usd"]
+                last_trade_id = trade_data.get(f"{account_type}_last_trade_id", 0)
+                
+                for trade in response:
+                    if trade.get("isBuyer"):
+                        try:
+                            qty = float(trade["qty"])
+                            price = float(trade["price"])
+                            total_qty += qty
+                            total_cost_usd += qty * price
+                            last_trade_id = max(last_trade_id, int(trade["id"]))
+                        except (ValueError, KeyError) as e:
+                            logger.warning(f"Invalid trade data for {symbol} in {account_type}: {str(e)}")
+                            continue
+                
+                trade_data["total_qty"] = total_qty
+                trade_data["total_cost_usd"] = total_cost_usd
+                trade_data[f"{account_type}_last_trade_id"] = last_trade_id
+            
+            trade_data["last_updated"] = current_time
+            trades[asset] = trade_data
+        
+        with open(trade_file, 'w') as f:
+            json.dump(trades, f, indent=2)
+        
+        return trades
+    except Exception as e:
+        logger.error(f"Failed to fetch trade history: {str(e)}")
+        return trades
+
 # Fetch current market prices and 24-hour price change for assets
 def get_market_prices(assets):
     prices = {}
@@ -192,7 +265,6 @@ def get_market_prices(assets):
                     else:
                         prices[asset] = {"price": 0.0, "change_24h": 0.0}
                         logger.warning(f"No USDT trading pair found for {asset}")
-                # Special case for USDT
                 if "USDT" in assets and prices["USDT"]["price"] == 0.0:
                     prices["USDT"] = {"price": 1.0, "change_24h": 0.0}
                 return prices
@@ -205,45 +277,68 @@ def get_market_prices(assets):
         logger.error(f"Failed to fetch market prices: {str(e)}")
         return {asset: {"price": 0.0, "change_24h": 0.0} for asset in assets}
 
-# Aggregate assets across accounts and include USD values and 24h change
+# Aggregate assets across accounts and include USD values, 24h change, and P&L
 def aggregate_assets(spot, margin, futures):
     aggregated = {}
     
-    # Normalize and aggregate Spot assets (remove 'LD' prefix)
     for asset, amount in spot.items():
         normalized_asset = asset[2:] if asset.startswith("LD") else asset
         aggregated[normalized_asset] = aggregated.get(normalized_asset, 0) + amount
     
-    # Aggregate Margin assets
     for asset, amount in margin.items():
         aggregated[asset] = aggregated.get(asset, 0) + amount
     
-    # Aggregate Futures assets
     for asset, amount in futures.items():
         aggregated[asset] = aggregated.get(asset, 0) + amount
     
-    # Fetch market prices and 24h change for all unique assets
     prices = get_market_prices(aggregated.keys())
+    trades = fetch_trade_history(aggregated.keys(), prices, "https://api.binance.com", "https://fapi.binance.com")
     
-    # Create asset dictionary with amount, USD value, and 24h price change
+    # Load previous portfolio value
+    portfolio_file = "portfolio.json"
+    previous_total = 0.0
+    try:
+        if os.path.exists(portfolio_file):
+            with open(portfolio_file, 'r') as f:
+                previous_data = json.load(f)
+                previous_total = previous_data.get("total_usd_value", 0.0)
+    except Exception as e:
+        logger.warning(f"Failed to load previous portfolio value: {str(e)}")
+    
+    # Calculate current total USD value
     assets = {}
     for asset, amount in aggregated.items():
         usd_value = round(amount * prices.get(asset, {"price": 0.0})["price"], 8)
         change_24h = prices.get(asset, {"change_24h": 0.0})["change_24h"]
+        trade_data = trades.get(asset, {"total_qty": 0.0, "total_cost_usd": 0.0})
+        profit_loss_usd = round(usd_value - trade_data["total_cost_usd"], 8) if trade_data["total_qty"] > 0 else 0.0
         assets[asset] = {
             "amount": round(amount, 8),
             "usd_value": usd_value,
-            "price_change_24h": round(change_24h, 2)
+            "price_change_24h": round(change_24h, 2),
+            "profit_loss_usd": profit_loss_usd
         }
     
-    # Calculate total portfolio USD value
     total_usd_value = round(sum(item["usd_value"] for item in assets.values()), 8)
     
-    # Sort assets by usd_value (descending)
+    # Calculate portfolio-level P&L
+    pnl = {"24hr_change": 0.0, "value": 0.0}
+    if previous_total > 0:
+        pnl["value"] = round(total_usd_value - previous_total, 8)
+        pnl["24hr_change"] = round((pnl["value"] / previous_total) * 100, 2) if previous_total > 0 else 0.0
+    
+    # Save current total_usd_value
+    try:
+        with open(portfolio_file, 'w') as f:
+            json.dump({"total_usd_value": total_usd_value, "last_updated": get_timestamp()}, f, indent=2)
+    except Exception as e:
+        logger.error(f"Failed to save portfolio value: {str(e)}")
+    
     sorted_assets = dict(sorted(assets.items(), key=lambda x: x[1]["usd_value"], reverse=True))
     
     return {
         "total_usd_value": total_usd_value,
+        "pnl": pnl,
         "assets": sorted_assets
     }
 
@@ -253,15 +348,12 @@ def binance_data():
     base = "https://api.binance.com"
     futures_base = "https://fapi.binance.com"
 
-    # SPOT
     spot = make_request(base, "/api/v3/account", {})
     clean_spot = filter_non_zero_assets(spot, ["balances"], ["free", "locked"])
 
-    # MARGIN
     margin = make_request(base, "/sapi/v1/margin/account", {})
     clean_margin = filter_non_zero_assets(margin, ["userAssets"], ["free", "locked", "borrowed"])
 
-    # FUTURES
     futures = make_request(futures_base, "/fapi/v2/account", {})
     clean_futures = filter_non_zero_assets(futures, ["assets"], ["walletBalance", "availableBalance"])
 
@@ -273,13 +365,12 @@ def binance_data():
     logger.info(f"Returning response: {response}")
     return jsonify(response)
 
-# New endpoint for aggregated asset totals with USD values and 24h change
+# New endpoint for aggregated asset totals with USD values, 24h change, and P&L
 @app.route('/binance-calc')
 def binance_calc():
     base = "https://api.binance.com"
     futures_base = "https://fapi.binance.com"
 
-    # Fetch data (same as /binance-data)
     spot = make_request(base, "/api/v3/account", {})
     clean_spot = filter_non_zero_assets(spot, ["balances"], ["free", "locked"])
 
@@ -289,7 +380,6 @@ def binance_calc():
     futures = make_request(futures_base, "/fapi/v2/account", {})
     clean_futures = filter_non_zero_assets(futures, ["assets"], ["walletBalance", "availableBalance"])
 
-    # Aggregate and normalize assets with USD values and 24h change
     aggregated = aggregate_assets(clean_spot, clean_margin, clean_futures)
 
     logger.info(f"Returning aggregated response: {aggregated}")
