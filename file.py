@@ -143,29 +143,31 @@ def filter_non_zero_assets(data, path_keys, amount_keys):
         logger.error(f"Error in filter_non_zero_assets: {str(e)}")
     return filtered
 
-# Fetch current market prices for assets
+# Fetch current market prices and 24-hour price change for assets
 def get_market_prices(assets):
     prices = {}
     try:
-        response = http.get("https://api.binance.com/api/v3/ticker/price", proxies=proxies, timeout=10)
+        response = http.get("https://api.binance.com/api/v3/ticker/24hr", proxies=proxies, timeout=10)
         response.raise_for_status()
         price_data = response.json()
         for asset in assets:
-            # Try trading pair (e.g., SOLUSDT)
             symbol = f"{asset}USDT"
             for item in price_data:
                 if item["symbol"] == symbol:
-                    prices[asset] = float(item["price"])
+                    prices[asset] = {
+                        "price": float(item["lastPrice"]),
+                        "change_24h": float(item["priceChangePercent"])
+                    }
                     break
             else:
-                prices[asset] = 0.0  # No trading pair found
+                prices[asset] = {"price": 0.0, "change_24h": 0.0}
                 logger.warning(f"No USDT trading pair found for {asset}")
         return prices
     except Exception as e:
         logger.error(f"Failed to fetch market prices: {str(e)}")
-        return {asset: 0.0 for asset in assets}
+        return {asset: {"price": 0.0, "change_24h": 0.0} for asset in assets}
 
-# Aggregate assets across accounts and include USD values
+# Aggregate assets across accounts and include USD values and 24h change
 def aggregate_assets(spot, margin, futures):
     aggregated = {}
     
@@ -182,16 +184,18 @@ def aggregate_assets(spot, margin, futures):
     for asset, amount in futures.items():
         aggregated[asset] = aggregated.get(asset, 0) + amount
     
-    # Fetch market prices for all unique assets
+    # Fetch market prices and 24h change for all unique assets
     prices = get_market_prices(aggregated.keys())
     
-    # Create final output with amount and USD value
+    # Create final output with amount, USD value, and 24h price change
     result = {}
     for asset, amount in aggregated.items():
-        usd_value = round(amount * prices.get(asset, 0.0), 8)
+        usd_value = round(amount * prices.get(asset, {"price": 0.0})["price"], 8)
+        change_24h = prices.get(asset, {"change_24h": 0.0})["change_24h"]
         result[asset] = {
             "amount": round(amount, 8),
-            "usd_value": usd_value
+            "usd_value": usd_value,
+            "price_change_24h": round(change_24h, 2)
         }
     
     return result
@@ -222,7 +226,7 @@ def binance_data():
     logger.info(f"Returning response: {response}")
     return jsonify(response)
 
-# New endpoint for aggregated asset totals with USD values
+# New endpoint for aggregated asset totals with USD values and 24h change
 @app.route('/binance-calc')
 def binance_calc():
     base = "https://api.binance.com"
@@ -238,7 +242,7 @@ def binance_calc():
     futures = make_request(futures_base, "/fapi/v2/account", {})
     clean_futures = filter_non_zero_assets(futures, ["assets"], ["walletBalance", "availableBalance"])
 
-    # Aggregate and normalize assets with USD values
+    # Aggregate and normalize assets with USD values and 24h change
     aggregated = aggregate_assets(clean_spot, clean_margin, clean_futures)
 
     logger.info(f"Returning aggregated response: {aggregated}")
