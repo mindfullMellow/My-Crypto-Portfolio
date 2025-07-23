@@ -38,6 +38,9 @@ if proxy_url:
         "http": proxy_url,
         "https": proxy_url
     }
+    logger.info(f"Using proxy: {proxy_url}")
+else:
+    logger.info("No proxy configured")
 
 # Simple cache implementation
 API_CACHE = {}
@@ -53,12 +56,14 @@ def make_binance_request(url, params=None):
     """Centralized request handling with error logging"""
     try:
         headers = {"X-MBX-APIKEY": binance_api_key}
+        logger.debug(f"Making Binance request to: {url}")
+        
         response = requests.get(
             url,
             headers=headers,
             params=params,
             proxies=proxies,
-            timeout=10
+            timeout=15
         )
         
         if response.status_code != 200:
@@ -234,7 +239,7 @@ def bitget_sign(message, secret_key):
     ).decode()
 
 def make_bitget_request(endpoint, params=None, method="GET"):
-    """Centralized Bitget request handling with signing"""
+    """Centralized Bitget request handling with signing and proxy support"""
     try:
         base_url = "https://api.bitget.com"
         url = f"{base_url}{endpoint}"
@@ -259,14 +264,15 @@ def make_bitget_request(endpoint, params=None, method="GET"):
             "Content-Type": "application/json"
         }
         
-        # Make request
+        # Make request with proxy support
+        logger.debug(f"Making Bitget request to: {url}")
         if method == "GET":
             response = requests.get(
                 url,
                 headers=headers,
                 params=params,
                 proxies=proxies,
-                timeout=10
+                timeout=15
             )
         else:
             response = requests.post(
@@ -274,7 +280,7 @@ def make_bitget_request(endpoint, params=None, method="GET"):
                 headers=headers,
                 json=params,
                 proxies=proxies,
-                timeout=10
+                timeout=15
             )
         
         if response.status_code != 200:
@@ -299,6 +305,7 @@ def get_bitget_spot_acct():
     """Get Bitget spot account balances"""
     data = make_bitget_request("/api/spot/v1/account/assets")
     if not data or data.get("code") != "00000":
+        logger.warning(f"Bitget spot account error: {data.get('msg') if data else 'No response'}")
         return {}
     
     assets = {}
@@ -321,11 +328,13 @@ def get_bitget_margin_acct():
     # Get cross margin account
     cross_data = make_bitget_request("/api/margin/v1/cross/account/assets")
     if not cross_data or cross_data.get("code") != "00000":
+        logger.warning(f"Bitget cross margin error: {cross_data.get('msg') if cross_data else 'No response'}")
         cross_data = {"data": []}
     
     # Get isolated margin accounts
     isolated_data = make_bitget_request("/api/margin/v1/isolated/account/assets")
     if not isolated_data or isolated_data.get("code") != "00000":
+        logger.warning(f"Bitget isolated margin error: {isolated_data.get('msg') if isolated_data else 'No response'}")
         isolated_data = {"data": []}
     
     cross_assets = {}
@@ -377,11 +386,13 @@ def get_bitget_future_acct():
     # Get account balances
     account_data = make_bitget_request("/api/contract/v3/account/accounts")
     if not account_data or account_data.get("code") != "00000":
+        logger.warning(f"Bitget futures account error: {account_data.get('msg') if account_data else 'No response'}")
         account_data = {"data": []}
     
     # Get open positions
     positions_data = make_bitget_request("/api/contract/v3/positions")
     if not positions_data or positions_data.get("code") != "00000":
+        logger.warning(f"Bitget positions error: {positions_data.get('msg') if positions_data else 'No response'}")
         positions_data = {"data": []}
     
     assets = {}
@@ -422,10 +433,12 @@ def get_bitget_p2p_data():
     }
     completed_data = make_bitget_request("/api/p2p/v1/merchant/orderList", params=completed_params)
     if not completed_data or completed_data.get("code") != "00000":
+        logger.warning(f"Bitget P2P completed trades error: {completed_data.get('msg') if completed_data else 'No response'}")
         completed_trades = []
     else:
         completed_trades = []
-        for trade in completed_data.get("data", {}).get("orderList", [])[:5]:
+        order_list = completed_data.get("data", {}).get("orderList", [])
+        for trade in order_list[:5]:
             completed_trades.append({
                 "order_id": trade.get("orderNo", ""),
                 "coin": trade.get("coin", ""),
@@ -444,10 +457,12 @@ def get_bitget_p2p_data():
     }
     ongoing_data = make_bitget_request("/api/p2p/v1/merchant/orderList", params=ongoing_params)
     if not ongoing_data or ongoing_data.get("code") != "00000":
+        logger.warning(f"Bitget P2P ongoing trades error: {ongoing_data.get('msg') if ongoing_data else 'No response'}")
         ongoing_trades = []
     else:
         ongoing_trades = []
-        for trade in ongoing_data.get("data", {}).get("orderList", []):
+        order_list = ongoing_data.get("data", {}).get("orderList", [])
+        for trade in order_list:
             ongoing_trades.append({
                 "order_id": trade.get("orderNo", ""),
                 "coin": trade.get("coin", ""),
@@ -524,7 +539,6 @@ def bitget_data():
 if __name__ == "__main__":
     # Disable debug mode in production
     debug_mode = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+    if debug_mode:
+        logger.setLevel(logging.DEBUG)
     app.run(debug=debug_mode, host="0.0.0.0", port=5000)
-    # we have two url
-    # http://localhost:5000/binance-data?refresh=true (to get the most recent data and not the cahched one)
-    # http://localhost:5000/binance-data (to get the cached data)
