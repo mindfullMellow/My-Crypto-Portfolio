@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 import os
 import logging
 from datetime import datetime, timedelta
+import base64
+import json
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
@@ -18,11 +20,18 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+# Binance configuration
 binance_api_key = os.getenv("BINANCE_API_KEY")
 binance_secret_key = os.getenv("BINANCE_SECRET_KEY")
+
+# Bitget configuration
+bitget_api_key = os.getenv("BITGET_API_KEY")
+bitget_secret_key = os.getenv("BITGET_SECRET_KEY")
+bitget_passphrase = os.getenv("BITGET_PASSPHRASE")
+
 proxy_url = os.getenv("PROXY_URL")
 
-# Configure proxies only if proxy_url exists
+# Configure proxies
 proxies = None
 if proxy_url:
     proxies = {
@@ -34,30 +43,11 @@ if proxy_url:
 API_CACHE = {}
 CACHE_DURATION = 30  # seconds
 
-def sign(query_string):
+# ==============================
+# Binance Helper Functions
+# ==============================
+def binance_sign(query_string):
     return hmac.new(binance_secret_key.encode(), query_string.encode(), hashlib.sha256).hexdigest()
-
-def cached_api_call(cache_key, api_func, force_refresh=False):
-    """Cache API responses with option to force refresh"""
-    now = datetime.now()
-    
-    # Check if we should bypass cache
-    if force_refresh:
-        # Make fresh API call and update cache
-        response = api_func()
-        API_CACHE[cache_key] = (now, response)
-        return response
-        
-    # Check if valid cache exists
-    if cache_key in API_CACHE:
-        cached_time, response = API_CACHE[cache_key]
-        if now - cached_time < timedelta(seconds=CACHE_DURATION):
-            return response
-    
-    # Make fresh API call and cache it
-    response = api_func()
-    API_CACHE[cache_key] = (now, response)
-    return response
 
 def make_binance_request(url, params=None):
     """Centralized request handling with error logging"""
@@ -91,7 +81,7 @@ def get_spot_acct():
     timestamp = int(time.time() * 1000)
     recv_window = 60000
     query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
-    signature = sign(query_string)
+    signature = binance_sign(query_string)
     url = f"https://api.binance.com/api/v3/account?{query_string}&signature={signature}"
     
     data = make_binance_request(url)
@@ -139,7 +129,7 @@ def get_future_acct():
     timestamp = int(time.time() * 1000)
     recv_window = 60000
     query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
-    signature = sign(query_string)
+    signature = binance_sign(query_string)
     url = f"https://fapi.binance.com/fapi/v2/account?{query_string}&signature={signature}"
     
     data = make_binance_request(url)
@@ -184,7 +174,7 @@ def get_margin_acct():
     timestamp = int(time.time() * 1000)
     recv_window = 60000
     query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
-    signature = sign(query_string)
+    signature = binance_sign(query_string)
     url = f"https://api.binance.com/sapi/v1/margin/account?{query_string}&signature={signature}"
     
     data = make_binance_request(url)
@@ -235,6 +225,273 @@ def get_margin_acct():
         "open_trades": open_trades if open_trades else "NO OPEN TRADE"
     }
 
+# ==============================
+# Bitget Helper Functions
+# ==============================
+def bitget_sign(message, secret_key):
+    return base64.b64encode(
+        hmac.new(secret_key.encode(), message.encode(), hashlib.sha256).digest()
+    ).decode()
+
+def make_bitget_request(endpoint, params=None, method="GET"):
+    """Centralized Bitget request handling with signing"""
+    try:
+        base_url = "https://api.bitget.com"
+        url = f"{base_url}{endpoint}"
+        
+        timestamp = str(int(time.time() * 1000))
+        method = method.upper()
+        
+        # Prepare request data
+        body = ""
+        if method == "POST" and params:
+            body = json.dumps(params)
+        
+        # Create signature
+        message = timestamp + method + endpoint + (body if method == "POST" else "")
+        signature = bitget_sign(message, bitget_secret_key)
+        
+        headers = {
+            "ACCESS-KEY": bitget_api_key,
+            "ACCESS-SIGN": signature,
+            "ACCESS-TIMESTAMP": timestamp,
+            "ACCESS-PASSPHRASE": bitget_passphrase,
+            "Content-Type": "application/json"
+        }
+        
+        # Make request
+        if method == "GET":
+            response = requests.get(
+                url,
+                headers=headers,
+                params=params,
+                proxies=proxies,
+                timeout=10
+            )
+        else:
+            response = requests.post(
+                url,
+                headers=headers,
+                json=params,
+                proxies=proxies,
+                timeout=10
+            )
+        
+        if response.status_code != 200:
+            logger.error(
+                f"Bitget API error ({endpoint}): "
+                f"{response.status_code} - {response.text}"
+            )
+            return None
+        
+        return response.json()
+    
+    except requests.exceptions.RequestException as e:
+        logger.exception(f"Bitget request failed: {str(e)}")
+    except ValueError as e:
+        logger.exception(f"JSON decode error: {str(e)}")
+    except Exception as e:
+        logger.exception(f"Unexpected error: {str(e)}")
+    
+    return None
+
+def get_bitget_spot_acct():
+    """Get Bitget spot account balances"""
+    data = make_bitget_request("/api/spot/v1/account/assets")
+    if not data or data.get("code") != "00000":
+        return {}
+    
+    assets = {}
+    for asset in data.get("data", []):
+        available = float(asset.get("available", 0))
+        frozen = float(asset.get("frozen", 0))
+        total = available + frozen
+        
+        if total > 0:
+            assets[asset["coinName"]] = {
+                "available": available,
+                "frozen": frozen,
+                "total": total
+            }
+    
+    return assets
+
+def get_bitget_margin_acct():
+    """Get Bitget margin account data"""
+    # Get cross margin account
+    cross_data = make_bitget_request("/api/margin/v1/cross/account/assets")
+    if not cross_data or cross_data.get("code") != "00000":
+        cross_data = {"data": []}
+    
+    # Get isolated margin accounts
+    isolated_data = make_bitget_request("/api/margin/v1/isolated/account/assets")
+    if not isolated_data or isolated_data.get("code") != "00000":
+        isolated_data = {"data": []}
+    
+    cross_assets = {}
+    for asset in cross_data.get("data", []):
+        available = float(asset.get("available", 0))
+        borrowed = float(asset.get("borrowed", 0))
+        interest = float(asset.get("interest", 0))
+        net = available - borrowed - interest
+        
+        if net != 0:
+            cross_assets[asset["coin"]] = {
+                "available": available,
+                "borrowed": borrowed,
+                "interest": interest,
+                "net": net
+            }
+    
+    isolated_accounts = []
+    for account in isolated_data.get("data", []):
+        symbol = account.get("symbol", "")
+        assets = {}
+        for coin in account.get("coinList", []):
+            available = float(coin.get("available", 0))
+            borrowed = float(coin.get("borrowed", 0))
+            interest = float(coin.get("interest", 0))
+            net = available - borrowed - interest
+            
+            if net != 0:
+                assets[coin["coin"]] = {
+                    "available": available,
+                    "borrowed": borrowed,
+                    "interest": interest,
+                    "net": net
+                }
+        
+        if assets:
+            isolated_accounts.append({
+                "symbol": symbol,
+                "assets": assets
+            })
+    
+    return {
+        "cross": cross_assets,
+        "isolated": isolated_accounts if isolated_accounts else "NO OPEN MARGIN"
+    }
+
+def get_bitget_future_acct():
+    """Get Bitget futures account data"""
+    # Get account balances
+    account_data = make_bitget_request("/api/contract/v3/account/accounts")
+    if not account_data or account_data.get("code") != "00000":
+        account_data = {"data": []}
+    
+    # Get open positions
+    positions_data = make_bitget_request("/api/contract/v3/positions")
+    if not positions_data or positions_data.get("code") != "00000":
+        positions_data = {"data": []}
+    
+    assets = {}
+    for asset in account_data.get("data", []):
+        equity = float(asset.get("equity", 0))
+        if equity > 0:
+            assets[asset["marginCoin"]] = {
+                "equity": equity,
+                "available": float(asset.get("available", 0)),
+                "unrealized_pnl": float(asset.get("unrealizedPL", 0))
+            }
+    
+    open_positions = []
+    for position in positions_data.get("data", []):
+        position_amt = float(position.get("holdCount", 0))
+        if position_amt != 0:
+            open_positions.append({
+                "symbol": position["symbol"],
+                "position_amt": position_amt,
+                "entry_price": float(position.get("openAvgPrice", 0)),
+                "leverage": float(position.get("leverage", 1)),
+                "margin": float(position.get("margin", 0)),
+                "unrealized_pnl": float(position.get("unrealizedPL", 0)),
+                "position_side": position.get("holdSide", "UNKNOWN").upper()
+            })
+    
+    return {
+        "assets": assets,
+        "open_positions": open_positions if open_positions else "NO OPEN POSITION"
+    }
+
+def get_bitget_p2p_data():
+    """Get Bitget P2P data (last 5 transactions + ongoing trades)"""
+    # Get last 5 completed transactions
+    completed_params = {
+        "pageSize": 5,
+        "status": "completed"
+    }
+    completed_data = make_bitget_request("/api/p2p/v1/merchant/orderList", params=completed_params)
+    if not completed_data or completed_data.get("code") != "00000":
+        completed_trades = []
+    else:
+        completed_trades = []
+        for trade in completed_data.get("data", {}).get("orderList", [])[:5]:
+            completed_trades.append({
+                "order_id": trade.get("orderNo", ""),
+                "coin": trade.get("coin", ""),
+                "amount": float(trade.get("amount", 0)),
+                "total_price": float(trade.get("totalPrice", 0)),
+                "price": float(trade.get("price", 0)),
+                "status": trade.get("status", ""),
+                "side": trade.get("side", "").upper(),
+                "create_time": trade.get("createTime", ""),
+                "finish_time": trade.get("finishTime", "")
+            })
+    
+    # Get ongoing trades
+    ongoing_params = {
+        "status": "pending"
+    }
+    ongoing_data = make_bitget_request("/api/p2p/v1/merchant/orderList", params=ongoing_params)
+    if not ongoing_data or ongoing_data.get("code") != "00000":
+        ongoing_trades = []
+    else:
+        ongoing_trades = []
+        for trade in ongoing_data.get("data", {}).get("orderList", []):
+            ongoing_trades.append({
+                "order_id": trade.get("orderNo", ""),
+                "coin": trade.get("coin", ""),
+                "amount": float(trade.get("amount", 0)),
+                "total_price": float(trade.get("totalPrice", 0)),
+                "price": float(trade.get("price", 0)),
+                "status": trade.get("status", ""),
+                "side": trade.get("side", "").upper(),
+                "create_time": trade.get("createTime", "")
+            })
+    
+    return {
+        "completed_trades": completed_trades,
+        "ongoing_trades": ongoing_trades if ongoing_trades else "NO ONGOING TRADES"
+    }
+
+# ==============================
+# Utility Functions
+# ==============================
+def cached_api_call(cache_key, api_func, force_refresh=False):
+    """Cache API responses with option to force refresh"""
+    now = datetime.now()
+    
+    # Check if we should bypass cache
+    if force_refresh:
+        # Make fresh API call and update cache
+        response = api_func()
+        API_CACHE[cache_key] = (now, response)
+        return response
+        
+    # Check if valid cache exists
+    if cache_key in API_CACHE:
+        cached_time, response = API_CACHE[cache_key]
+        if now - cached_time < timedelta(seconds=CACHE_DURATION):
+            return response
+    
+    # Make fresh API call and cache it
+    response = api_func()
+    API_CACHE[cache_key] = (now, response)
+    return response
+
+# ==============================
+# Flask Routes
+# ==============================
 @app.route("/binance-data")
 def binance_data():
     # Check if we should force refresh the cache
@@ -246,6 +503,21 @@ def binance_data():
             "spot_acct": cached_api_call("spot_acct", get_spot_acct, force_refresh),
             "future_acct": cached_api_call("future_acct", get_future_acct, force_refresh),
             "margin_acct": cached_api_call("margin_acct", get_margin_acct, force_refresh)
+        }
+    })
+
+@app.route("/bitget-data")
+def bitget_data():
+    # Check if we should force refresh the cache
+    force_refresh = request.args.get('refresh') == 'true'
+    
+    # Use caching for all API calls with refresh option
+    return jsonify({
+        "Bitget": {
+            "spot_acct": cached_api_call("bitget_spot", get_bitget_spot_acct, force_refresh),
+            "margin_acct": cached_api_call("bitget_margin", get_bitget_margin_acct, force_refresh),
+            "future_acct": cached_api_call("bitget_future", get_bitget_future_acct, force_refresh),
+            "p2p_data": cached_api_call("bitget_p2p", get_bitget_p2p_data, force_refresh)
         }
     })
 
