@@ -38,7 +38,7 @@ proxies = {
 # Set up retry strategy for handling 429 errors
 retry_strategy = Retry(
     total=3,
-    backoff_factor=1,
+    backoff_factor=2,  # Increased to 2 for longer retry delays
     status_forcelist=[429],
     allowed_methods=["GET"]
 )
@@ -46,21 +46,41 @@ adapter = HTTPAdapter(max_retries=retry_strategy)
 http = requests.Session()
 http.mount("https://", adapter)
 
-# Get Binance server time to sync timestamp
+# Cache for server time
+server_time_cache = {"time": None, "last_updated": 0}
+CACHE_DURATION = 60  # Cache server time for 60 seconds
+
+# Get Binance server time with caching and fallback URL
 def get_server_time():
-    try:
-        response = http.get("https://api.binance.com/api/v3/time", proxies=proxies, timeout=5)
-        response.raise_for_status()
-        server_time = response.json().get("serverTime")
-        local_time = int(time.time() * 1000)
-        time_diff = abs(server_time - local_time)
-        logger.debug(f"Binance server time: {server_time}, Local time: {local_time}, Difference: {time_diff}ms")
-        if time_diff > 5000:
-            logger.warning(f"Large time difference ({time_diff}ms) between local and Binance server time. Sync your PC clock.")
-        return server_time
-    except Exception as e:
-        logger.error(f"Failed to get server time: {str(e)}")
-        return int(time.time() * 1000)  # Fallback to local time
+    global server_time_cache
+    current_time = time.time()
+    
+    # Return cached time if still valid
+    if server_time_cache["time"] and (current_time - server_time_cache["last_updated"]) < CACHE_DURATION:
+        logger.debug(f"Using cached server time: {server_time_cache['time']}")
+        return server_time_cache["time"]
+    
+    base_urls = ["https://api.binance.com", "https://api-gcp.binance.com"]
+    
+    for base_url in base_urls:
+        try:
+            response = http.get(f"{base_url}/api/v3/time", proxies=proxies, timeout=5)
+            response.raise_for_status()
+            server_time = response.json().get("serverTime")
+            local_time = int(time.time() * 1000)
+            time_diff = abs(server_time - local_time)
+            logger.debug(f"Binance server time: {server_time}, Local time: {local_time}, Difference: {time_diff}ms")
+            if time_diff > 5000:
+                logger.warning(f"Large time difference ({time_diff}ms) between local and Binance server time. Sync your PC clock.")
+            server_time_cache["time"] = server_time
+            server_time_cache["last_updated"] = current_time
+            return server_time
+        except Exception as e:
+            logger.error(f"Failed to get server time from {base_url}: {str(e)}")
+            continue
+    
+    logger.error("All server time requests failed, falling back to local time")
+    return int(time.time() * 1000)  # Fallback to local time
 
 # Get current time in milliseconds, synced with Binance server
 def get_timestamp():
@@ -74,42 +94,49 @@ def sign(query_string):
         hashlib.sha256
     ).hexdigest()
 
-# Make authenticated request to Binance
+# Make authenticated request to Binance with fallback URL
 def make_request(base_url, endpoint, params, use_proxy=True):
     timestamp = get_timestamp()
     params['timestamp'] = timestamp
-    params['recvWindow'] = 15000  # Increased to 15 seconds
+    params['recvWindow'] = 15000
     query_string = '&'.join([f"{k}={urllib.parse.quote(str(v))}" for k, v in sorted(params.items())])
     logger.debug(f"Generated query string: {query_string}")
     signature = sign(query_string)
     query_string += f"&signature={signature}"
-    url = f"{base_url}{endpoint}?{query_string}"
-
-    logger.debug(f"Making request to: {url}")
-    try:
-        request_proxies = proxies if use_proxy else None
-        response = http.get(url, headers={"X-MBX-APIKEY": binance_api_key}, proxies=request_proxies, timeout=10)
-        response.raise_for_status()
-        data = response.json()
-        logger.debug(f"Response from {endpoint}: {data}")
-        if 'code' in data and 'msg' in data:
-            logger.error(f"Binance API error: {data['msg']} (Code: {data['code']})")
-            return {"error": f"Binance API error: {data['msg']} (Code: {data['code']})"}
-        return data
-    except requests.exceptions.HTTPError as e:
+    
+    # Try primary and fallback URLs
+    base_urls = [base_url, "https://api-gcp.binance.com" if base_url == "https://api.binance.com" else "https://api.binance.com"]
+    
+    for url in base_urls:
+        full_url = f"{url}{endpoint}?{query_string}"
+        logger.debug(f"Making request to: {full_url}")
         try:
-            error_data = response.json()
-            logger.error(f"HTTP error: {str(e)} - Binance response: {error_data}")
-            return {"error": f"HTTP error: {str(e)} - Binance response: {error_data}"}
-        except ValueError:
-            logger.error(f"HTTP error: {str(e)} - No JSON response")
-            return {"error": f"HTTP error: {str(e)} - No JSON response"}
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Request failed: {str(e)}")
-        if use_proxy and "429" in str(e):
-            logger.warning("Proxy returned 429 Too Many Requests, retrying without proxy")
-            return make_request(base_url, endpoint, params, use_proxy=False)
-        return {"error": f"Request failed: {str(e)}"}
+            request_proxies = proxies if use_proxy else None
+            response = http.get(full_url, headers={"X-MBX-APIKEY": binance_api_key}, proxies=request_proxies, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            logger.debug(f"Response from {endpoint}: {data}")
+            if 'code' in data and 'msg' in data:
+                logger.error(f"Binance API error: {data['msg']} (Code: {data['code']})")
+                return {"error": f"Binance API error: {data['msg']} (Code: {data['code']})"}
+            return data
+        except requests.exceptions.HTTPError as e:
+            try:
+                error_data = response.json()
+                logger.error(f"HTTP error from {url}: {str(e)} - Binance response: {error_data}")
+                return {"error": f"HTTP error: {str(e)} - Binance response: {error_data}"}
+            except ValueError:
+                logger.error(f"HTTP error from {url}: {str(e)} - No JSON response")
+                return {"error": f"HTTP error: {str(e)} - No JSON response"}
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Request failed from {url}: {str(e)}")
+            if use_proxy and "429" in str(e):
+                logger.warning(f"Proxy returned 429 Too Many Requests for {url}, retrying without proxy")
+                return make_request(url, endpoint, params, use_proxy=False)
+            continue
+    
+    logger.error(f"All requests to {endpoint} failed")
+    return {"error": f"All requests to {endpoint} failed"}
 
 # Keep only coins with value > 0
 def filter_non_zero_assets(data, path_keys, amount_keys):
@@ -147,22 +174,33 @@ def filter_non_zero_assets(data, path_keys, amount_keys):
 def get_market_prices(assets):
     prices = {}
     try:
-        response = http.get("https://api.binance.com/api/v3/ticker/24hr", proxies=proxies, timeout=10)
-        response.raise_for_status()
-        price_data = response.json()
-        for asset in assets:
-            symbol = f"{asset}USDT"
-            for item in price_data:
-                if item["symbol"] == symbol:
-                    prices[asset] = {
-                        "price": float(item["lastPrice"]),
-                        "change_24h": float(item["priceChangePercent"])
-                    }
-                    break
-            else:
-                prices[asset] = {"price": 0.0, "change_24h": 0.0}
-                logger.warning(f"No USDT trading pair found for {asset}")
-        return prices
+        base_urls = ["https://api.binance.com", "https://api-gcp.binance.com"]
+        for base_url in base_urls:
+            try:
+                response = http.get(f"{base_url}/api/v3/ticker/24hr", proxies=proxies, timeout=10)
+                response.raise_for_status()
+                price_data = response.json()
+                for asset in assets:
+                    symbol = f"{asset}USDT"
+                    for item in price_data:
+                        if item["symbol"] == symbol:
+                            prices[asset] = {
+                                "price": float(item["lastPrice"]),
+                                "change_24h": float(item["priceChangePercent"])
+                            }
+                            break
+                    else:
+                        prices[asset] = {"price": 0.0, "change_24h": 0.0}
+                        logger.warning(f"No USDT trading pair found for {asset}")
+                # Special case for USDT
+                if "USDT" in assets and prices["USDT"]["price"] == 0.0:
+                    prices["USDT"] = {"price": 1.0, "change_24h": 0.0}
+                return prices
+            except Exception as e:
+                logger.error(f"Failed to fetch market prices from {base_url}: {str(e)}")
+                continue
+        logger.error("All market price requests failed")
+        return {asset: {"price": 0.0, "change_24h": 0.0} for asset in assets}
     except Exception as e:
         logger.error(f"Failed to fetch market prices: {str(e)}")
         return {asset: {"price": 0.0, "change_24h": 0.0} for asset in assets}
@@ -187,18 +225,27 @@ def aggregate_assets(spot, margin, futures):
     # Fetch market prices and 24h change for all unique assets
     prices = get_market_prices(aggregated.keys())
     
-    # Create final output with amount, USD value, and 24h price change
-    result = {}
+    # Create asset dictionary with amount, USD value, and 24h price change
+    assets = {}
     for asset, amount in aggregated.items():
         usd_value = round(amount * prices.get(asset, {"price": 0.0})["price"], 8)
         change_24h = prices.get(asset, {"change_24h": 0.0})["change_24h"]
-        result[asset] = {
+        assets[asset] = {
             "amount": round(amount, 8),
             "usd_value": usd_value,
             "price_change_24h": round(change_24h, 2)
         }
     
-    return result
+    # Calculate total portfolio USD value
+    total_usd_value = round(sum(item["usd_value"] for item in assets.values()), 8)
+    
+    # Sort assets by usd_value (descending)
+    sorted_assets = dict(sorted(assets.items(), key=lambda x: x[1]["usd_value"], reverse=True))
+    
+    return {
+        "total_usd_value": total_usd_value,
+        "assets": sorted_assets
+    }
 
 # Original endpoint
 @app.route('/binance-data')
