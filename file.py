@@ -1,5 +1,3 @@
-
-
 from flask import Flask, jsonify
 from flask_cors import CORS
 import time
@@ -9,7 +7,7 @@ import requests
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # Load .env file
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -28,7 +26,8 @@ def sign(query_string):
 
 def get_spot_portfolio():
     timestamp = int(time.time() * 1000)
-    query_string = f"timestamp={timestamp}"
+    recv_window = 60000
+    query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
     signature = sign(query_string)
     url = f"https://api.binance.com/api/v3/account?{query_string}&signature={signature}"
     headers = {"X-MBX-APIKEY": api_key}
@@ -48,7 +47,8 @@ def get_spot_portfolio():
 
 def get_futures_portfolio():
     timestamp = int(time.time() * 1000)
-    query_string = f"timestamp={timestamp}"
+    recv_window = 60000
+    query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
     signature = sign(query_string)
     url = f"https://fapi.binance.com/fapi/v2/account?{query_string}&signature={signature}"
     headers = {"X-MBX-APIKEY": api_key}
@@ -68,7 +68,8 @@ def get_futures_portfolio():
 
 def get_open_futures_orders():
     timestamp = int(time.time() * 1000)
-    query_string = f"timestamp={timestamp}"
+    recv_window = 60000
+    query_string = f"recvWindow={recv_window}&timestamp={timestamp}"
     signature = sign(query_string)
     url = f"https://fapi.binance.com/fapi/v1/openOrders?{query_string}&signature={signature}"
     headers = {"X-MBX-APIKEY": api_key}
@@ -93,5 +94,3 @@ def full_portfolio():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
