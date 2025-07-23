@@ -98,19 +98,42 @@ def get_spot_acct():
     if not data:
         return {}
     
-    result = {}
+    # Consolidate LD* tokens with their base assets
+    consolidated = {}
     for asset in data.get("balances", []):
-        # Only include assets with non-zero balance (free or locked)
         free = float(asset["free"])
         locked = float(asset["locked"])
-        if free > 0 or locked > 0:
-            # Combine free and locked for each token
-            result[asset["asset"]] = {
-                "free": free,
-                "locked": locked,
-                "total": free + locked
-            }
-    return result
+        total = free + locked
+        
+        if total <= 0:
+            continue
+            
+        asset_name = asset["asset"]
+        
+        # Handle locked tokens (LD prefix)
+        if asset_name.startswith("LD"):
+            base_asset = asset_name[2:]  # Remove 'LD' prefix
+            if base_asset not in consolidated:
+                consolidated[base_asset] = {
+                    "free": 0,
+                    "locked": 0,
+                    "total": 0
+                }
+            # Add LD tokens to locked balance
+            consolidated[base_asset]["locked"] += total
+            consolidated[base_asset]["total"] += total
+        else:
+            if asset_name not in consolidated:
+                consolidated[asset_name] = {
+                    "free": 0,
+                    "locked": 0,
+                    "total": 0
+                }
+            consolidated[asset_name]["free"] += free
+            consolidated[asset_name]["locked"] += locked
+            consolidated[asset_name]["total"] += total
+    
+    return consolidated
 
 def get_future_acct():
     timestamp = int(time.time() * 1000)
@@ -121,7 +144,11 @@ def get_future_acct():
     
     data = make_binance_request(url)
     if not data:
-        return {"acct-balance": 0, "assets": {}}
+        return {
+            "total_margin_balance": 0,
+            "assets": {},
+            "open_trades": "NO OPEN TRADE"
+        }
     
     assets = {}
     for asset in data.get("assets", []):
@@ -133,23 +160,25 @@ def get_future_acct():
                 "available_balance": float(asset.get("availableBalance", 0))
             }
     
-    return {
-        "acct-balance": float(data.get("totalMarginBalance", 0)),
-        "assets": assets
-    }
-
-def get_spot_orders():
-    timestamp = int(time.time() * 1000)
-    recv_window = 60000
-    params = {
-        "recvWindow": recv_window,
-        "timestamp": timestamp,
-        "signature": sign(f"recvWindow={recv_window}&timestamp={timestamp}")
-    }
-    url = "https://api.binance.com/api/v3/openOrders"
+    # Check for open positions
+    open_trades = []
+    for position in data.get("positions", []):
+        position_amt = float(position.get("positionAmt", 0))
+        if position_amt != 0:
+            open_trades.append({
+                "symbol": position["symbol"],
+                "position_amt": position_amt,
+                "entry_price": float(position.get("entryPrice", 0)),
+                "leverage": int(position.get("leverage", 1)),
+                "unrealized_profit": float(position.get("unRealizedProfit", 0)),
+                "position_side": "LONG" if position_amt > 0 else "SHORT"
+            })
     
-    data = make_binance_request(url, params=params)
-    return data if data else []
+    return {
+        "total_margin_balance": float(data.get("totalMarginBalance", 0)),
+        "assets": assets,
+        "open_trades": open_trades if open_trades else "NO OPEN TRADE"
+    }
 
 def get_margin_acct():
     timestamp = int(time.time() * 1000)
@@ -160,23 +189,50 @@ def get_margin_acct():
     
     data = make_binance_request(url)
     if not data:
-        return {"acct-balance": 0, "assets": {}}
+        return {
+            "total_net_asset_btc": 0,
+            "total_net_asset_usdt": 0,
+            "assets": {},
+            "open_trades": "NO OPEN TRADE"
+        }
+    
+    # Get current BTC price for conversion
+    btc_price = 0
+    btc_price_data = make_binance_request("https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT")
+    if btc_price_data:
+        btc_price = float(btc_price_data.get("price", 0))
     
     assets = {}
+    open_trades = []
+    total_net_asset_btc = float(data.get("totalNetAssetOfBtc", 0))
+    
     for asset in data.get("userAssets", []):
         net_asset = float(asset.get("netAsset", 0))
+        borrowed = float(asset.get("borrowed", 0))
+        interest = float(asset.get("interest", 0))
+        
         if net_asset != 0:
             assets[asset["asset"]] = {
                 "free": float(asset.get("free", 0)),
                 "locked": float(asset.get("locked", 0)),
-                "borrowed": float(asset.get("borrowed", 0)),
-                "interest": float(asset.get("interest", 0)),
+                "borrowed": borrowed,
+                "interest": interest,
                 "net_asset": net_asset
             }
+        
+        # Check for open loans (borrowed > 0)
+        if borrowed > 0 or interest > 0:
+            open_trades.append({
+                "asset": asset["asset"],
+                "borrowed": borrowed,
+                "interest": interest
+            })
     
     return {
-        "acct-balance": float(data.get("totalNetAssetOfBtc", 0)),
-        "assets": assets
+        "total_net_asset_btc": total_net_asset_btc,
+        "total_net_asset_usdt": total_net_asset_btc * btc_price if btc_price else 0,
+        "assets": assets,
+        "open_trades": open_trades if open_trades else "NO OPEN TRADE"
     }
 
 @app.route("/binance-data")
@@ -187,10 +243,9 @@ def binance_data():
     # Use caching for all API calls with refresh option
     return jsonify({
         "Binance": {
-            "spot-acct": cached_api_call("spot_acct", get_spot_acct, force_refresh),
-            "future-acct": cached_api_call("future_acct", get_future_acct, force_refresh),
-            "margin-acct": cached_api_call("margin_acct", get_margin_acct, force_refresh),
-            "spot-order": cached_api_call("spot_orders", get_spot_orders, force_refresh)
+            "spot_acct": cached_api_call("spot_acct", get_spot_acct, force_refresh),
+            "future_acct": cached_api_call("future_acct", get_future_acct, force_refresh),
+            "margin_acct": cached_api_call("margin_acct", get_margin_acct, force_refresh)
         }
     })
 
@@ -198,8 +253,6 @@ if __name__ == "__main__":
     # Disable debug mode in production
     debug_mode = os.getenv("FLASK_DEBUG", "false").lower() == "true"
     app.run(debug=debug_mode, host="0.0.0.0", port=5000)
-    
-
     # we have two url
     # http://localhost:5000/binance-data?refresh=true (to get the most recent data and not the cahched one)
     # http://localhost:5000/binance-data (to get the cached data)
