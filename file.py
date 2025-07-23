@@ -10,8 +10,8 @@ import urllib.parse
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-# Set up logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+# Set up logging to show only WARNING and ERROR messages
+logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 # Load .env variables
@@ -52,7 +52,11 @@ def get_server_time():
         response = http.get("https://api.binance.com/api/v3/time", proxies=proxies, timeout=5)
         response.raise_for_status()
         server_time = response.json().get("serverTime")
-        logger.debug(f"Binance server time: {server_time}")
+        local_time = int(time.time() * 1000)
+        time_diff = abs(server_time - local_time)
+        logger.debug(f"Binance server time: {server_time}, Local time: {local_time}, Difference: {time_diff}ms")
+        if time_diff > 5000:
+            logger.warning(f"Large time difference ({time_diff}ms) between local and Binance server time. Sync your PC clock.")
         return server_time
     except Exception as e:
         logger.error(f"Failed to get server time: {str(e)}")
@@ -74,7 +78,7 @@ def sign(query_string):
 def make_request(base_url, endpoint, params, use_proxy=True):
     timestamp = get_timestamp()
     params['timestamp'] = timestamp
-    params['recvWindow'] = 10000  # Increased to 10 seconds
+    params['recvWindow'] = 15000  # Increased to 15 seconds
     # URL-encode each parameter value and ensure correct separator
     query_string = '&'.join([f"{k}={urllib.parse.quote(str(v))}" for k, v in sorted(params.items())])
     logger.debug(f"Generated query string: {query_string}")
@@ -140,7 +144,27 @@ def filter_non_zero_assets(data, path_keys, amount_keys):
         logger.error(f"Error in filter_non_zero_assets: {str(e)}")
     return filtered
 
-# Main endpoint
+# Aggregate assets across accounts and normalize names
+def aggregate_assets(spot, margin, futures):
+    aggregated = {}
+    
+    # Normalize and aggregate Spot assets (remove 'LD' prefix)
+    for asset, amount in spot.items():
+        normalized_asset = asset[2:] if asset.startswith("LD") else asset
+        aggregated[normalized_asset] = aggregated.get(normalized_asset, 0) + amount
+    
+    # Aggregate Margin assets
+    for asset, amount in margin.items():
+        aggregated[asset] = aggregated.get(asset, 0) + amount
+    
+    # Aggregate Futures assets
+    for asset, amount in futures.items():
+        aggregated[asset] = aggregated.get(asset, 0) + amount
+    
+    # Round amounts to 8 decimal places for cleanliness
+    return {asset: round(amount, 8) for asset, amount in aggregated.items()}
+
+# Original endpoint
 @app.route('/binance-data')
 def binance_data():
     base = "https://api.binance.com"
@@ -165,6 +189,28 @@ def binance_data():
     }
     logger.info(f"Returning response: {response}")
     return jsonify(response)
+
+# New endpoint for aggregated asset totals
+@app.route('/binance-calc')
+def binance_calc():
+    base = "https://api.binance.com"
+    futures_base = "https://fapi.binance.com"
+
+    # Fetch data (same as /binance-data)
+    spot = make_request(base, "/api/v3/account", {})
+    clean_spot = filter_non_zero_assets(spot, ["balances"], ["free", "locked"])
+
+    margin = make_request(base, "/sapi/v1/margin/account", {})
+    clean_margin = filter_non_zero_assets(margin, ["userAssets"], ["free", "locked", "borrowed"])
+
+    futures = make_request(futures_base, "/fapi/v2/account", {})
+    clean_futures = filter_non_zero_assets(futures, ["assets"], ["walletBalance", "availableBalance"])
+
+    # Aggregate and normalize assets
+    aggregated = aggregate_assets(clean_spot, clean_margin, clean_futures)
+
+    logger.info(f"Returning aggregated response: {aggregated}")
+    return jsonify(aggregated)
 
 if __name__ == '__main__':
     app.run(debug=True)
