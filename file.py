@@ -79,7 +79,6 @@ def make_request(base_url, endpoint, params, use_proxy=True):
     timestamp = get_timestamp()
     params['timestamp'] = timestamp
     params['recvWindow'] = 15000  # Increased to 15 seconds
-    # URL-encode each parameter value and ensure correct separator
     query_string = '&'.join([f"{k}={urllib.parse.quote(str(v))}" for k, v in sorted(params.items())])
     logger.debug(f"Generated query string: {query_string}")
     signature = sign(query_string)
@@ -144,7 +143,29 @@ def filter_non_zero_assets(data, path_keys, amount_keys):
         logger.error(f"Error in filter_non_zero_assets: {str(e)}")
     return filtered
 
-# Aggregate assets across accounts and normalize names
+# Fetch current market prices for assets
+def get_market_prices(assets):
+    prices = {}
+    try:
+        response = http.get("https://api.binance.com/api/v3/ticker/price", proxies=proxies, timeout=10)
+        response.raise_for_status()
+        price_data = response.json()
+        for asset in assets:
+            # Try trading pair (e.g., SOLUSDT)
+            symbol = f"{asset}USDT"
+            for item in price_data:
+                if item["symbol"] == symbol:
+                    prices[asset] = float(item["price"])
+                    break
+            else:
+                prices[asset] = 0.0  # No trading pair found
+                logger.warning(f"No USDT trading pair found for {asset}")
+        return prices
+    except Exception as e:
+        logger.error(f"Failed to fetch market prices: {str(e)}")
+        return {asset: 0.0 for asset in assets}
+
+# Aggregate assets across accounts and include USD values
 def aggregate_assets(spot, margin, futures):
     aggregated = {}
     
@@ -161,8 +182,19 @@ def aggregate_assets(spot, margin, futures):
     for asset, amount in futures.items():
         aggregated[asset] = aggregated.get(asset, 0) + amount
     
-    # Round amounts to 8 decimal places for cleanliness
-    return {asset: round(amount, 8) for asset, amount in aggregated.items()}
+    # Fetch market prices for all unique assets
+    prices = get_market_prices(aggregated.keys())
+    
+    # Create final output with amount and USD value
+    result = {}
+    for asset, amount in aggregated.items():
+        usd_value = round(amount * prices.get(asset, 0.0), 8)
+        result[asset] = {
+            "amount": round(amount, 8),
+            "usd_value": usd_value
+        }
+    
+    return result
 
 # Original endpoint
 @app.route('/binance-data')
@@ -190,7 +222,7 @@ def binance_data():
     logger.info(f"Returning response: {response}")
     return jsonify(response)
 
-# New endpoint for aggregated asset totals
+# New endpoint for aggregated asset totals with USD values
 @app.route('/binance-calc')
 def binance_calc():
     base = "https://api.binance.com"
@@ -206,7 +238,7 @@ def binance_calc():
     futures = make_request(futures_base, "/fapi/v2/account", {})
     clean_futures = filter_non_zero_assets(futures, ["assets"], ["walletBalance", "availableBalance"])
 
-    # Aggregate and normalize assets
+    # Aggregate and normalize assets with USD values
     aggregated = aggregate_assets(clean_spot, clean_margin, clean_futures)
 
     logger.info(f"Returning aggregated response: {aggregated}")
