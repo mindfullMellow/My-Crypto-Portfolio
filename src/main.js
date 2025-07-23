@@ -2,7 +2,7 @@
 
 import "./main.css";
 
-fetch("http://127.0.0.1:5000/full-portfolio")
+fetch("http://127.0.0.1:5000/binance-data")
   .then((res) => res.json())
   .then((data) => {
     // Check if spot exists and is array
