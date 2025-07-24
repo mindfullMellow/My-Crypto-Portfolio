@@ -2,23 +2,25 @@
 
 import "./main.css";
 
-fetch("http://127.0.0.1:5000/binance-data")
-  .then((res) => res.json())
-  .then((data) => {
-    // Check if spot exists and is array
-    if (!Array.isArray(data.spot)) {
-      console.error("Spot data missing or not an array", data);
-      return;
-    }
+let coinData = {}; // Store fetched data
 
-    // Find SOL inside spot array
-    const solAsset = data.spot.find((item) => item.asset === "SOL");
-    const solTable = document.querySelector(".sol-quantity");
+function fetchPortfolio() {
+  fetch("http://127.0.0.1:5000/binance-calc")
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+      return res.json();
+    })
+    .then((data) => {
+      coinData = data; // Store data
+      console.log("Fetched data:", data.total_usd_value, data.pnl);
+      // Update DOM here (e.g., document.getElementById('total-value').innerText = data.total_usd_value)
+    })
+    .catch((error) => {
+      console.error("Fetch error:", error.message);
+    });
+}
 
-    if (solAsset && solTable) {
-      solTable.textContent = solAsset.total;
-      console.log("SOL total:", solAsset.total);
-    } else {
-      console.log("SOL not found or element missing");
-    }
-  });
+console.log(coinData);
+
+fetchPortfolio(); // Initial fetch
+setInterval(fetchPortfolio, 10000); // Poll every 10 seconds

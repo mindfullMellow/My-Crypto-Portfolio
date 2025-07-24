@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 import requests
 import time
 import hashlib
@@ -19,6 +20,7 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})  # Allow Vite frontend origin
 
 # Get API keys and proxy from environment
 binance_api_key = os.getenv("BINANCE_API_KEY")
@@ -365,7 +367,7 @@ def binance_data():
     logger.info(f"Returning response: {response}")
     return jsonify(response)
 
-# New endpoint for aggregated asset totals with USD values, 24h change, and P&L
+# Endpoint for aggregated asset totals with USD values, 24h change, and P&L
 @app.route('/binance-calc')
 def binance_calc():
     base = "https://api.binance.com"
@@ -384,6 +386,11 @@ def binance_calc():
 
     logger.info(f"Returning aggregated response: {aggregated}")
     return jsonify(aggregated)
+
+# Serve index.html
+@app.route('/')
+def serve_index():
+    return app.send_static_file('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
