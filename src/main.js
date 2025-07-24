@@ -13,14 +13,61 @@ function fetchPortfolio() {
     .then((data) => {
       coinData = data; // Store data
       console.log("Fetched data:", data.total_usd_value, data.pnl);
-      // Update DOM here (e.g., document.getElementById('total-value').innerText = data.total_usd_value)
+      updateDOM(); // Update UI
     })
     .catch((error) => {
       console.error("Fetch error:", error.message);
+      updateDOM(true); // Update UI with error
     });
 }
 
-console.log(coinData);
+function updateDOM(hasError = false) {
+  const totalValueEl = document.getElementById("total-value");
+  const pnlValueEl = document.getElementById("pnl-value");
+  const assetTableEl = document.getElementById("asset-table");
+
+  if (hasError) {
+    if (totalValueEl) totalValueEl.innerText = "Error fetching data";
+    if (pnlValueEl) pnlValueEl.innerText = "P&L: Error";
+    if (assetTableEl) assetTableEl.querySelector("tbody").innerHTML = "";
+    return;
+  }
+
+  if (totalValueEl)
+    totalValueEl.innerText = `Total Portfolio: $${coinData.total_usd_value.toFixed(
+      2
+    )}`;
+  if (pnlValueEl)
+    pnlValueEl.innerText = `P&L: $${coinData.pnl.value.toFixed(
+      2
+    )} (${coinData.pnl["24hr_change"].toFixed(2)}%)`;
+  if (assetTableEl) {
+    const tbody = assetTableEl.querySelector("tbody");
+    tbody.innerHTML = "";
+    const sortedAssets = Object.entries(coinData.assets).sort(
+      ([, a], [, b]) => b.usd_value - a.usd_value
+    );
+    for (const [asset, info] of sortedAssets) {
+      if (info.usd_value <= 1) continue; // Skip assets with value <= $1
+      const price =
+        info.amount > 0 ? (info.usd_value / info.amount).toFixed(2) : 0;
+      const changeClass =
+        info.price_change_24h < 0 ? "text-change-red" : "text-change-green";
+      const row = `<tr class="border-t border-t-tabel-top-border">
+        <td class="h-[72px] px-4 py-2 w-[400px]">${asset}<span class="ml-2">(${asset})</span></td>
+        <td class="h-[72px] px-4 py-2 w-[400px]">$${price}</td>
+        <td class="h-[72px] px-4 py-2 w-[400px]">${info.amount.toFixed(8)}</td>
+        <td class="h-[72px] px-4 py-2 w-[400px]">$${info.usd_value.toFixed(
+          2
+        )}</td>
+        <td class="h-[72px] px-4 py-2 w-[400px] ${changeClass}">${info.price_change_24h.toFixed(
+        2
+      )}%</td>
+      </tr>`;
+      tbody.innerHTML += row;
+    }
+  }
+}
 
 fetchPortfolio(); // Initial fetch
 setInterval(fetchPortfolio, 10000); // Poll every 10 seconds
