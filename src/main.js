@@ -14,6 +14,7 @@ function fetchPortfolio() {
       coinData = data; // Store data
       console.log("Fetched data:", data.total_usd_value, data.pnl);
       updateDOM(); // Update UI
+      console.log(coinData);
     })
     .catch((error) => {
       console.error("Fetch error:", error.message);
@@ -24,6 +25,7 @@ function fetchPortfolio() {
 function updateDOM(hasError = false) {
   const totalValueEl = document.getElementById("total-value");
   const pnlValueEl = document.getElementById("pnl-value");
+  const dailychangeEl = document.getElementById("24hr-change");
   const assetTableEl = document.getElementById("asset-table");
 
   if (hasError) {
@@ -32,15 +34,23 @@ function updateDOM(hasError = false) {
     if (assetTableEl) assetTableEl.querySelector("tbody").innerHTML = "";
     return;
   }
-
+  // protfoilio value
   if (totalValueEl)
-    totalValueEl.innerText = `Total Portfolio: $${coinData.total_usd_value.toFixed(
-      2
-    )}`;
-  if (pnlValueEl)
-    pnlValueEl.innerText = `P&L: $${coinData.pnl.value.toFixed(
-      2
-    )} (${coinData.pnl["24hr_change"].toFixed(2)}%)`;
+    totalValueEl.innerText = `$${coinData.total_usd_value.toFixed(2)}`;
+
+  //24 hr PNL
+  if (pnlValueEl) {
+    pnlValueEl.innerText = `${coinData.pnl.value.toFixed(2)}`;
+  }
+
+  //24hr change
+  if (dailychangeEl) {
+    const dayChange =
+      coinData.pnl["24hr_change"].toFixed(2) < 0 ? "#da0b35" : "#0bda35";
+    dailychangeEl.innerText = `${coinData.pnl["24hr_change"].toFixed(2)}%`;
+    dailychangeEl.style.color = dayChange;
+  }
+
   if (assetTableEl) {
     const tbody = assetTableEl.querySelector("tbody");
     tbody.innerHTML = "";
