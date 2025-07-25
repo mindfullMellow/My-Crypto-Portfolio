@@ -2,6 +2,8 @@
 
 import "./main.css";
 
+//Code to fetch data from the flask server
+
 let coinData = {}; // Store fetched data
 
 function fetchPortfolio() {
