@@ -83,3 +83,12 @@ function updateDOM(hasError = false) {
 
 fetchPortfolio(); // Initial fetch
 setInterval(fetchPortfolio, 10000); // Poll every 10 seconds
+
+// code to dynamically implement the mobile nav logic
+
+const buttonEL = document.querySelector(".btn-mobile-nav");
+const headerEl = document.querySelector(".header-sm");
+
+buttonEL.addEventListener("click", function () {
+  headerEl.classList.toggle("nav-open");
+});
