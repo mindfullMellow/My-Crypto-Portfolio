@@ -31,8 +31,8 @@ function updateDOM(hasError = false) {
   const assetTableEl = document.getElementById("asset-table");
 
   if (hasError) {
-    if (totalValueEl) totalValueEl.innerText = "Error ";
-    if (pnlValueEl) pnlValueEl.innerText = "Error";
+    if (totalValueEl) totalValueEl.innerText = "...";
+    if (pnlValueEl) pnlValueEl.innerText = "...";
     if (assetTableEl) assetTableEl.querySelector("tbody").innerHTML = "";
     return;
   }
