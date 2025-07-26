@@ -94,7 +94,7 @@ const mainNavEL = document.querySelector(".main-nav");
 
 buttonEL.addEventListener("click", function () {
   headerEl.classList.toggle("nav-open");
-  profileMobile.classList.add("-z-50");
+  // profileMobile.classList.add("-z-50");
 });
 
 // intersection observer for automatically closing nav-open
