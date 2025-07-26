@@ -71,7 +71,7 @@
 
 
     <!-- Menu button -->
-    <button class="btn-mobile-nav z-50">
+    <button class="z-50 btn-mobile-nav">
       <div class="text-white size-5">
         <!-- open meun icon -->
         <svg class="icon-mobile-nav open-menu" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -130,10 +130,9 @@
       <!-- Modal -->
       <div class="flex-col items-start justify-center hidden gap-4 text-white profile-modal font-Noto"
         id="profile-modal">
-        <button class="flex items-center justify-end gap-2">
-          <div
-            class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] pb-1 min-w-0 px-2.5 hover:bg-[#0a7121] bg-border-color"
-            data-icon="Bell" data-size="20px" data-weight="regular">
+        <button class="flex items-center justify-end gap-2 group">
+          <div class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] pb-1 min-w-0 px-2.5 group-hover:bg-[#0a7121] transition duration-200 ease-in 
+            bg-border-color" data-icon="Bell" data-size="20px" data-weight="regular">
             <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
               viewBox="0 0 256 256">
               <path
@@ -142,13 +141,13 @@
             </svg>
           </div>
           <a href="#"
-            class="tracking-[0.07em] inline-block text-sm font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">
+            class="tracking-[0.07em] inline-block text-sm font-medium leading-normal transition duration-200 ease-in border-b-2 border-transparent  group-hover:border-transparent hover:opacity-85">
             Notifications</a>
         </button>
 
-        <button class="flex items-center justify-center gap-2">
+        <button class="flex items-center justify-center gap-2 group">
           <div
-            class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] min-w-0 px-2.5 pb-1 hover:bg-[#0a7121] bg-border-color"
+            class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] min-w-0 px-2.5 pb-1 transition duration-200 ease-in group-hover:bg-[#0a7121] bg-border-color"
             data-icon="Logout" data-size="20px" data-weight="regular">
             <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
               viewBox="0 0 256 256">
@@ -158,7 +157,7 @@
           </div>
 
           <a href="#"
-            class="inline-block pb-1 text-sm font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">
+            class="inline-block pb-1 text-sm font-medium leading-normal transition duration-200 ease-in border-b-2 border-transparent group-hover:border-transparent hover:opacity-85">
             Log Out</a>
 
         </button>
