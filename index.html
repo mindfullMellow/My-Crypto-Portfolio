@@ -54,9 +54,36 @@
       </button>
 
 
-      <img class="bg-center bg-no-repeat bg-cover rounded-full aspect-square size-10"
-        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPYbOz2IVAmgb22kWMCZujloyhgSuWx-lK1MX4sFSvVbrp42SCzvhEv0TlRkNliUrreYDhEfVcmgXWCiI8eyK28tMJmXe97vdrbFwNSxsn7EyXpCpXopAWn9GkND-VB2szDTWkm8K8c9ler7txjfQ_8-lDPZuPhW3eEs3kXaKFJhYztrc9pjskkJOyo3t9HP6IHspermrKlPEPLxt3nc3oSFkVeQJ2JgiUUWmwtScU4arTUqmiNgTTM0-w__vWCzD2Ta-Kk4XBhFD-"
-        alt="">
+      <!-- profile pic -->
+      <div class="relative">
+        <!-- Profile Button -->
+        <button class="profile-btn">
+          <img class="bg-center bg-no-repeat bg-cover rounded-full aspect-square size-10"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPYbOz2IVAmgb22kWMCZujloyhgSuWx-lK1MX4sFSvVbrp42SCzvhEv0TlRkNliUrreYDhEfVcmgXWCiI8eyK28tMJmXe97vdrbFwNSxsn7EyXpCpXopAWn9GkND-VB2szDTWkm8K8c9ler7txjfQ_8-lDPZuPhW3eEs3kXaKFJhYztrc9pjskkJOyo3t9HP6IHspermrKlPEPLxt3nc3oSFkVeQJ2JgiUUWmwtScU4arTUqmiNgTTM0-w__vWCzD2Ta-Kk4XBhFD-"
+            alt="Profile pic">
+        </button>
+
+        <!-- Modal -->
+        <div class="flex-col items-start justify-center hidden gap-4 text-white profile-modal font-Noto">
+
+          <button class="flex items-center justify-center gap-2 group">
+            <div
+              class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] min-w-0 px-2.5 pb-1 transition duration-200 ease-in group-hover:bg-[#0a7121] bg-border-color"
+              data-icon="Logout" data-size="20px" data-weight="regular">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                viewBox="0 0 256 256">
+                <path
+                  d="M104 32 H64 C46.32 32 32 46.32 32 64 V192 C32 209.68 46.32 224 64 224 H104 C112.84 224 120 216.84 120 208 C120 199.16 112.84 192 104 192 H72 C63.16 192 56 184.84 56 176 V80 C56 71.16 63.16 64 72 64 H104 C112.84 64 120 56.84 120 48 C120 39.16 112.84 32 104 32 Z M176 96 C183.16 88.84 192 88.84 199.16 96 L223.16 120 C230.32 127.16 230.32 136 223.16 143.16 L199.16 167.16 C192 174.32 183.16 174.32 176 167.16 C168.84 160 168.84 151.16 176 144 L184 136 H120 C111.16 136 104 128.84 104 120 C104 111.16 111.16 104 120 104 H184 L176 96 C168.84 88.84 168.84 80 176 96 Z" />
+              </svg>
+            </div>
+
+            <a href="#"
+              class="inline-block pb-1 text-sm font-medium leading-normal transition duration-200 ease-in border-b-2 border-transparent group-hover:border-transparent hover:opacity-85">
+              Log Out</a>
+
+          </button>
+        </div>
+      </div>
 
 
     </div>
@@ -121,15 +148,14 @@
     <!-- profile pic -->
     <div class="relative">
       <!-- Profile Button -->
-      <button id="profile-btn">
+      <button class="profile-btn">
         <img class="bg-center bg-no-repeat bg-cover rounded-full aspect-square size-10"
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPYbOz2IVAmgb22kWMCZujloyhgSuWx-lK1MX4sFSvVbrp42SCzvhEv0TlRkNliUrreYDhEfVcmgXWCiI8eyK28tMJmXe97vdrbFwNSxsn7EyXpCpXopAWn9GkND-VB2szDTWkm8K8c9ler7txjfQ_8-lDPZuPhW3eEs3kXaKFJhYztrc9pjskkJOyo3t9HP6IHspermrKlPEPLxt3nc3oSFkVeQJ2JgiUUWmwtScU4arTUqmiNgTTM0-w__vWCzD2Ta-Kk4XBhFD-"
           alt="Profile pic">
       </button>
 
       <!-- Modal -->
-      <div class="flex-col items-start justify-center hidden gap-4 text-white profile-modal font-Noto"
-        id="profile-modal">
+      <div class="flex-col items-start justify-center hidden gap-4 text-white profile-modal font-Noto">
         <button class="flex items-center justify-end gap-2 group">
           <div class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] pb-1 min-w-0 px-2.5 group-hover:bg-[#0a7121] transition duration-200 ease-in 
             bg-border-color" data-icon="Bell" data-size="20px" data-weight="regular">

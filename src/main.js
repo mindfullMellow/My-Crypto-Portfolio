@@ -98,21 +98,34 @@ buttonEL.addEventListener("click", function () {
 // MODAL logic
 const overlayEL = document.querySelector(".overlay");
 const zIndex = document.querySelector(".btn-mobile-nav");
-const profileBtn = document.querySelector("#profile-btn");
-const profileModal = document.querySelector(".profile-modal");
+const profileBtn = document.querySelectorAll(".profile-btn");
+const profileModal = document.querySelectorAll(".profile-modal");
+console.log(profileBtn);
 
-//show modal when the profile is clicked
-profileBtn.addEventListener("click", function () {
+///////////////////
+//fuctions
+const openProfileModal = function () {
   overlayEL.classList.remove("hidden");
   zIndex.classList.remove("z-50");
-  profileModal.classList.replace("hidden", "flex");
-});
+  for (let i = 0; i < profileModal.length; i++) {
+    profileModal[i].classList.replace("hidden", "flex");
+  }
+};
 
-//hide modal when the other part of the screen is clicked
-overlayEL.addEventListener("click", (e) => {
+const closeProfileModal = function (e) {
   if (e.target === overlayEL) {
     overlayEL.classList.add("hidden");
     zIndex.classList.add("z-50");
-    profileModal.classList.replace("flex", "hidden");
+    for (let i = 0; i < profileModal.length; i++) {
+      profileModal[i].classList.replace("flex", "hidden");
+    }
   }
-});
+};
+
+//show modal when the profile is clicked
+for (let i = 0; i < profileBtn.length; i++) {
+  profileBtn[i].addEventListener("click", openProfileModal);
+}
+
+// close modal when overlay is clicked
+overlayEL.addEventListener("click", closeProfileModal);
