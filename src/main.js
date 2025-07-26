@@ -31,8 +31,8 @@ function updateDOM(hasError = false) {
   const assetTableEl = document.getElementById("asset-table");
 
   if (hasError) {
-    if (totalValueEl) totalValueEl.innerText = "Error fetching data";
-    if (pnlValueEl) pnlValueEl.innerText = "P&L: Error";
+    if (totalValueEl) totalValueEl.innerText = "Error ";
+    if (pnlValueEl) pnlValueEl.innerText = "Error";
     if (assetTableEl) assetTableEl.querySelector("tbody").innerHTML = "";
     return;
   }
