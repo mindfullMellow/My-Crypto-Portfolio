@@ -84,6 +84,7 @@ function updateDOM(hasError = false) {
 fetchPortfolio(); // Initial fetch
 setInterval(fetchPortfolio, 10000); // Poll every 10 seconds
 
+///////////////////////////////////////////////////////////////////////
 // code to dynamically implement the mobile nav logic
 
 const buttonEL = document.querySelector(".btn-mobile-nav");
@@ -91,4 +92,27 @@ const headerEl = document.querySelector(".header-sm");
 
 buttonEL.addEventListener("click", function () {
   headerEl.classList.toggle("nav-open");
+});
+
+///////////////////////////////////////////////////////////////////////
+// MODAL logic
+const overlayEL = document.querySelector(".overlay");
+const zIndex = document.querySelector(".btn-mobile-nav");
+const profileBtn = document.querySelector("#profile-btn");
+const profileModal = document.querySelector(".profile-modal");
+
+//show modal when the profile is clicked
+profileBtn.addEventListener("click", function () {
+  overlayEL.classList.remove("hidden");
+  zIndex.classList.remove("z-50");
+  profileModal.classList.replace("hidden", "flex");
+});
+
+//hide modal when the other part of the screen is clicked
+overlayEL.addEventListener("click", (e) => {
+  if (e.target === overlayEL) {
+    overlayEL.classList.add("hidden");
+    zIndex.classList.add("z-50");
+    profileModal.classList.replace("flex", "hidden");
+  }
 });

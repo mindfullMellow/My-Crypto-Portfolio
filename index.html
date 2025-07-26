@@ -13,7 +13,7 @@
   <title>Crypto Portfoilio Tracker</title>
 </head>
 
-<body class=" bg-background">
+<body class="relative bg-background">
   <!-- header for width > 800px -->
   <header
     class="flex items-center justify-between px-10 py-3 border-b border-solid border-b-border-color max-[800px]:hidden">
@@ -64,13 +64,14 @@
   </header>
 
 
+
   <!-- header for width < 800px -->
   <header
     class="min-[800px]:hidden flex px-10 py-3 border-b border-solid border-b-border-color items-center justify-between  relative header-sm">
 
 
     <!-- Menu button -->
-    <button class="btn-mobile-nav">
+    <button class="btn-mobile-nav z-50">
       <div class="text-white size-5">
         <!-- open meun icon -->
         <svg class="icon-mobile-nav open-menu" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -116,10 +117,55 @@
       </div>
     </a>
 
+
     <!-- profile pic -->
-    <button><img class="bg-center bg-no-repeat bg-cover rounded-full aspect-square size-10"
-        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPYbOz2IVAmgb22kWMCZujloyhgSuWx-lK1MX4sFSvVbrp42SCzvhEv0TlRkNliUrreYDhEfVcmgXWCiI8eyK28tMJmXe97vdrbFwNSxsn7EyXpCpXopAWn9GkND-VB2szDTWkm8K8c9ler7txjfQ_8-lDPZuPhW3eEs3kXaKFJhYztrc9pjskkJOyo3t9HP6IHspermrKlPEPLxt3nc3oSFkVeQJ2JgiUUWmwtScU4arTUqmiNgTTM0-w__vWCzD2Ta-Kk4XBhFD-"
-        alt="Profile pic"></button>
+    <div class="relative">
+      <!-- Profile Button -->
+      <button id="profile-btn">
+        <img class="bg-center bg-no-repeat bg-cover rounded-full aspect-square size-10"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPYbOz2IVAmgb22kWMCZujloyhgSuWx-lK1MX4sFSvVbrp42SCzvhEv0TlRkNliUrreYDhEfVcmgXWCiI8eyK28tMJmXe97vdrbFwNSxsn7EyXpCpXopAWn9GkND-VB2szDTWkm8K8c9ler7txjfQ_8-lDPZuPhW3eEs3kXaKFJhYztrc9pjskkJOyo3t9HP6IHspermrKlPEPLxt3nc3oSFkVeQJ2JgiUUWmwtScU4arTUqmiNgTTM0-w__vWCzD2Ta-Kk4XBhFD-"
+          alt="Profile pic">
+      </button>
+
+      <!-- Modal -->
+      <div class="flex-col items-start justify-center hidden gap-4 text-white profile-modal font-Noto"
+        id="profile-modal">
+        <button class="flex items-center justify-end gap-2">
+          <div
+            class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] pb-1 min-w-0 px-2.5 hover:bg-[#0a7121] bg-border-color"
+            data-icon="Bell" data-size="20px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z">
+              </path>
+            </svg>
+          </div>
+          <a href="#"
+            class="tracking-[0.07em] inline-block text-sm font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">
+            Notifications</a>
+        </button>
+
+        <button class="flex items-center justify-center gap-2">
+          <div
+            class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] min-w-0 px-2.5 pb-1 hover:bg-[#0a7121] bg-border-color"
+            data-icon="Logout" data-size="20px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M104 32 H64 C46.32 32 32 46.32 32 64 V192 C32 209.68 46.32 224 64 224 H104 C112.84 224 120 216.84 120 208 C120 199.16 112.84 192 104 192 H72 C63.16 192 56 184.84 56 176 V80 C56 71.16 63.16 64 72 64 H104 C112.84 64 120 56.84 120 48 C120 39.16 112.84 32 104 32 Z M176 96 C183.16 88.84 192 88.84 199.16 96 L223.16 120 C230.32 127.16 230.32 136 223.16 143.16 L199.16 167.16 C192 174.32 183.16 174.32 176 167.16 C168.84 160 168.84 151.16 176 144 L184 136 H120 C111.16 136 104 128.84 104 120 C104 111.16 111.16 104 120 104 H184 L176 96 C168.84 88.84 168.84 80 176 96 Z" />
+            </svg>
+          </div>
+
+          <a href="#"
+            class="inline-block pb-1 text-sm font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">
+            Log Out</a>
+
+        </button>
+      </div>
+    </div>
+
+
   </header>
 
 
@@ -234,7 +280,8 @@
 
 
 
-
+  <!-- darkoverlay -->
+  <div class="hidden overlay"></div>
 
   <script type="module" src="/src/main.js"></script>
 </body>
