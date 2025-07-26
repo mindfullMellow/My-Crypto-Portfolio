@@ -1,19 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- FONTS LINK -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
-  <title>Crypto Portfoilio Tracker</title>
+
+  <link rel="stylesheet" href="./src/main.css">
+  <title>Trade Calculator</title>
 </head>
 
 <body class="relative bg-background">
+
   <!-- header for width > 800px -->
   <header
     class="flex items-center justify-between px-5 py-3 border-b border-solid border-b-border-color max-[800px]:hidden">
@@ -90,8 +93,6 @@
 
   </header>
 
-
-
   <!-- header for width < 800px -->
   <header
     class="min-[800px]:hidden flex px-5 py-3 border-b border-solid border-b-border-color items-center justify-between  relative header-sm ">
@@ -158,7 +159,7 @@
       <div class="flex-col items-start justify-center hidden gap-4 text-white profile-modal font-Noto">
         <button class="flex items-center justify-end gap-2 group">
           <div class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] pb-1 min-w-0 px-2.5 group-hover:bg-[#0a7121] transition duration-200 ease-in 
-            bg-border-color" data-icon="Bell" data-size="20px" data-weight="regular">
+              bg-border-color" data-icon="Bell" data-size="20px" data-weight="regular">
             <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
               viewBox="0 0 256 256">
               <path
@@ -195,122 +196,10 @@
 
 
 
-  <main>
-    <!-- Dashboard -->
-    <section class="px-5 py-9 section-dashboard lg:px-10 ">
-      <div class="container mx-auto max-w-[1200px] flex flex-col gap-8">
-        <!-- Portfolio header -->
-        <div class="flex flex-col gap-3 portfolio-header font-manrope">
-          <h1 class="text-white tracking-light text-[32px] font-bold leading-tight">My Portfolio
-          </h1>
-          <p class="text-sm font-normal text-text-color-1">Overview of Your crypto assets</p>
-        </div>
-
-        <!-- Portofolio cards -->
-        <div class="flex flex-wrap gap-6 portfolio-cards font-manrope">
-          <div class="flex flex-col flex-1 gap-2 p-6 text-white rounded-2xl bg-border-color min-w-[158px]">
-            <h3 class="text-base font-medium leading-normal">Total Portfolio Value</h3>
-            <p class="text-2xl font-bold total-value" id="total-value">....</p>
-          </div>
-
-          <div class="flex flex-col flex-1 gap-2 p-6 text-white rounded-2xl bg-border-color min-w-[158px]">
-            <h3 class="text-base font-medium leading-normal">Profit/Loss</h3>
-            <p class="text-2xl font-bold" id="pnl-value">....</p>
-          </div>
-
-          <div class="flex flex-col flex-1 gap-2 p-6 text-white rounded-2xl bg-border-color min-w-[158px]">
-            <h3 class="text-base font-medium leading-normal">24hr Change</h3>
-            <p class="text-2xl font-bold" id="24hr-change">....</p>
-          </div>
-
-        </div>
-
-        <!-- Portfolio performance  -->
-        <div class="flex flex-col gap-1 text-white portfolio-performance font-manrope">
-          <h3 class="text-base font-medium leading-normal">Portfolio Performance</h3>
-          <p class="font-bold text-[32px]">$12,345.67</p>
-          <p class="text-base font-normal text-text-color-1">Last 30 days<span
-              class="ml-2 font-medium text-change-green">+2.5%</span></p>
-
-
-
-          <svg width="100%" height="148" viewBox="-3 0 478 150" fill="none" xmlns="http://www.w3.org/2000/svg"
-            class="py-4" preserveAspectRatio="none">
-            <path
-              d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V149H326.769H0V109Z"
-              fill="url(#paint0_linear_1131_5935)"></path>
-            <path
-              d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25"
-              stroke="#a5b6a0" stroke-width="3" stroke-linecap="round"></path>
-            <defs>
-              <linearGradient id="paint0_linear_1131_5935" x1="236" y1="1" x2="236" y2="149"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2d372a"></stop>
-                <stop offset="1" stop-color="#2d372a" stop-opacity="0"></stop>
-              </linearGradient>
-            </defs>
-          </svg>
-          <div class="flex justify-around">
-            <p class="text-text-color-1 text-[13px] font-bold leading-normal tracking-[0.015em]">Jan</p>
-            <p class="text-text-color-1 text-[13px] font-bold leading-normal tracking-[0.015em]">Feb</p>
-            <p class="text-text-color-1 text-[13px] font-bold leading-normal tracking-[0.015em]">Mar</p>
-            <p class="text-text-color-1 text-[13px] font-bold leading-normal tracking-[0.015em]">Apr</p>
-            <p class="text-text-color-1 text-[13px] font-bold leading-normal tracking-[0.015em]">May</p>
-            <p class="text-text-color-1 text-[13px] font-bold leading-normal tracking-[0.015em]">Jun</p>
-            <p class="text-text-color-1 text-[13px] font-bold leading-normal tracking-[0.015em]">Jul</p>
-          </div>
-        </div>
-
-      </div>
-
-
-
-
-      </div>
-    </section>
-
-    <!-- Asset section -->
-    <section class="px-5 py-14 section-asset lg:px-10">
-      <div class="container mx-auto max-w-[1200px] ">
-        <h1 class="text-2xl font-bold text-white font-manrope">Your Assets</h1>
-
-        <!-- assets table -->
-        <div class="py-6">
-          <div class="flex overflow-x-auto border rounded-lg border-table-color bg-table-bg">
-
-
-            <table class="flex-1" id="asset-table">
-              <thead>
-                <tr class="text-sm font-medium leading-normal text-left text-white bg-table-bg-2 font-manrope">
-                  <th class="px-4 py-3 w-[400px] ">Coin</th>
-                  <th class="px-4 py-3 w-[400px] ">Price</th>
-                  <th class="px-4 py-3 w-[400px] ">Quantity</th>
-                  <th class="px-4 py-3 w-[400px] ">Value</th>
-                  <th class="px-4 py-3  w-[400px] ">24hr Change</th>
-                </tr>
-              </thead>
-
-              <tbody class="text-sm font-normal leading-normal text-white font-Noto">
-
-              </tbody>
-
-            </table>
-
-
-          </div>
-        </div>
-      </div>
-
-    </section>
-
-  </main>
-
-
-
   <!-- darkoverlay -->
   <div class="hidden overlay"></div>
-
-  <script type="module" src="/src/main.js"></script>
 </body>
+
+<script type="module" src="./src/calc.js"></script>
 
 </html>
