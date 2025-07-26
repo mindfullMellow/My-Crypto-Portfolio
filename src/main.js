@@ -2,7 +2,18 @@
 
 import "./main.css";
 
-//Code to fetch data from the flask server
+// Function to apply animation to an element
+function applyAnimation(element) {
+  element.innerHTML = element.textContent
+    .split("")
+    .map(
+      (char, index) =>
+        `<span style="animation-delay: ${
+          index * 0.1
+        }s" class="dot">${char}</span>`
+    )
+    .join("");
+}
 
 let coinData = {}; // Store fetched data
 
@@ -30,26 +41,41 @@ function updateDOM(hasError = false) {
   const dailychangeEl = document.getElementById("24hr-change");
   const assetTableEl = document.getElementById("asset-table");
 
-  if (hasError) {
-    if (totalValueEl) totalValueEl.innerText = "...";
-    if (pnlValueEl) pnlValueEl.innerText = "...";
-    if (assetTableEl) assetTableEl.querySelector("tbody").innerHTML = "";
+  if (hasError || !coinData.total_usd_value) {
+    if (totalValueEl) applyAnimation(totalValueEl);
+    if (pnlValueEl) applyAnimation(pnlValueEl);
+    if (dailychangeEl) applyAnimation(dailychangeEl);
+    if (assetTableEl) {
+      const tbody = assetTableEl.querySelector("tbody");
+      tbody.innerHTML = `
+          <tr class="border-t border-t-tabel-top-border">
+            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
+            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
+            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
+            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
+            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
+          </tr>
+        `;
+      // Apply animation to all placeholder <p> elements
+      tbody.querySelectorAll("p").forEach(applyAnimation);
+    }
     return;
   }
-  // protfoilio value
-  if (totalValueEl)
-    totalValueEl.innerText = `$${coinData.total_usd_value.toFixed(2)}`;
 
-  //24 hr PNL
+  // Portfolio value
+  if (totalValueEl)
+    totalValueEl.innerHTML = `$${coinData.total_usd_value.toFixed(2)}`;
+
+  // 24 hr PNL
   if (pnlValueEl) {
-    pnlValueEl.innerText = `${coinData.pnl.value.toFixed(2)}`;
+    pnlValueEl.innerHTML = `${coinData.pnl.value.toFixed(2)}`;
   }
 
-  //24hr change
+  // 24hr change
   if (dailychangeEl) {
     const dayChange =
       coinData.pnl["24hr_change"].toFixed(2) < 0 ? "#da0b35" : "#0bda35";
-    dailychangeEl.innerText = `${coinData.pnl["24hr_change"].toFixed(2)}%`;
+    dailychangeEl.innerHTML = `${coinData.pnl["24hr_change"].toFixed(2)}%`;
     dailychangeEl.style.color = dayChange;
   }
 
@@ -60,27 +86,36 @@ function updateDOM(hasError = false) {
       ([, a], [, b]) => b.usd_value - a.usd_value
     );
     for (const [asset, info] of sortedAssets) {
-      if (info.usd_value <= 1) continue; // Skip assets with value <= $1
+      if (info.usd_value <= 1) continue;
       const price =
         info.amount > 0 ? (info.usd_value / info.amount).toFixed(2) : 0;
       const changeClass =
         info.price_change_24h < 0 ? "text-change-red" : "text-change-green";
       const row = `<tr class="border-t border-t-tabel-top-border">
-        <td class="h-[72px] px-4 py-2 w-[400px]">${asset}<span class="ml-2">(${asset})</span></td>
-        <td class="h-[72px] px-4 py-2 w-[400px]">$${price}</td>
-        <td class="h-[72px] px-4 py-2 w-[400px]">${info.amount.toFixed(8)}</td>
-        <td class="h-[72px] px-4 py-2 w-[400px]">$${info.usd_value.toFixed(
-          2
-        )}</td>
-        <td class="h-[72px] px-4 py-2 w-[400px] ${changeClass}">${info.price_change_24h.toFixed(
+          <td class="h-[72px] px-4 py-2 w-[400px]">${asset}<span class="ml-2">(${asset})</span></td>
+          <td class="h-[72px] px-4 py-2 w-[400px]">$${price}</td>
+          <td class="h-[72px] px-4 py-2 w-[400px]">${info.amount.toFixed(
+            8
+          )}</td>
+          <td class="h-[72px] px-4 py-2 w-[400px]">$${info.usd_value.toFixed(
+            2
+          )}</td>
+          <td class="h-[72px] px-4 py-2 w-[400px] ${changeClass}">${info.price_change_24h.toFixed(
         2
       )}%</td>
-      </tr>`;
+        </tr>`;
       tbody.innerHTML += row;
     }
   }
 }
 
+// Initial fetch and apply animation to all loading states
+const elements = [
+  document.getElementById("total-value"),
+  document.getElementById("pnl-value"),
+  document.getElementById("24hr-change"),
+];
+elements.forEach(applyAnimation);
 fetchPortfolio(); // Initial fetch
 setInterval(fetchPortfolio, 10000); // Poll every 10 seconds
 

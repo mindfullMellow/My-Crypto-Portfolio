@@ -19,6 +19,17 @@ export default {
         manrope: ["Manrope", "sans-serif"],
         Noto: ["Noto-sans", "sans-serif"],
       },
+      keyframes: {
+        waveBounce: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+      },
+      animation: {
+        "wave-1": "waveBounce 1s ease-in-out infinite",
+        "wave-2": "waveBounce 1s ease-in-out infinite 0.2s",
+        "wave-3": "waveBounce 1s ease-in-out infinite 0.4s",
+      },
     },
   },
   plugins: [],
