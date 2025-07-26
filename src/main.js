@@ -90,11 +90,37 @@ setInterval(fetchPortfolio, 10000); // Poll every 10 seconds
 const buttonEL = document.querySelector(".btn-mobile-nav");
 const headerEl = document.querySelector(".header-sm");
 const profileMobile = document.querySelector("#mobile-profile");
+const mainNavEL = document.querySelector(".main-nav");
 
 buttonEL.addEventListener("click", function () {
   headerEl.classList.toggle("nav-open");
   profileMobile.classList.add("-z-50");
 });
+
+// intersection observer for automatically closing nav-open
+const obsMainNav = new IntersectionObserver(
+  function (entries) {
+    const ent = entries[0];
+
+    // close the nav-open when user leaves it visible section
+    if (
+      ent.isIntersecting === false &&
+      headerEl.classList.contains("nav-open")
+    ) {
+      headerEl.classList.remove("nav-open");
+    }
+  },
+
+  {
+    // in the viewport
+    root: null,
+    threshold: 0,
+    rootMargin: "-80px",
+  }
+);
+
+// calling the intersection functions
+obsMainNav.observe(mainNavEL);
 
 ///////////////////////////////////////////////////////////////////////
 // MODAL logic
@@ -102,8 +128,9 @@ const overlayEL = document.querySelector(".overlay");
 const zIndex = document.querySelector(".btn-mobile-nav");
 const profileBtn = document.querySelectorAll(".profile-btn");
 const profileModal = document.querySelectorAll(".profile-modal");
-///////////////////
-//fuctions
+
+///////////////////////////////////////////////
+//storing functions
 const openProfileModal = function () {
   overlayEL.classList.remove("hidden");
   zIndex.classList.remove("z-50");
