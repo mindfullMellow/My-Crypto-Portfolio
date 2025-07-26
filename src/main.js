@@ -89,9 +89,11 @@ setInterval(fetchPortfolio, 10000); // Poll every 10 seconds
 
 const buttonEL = document.querySelector(".btn-mobile-nav");
 const headerEl = document.querySelector(".header-sm");
+const profileMobile = document.querySelector("#mobile-profile");
 
 buttonEL.addEventListener("click", function () {
   headerEl.classList.toggle("nav-open");
+  profileMobile.classList.add("-z-50");
 });
 
 ///////////////////////////////////////////////////////////////////////
@@ -100,8 +102,6 @@ const overlayEL = document.querySelector(".overlay");
 const zIndex = document.querySelector(".btn-mobile-nav");
 const profileBtn = document.querySelectorAll(".profile-btn");
 const profileModal = document.querySelectorAll(".profile-modal");
-console.log(profileBtn);
-
 ///////////////////
 //fuctions
 const openProfileModal = function () {
