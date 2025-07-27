@@ -131,7 +131,6 @@ body {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  /* Prevents interaction with hidden content */
 }
 
 /* Smooth transition for tab content */
@@ -143,20 +142,37 @@ body {
 
 /* Smooth transition for tab buttons */
 .tab-btn {
-  transition-property: opacity, border-color, color;
+  transition-property: opacity, color;
   transition-duration: 300ms;
   transition-timing-function: ease-in;
+  position: relative;
+  z-index: 1;
+  /* Ensure buttons are above sliding border */
 }
 
 /* Active tab button style */
 .tab-btn.opacity-100 {
   color: #f3f4f6;
-  /* Brighter white for active tab, adjust if needed */
+  /* Brighter white for active tab */
 }
 
 /* Inactive tab button style */
 .tab-btn.opacity-85 {
-  color: #d1d5db;
+  color: #a5b6a0;
+  /* Use text-color-1 from Tailwind config */
 }
 
-/* Slightly dimmer white for inactive tab, adjust if needed */
+/* Sliding border */
+.sliding-border {
+  position: absolute;
+  bottom: -1px;
+  /* Overlap the parent border to ensure visibility */
+  left: 0;
+  height: 2px;
+  /* Match border-b-2 */
+  background-color: #0a7121;
+  /* Use hover color from Tailwind config (border-hover) */
+  transition: left 300ms ease-in, width 300ms ease-in;
+  z-index: 2;
+  /* Ensure it appears above the parent border */
+}

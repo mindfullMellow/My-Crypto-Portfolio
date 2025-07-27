@@ -88,7 +88,7 @@ function switchTab(tabId) {
 
   // Reset all tab buttons
   document.querySelectorAll(".tab-btn").forEach((btn) => {
-    btn.classList.remove("border-b-2", "border-hover", "opacity-100");
+    btn.classList.remove("opacity-100");
     btn.classList.add("opacity-85");
   });
 
@@ -100,11 +100,21 @@ function switchTab(tabId) {
     activeTab.classList.add("opacity-100");
   }
 
-  // Activate selected tab button
+  // Activate selected tab button and position sliding border
   const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
   if (activeBtn) {
-    activeBtn.classList.add("border-b-2", "border-hover", "opacity-100");
+    activeBtn.classList.add("opacity-100");
     activeBtn.classList.remove("opacity-85");
+
+    const slidingBorder =
+      activeBtn.parentElement.parentElement.querySelector(".sliding-border");
+    if (slidingBorder) {
+      const rect = activeBtn.getBoundingClientRect();
+      const containerRect =
+        activeBtn.parentElement.parentElement.getBoundingClientRect();
+      slidingBorder.style.left = `${rect.left - containerRect.left}px`;
+      slidingBorder.style.width = `${rect.width}px`;
+    }
   }
 }
 
