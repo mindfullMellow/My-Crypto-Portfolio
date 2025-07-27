@@ -124,3 +124,39 @@ body {
     transform: translateY(-5px);
   }
 }
+
+/* animation fo calculator page  */
+/* Ensure inactive tab content is hidden but still occupies space for smooth transitions */
+.tab-content.invisible {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  /* Prevents interaction with hidden content */
+}
+
+/* Smooth transition for tab content */
+.tab-content {
+  transition-property: opacity, visibility;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in;
+}
+
+/* Smooth transition for tab buttons */
+.tab-btn {
+  transition-property: opacity, border-color, color;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in;
+}
+
+/* Active tab button style */
+.tab-btn.opacity-100 {
+  color: #f3f4f6;
+  /* Brighter white for active tab, adjust if needed */
+}
+
+/* Inactive tab button style */
+.tab-btn.opacity-85 {
+  color: #d1d5db;
+}
+
+/* Slightly dimmer white for inactive tab, adjust if needed */

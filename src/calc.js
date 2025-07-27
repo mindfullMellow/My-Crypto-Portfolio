@@ -75,3 +75,48 @@ for (let i = 0; i < profileBtn.length; i++) {
 overlayEL.addEventListener("click", closeProfileModal);
 
 console.log("this works");
+
+///////////////////////////////////////////////////
+//tab switching function
+function switchTab(tabId) {
+  // Hide all tab contents
+  document.querySelectorAll(".tab-content").forEach((tab) => {
+    tab.classList.add("invisible");
+    tab.classList.remove("opacity-100");
+    tab.classList.add("opacity-0");
+  });
+
+  // Reset all tab buttons
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.classList.remove("border-b-2", "border-hover", "opacity-100");
+    btn.classList.add("opacity-85");
+  });
+
+  // Show selected tab content
+  const activeTab = document.getElementById(tabId);
+  if (activeTab) {
+    activeTab.classList.remove("invisible");
+    activeTab.classList.remove("opacity-0");
+    activeTab.classList.add("opacity-100");
+  }
+
+  // Activate selected tab button
+  const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
+  if (activeBtn) {
+    activeBtn.classList.add("border-b-2", "border-hover", "opacity-100");
+    activeBtn.classList.remove("opacity-85");
+  }
+}
+
+// Attach event listeners to tab buttons
+document.querySelectorAll(".tab-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const tabId = btn.getAttribute("data-tab");
+    switchTab(tabId);
+  });
+});
+
+// Set default active tab on page load
+document.addEventListener("DOMContentLoaded", () =>
+  switchTab("tab-risk-reward")
+);

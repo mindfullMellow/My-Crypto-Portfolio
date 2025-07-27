@@ -194,6 +194,41 @@
 
   </header>
 
+  <!-- Welcoming section -->
+  <section class="px-5 welcome-section py-9 lg:px-10">
+    <div class="container mx-auto max-w-[1200px] flex flex-col gap-4 font-manrope">
+      <h1 class="text-white tracking-light text-[32px] font-bold leading-tight">Hey Sam,</h1>
+      <p class="text-sm font-normal text-text-color-1">What are we calculating today ???</p>
+    </div>
+  </section>
+
+  <!-- calculator -->
+  <section class="px-5 calculator-section py-9 lg:px-10">
+    <div class="container mx-auto max-w-[1200px] flex flex-col gap-4">
+      <!-- Tabs -->
+      <div class="mb-4 border-b border-border-color">
+        <ul class="flex space-x-8 text-sm font-medium font-Noto">
+          <li
+            class="pb-2 text-white border-b-2 opacity-100 cursor-pointer tab-btn border-hover transition-all duration-300"
+            data-tab="tab-risk-reward" id="tab-risk-reward-btn">Crypto Trade Risk & Reward Calculator</li>
+          <li class="pb-2 text-white cursor-pointer opacity-85 tab-btn transition-all duration-300"
+            data-tab="tab-percentage-change" id="tab-percentage-change-btn">Percentage Change Calculator</li>
+        </ul>
+      </div>
+
+      <!-- Tab Content -->
+      <div id="tab-risk-reward" class="tab-content opacity-100">
+        <p>Liquidation calculator content here</p>
+      </div>
+
+      <div id="tab-percentage-change" class="tab-content opacity-0 invisible">
+        <p>Take Profit calculator content here</p>
+      </div>
+    </div>
+  </section>
+
+
+
 
 
   <!-- darkoverlay -->
