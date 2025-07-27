@@ -1,4 +1,14 @@
-export default {
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        main: "index.html",
+        calculator: "calculator.html",
+      },
+    },
+  },
   server: {
     hmr: {
       host: "localhost",
@@ -6,4 +16,4 @@ export default {
       protocol: "ws",
     },
   },
-};
+});
