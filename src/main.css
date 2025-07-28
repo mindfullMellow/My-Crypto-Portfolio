@@ -170,35 +170,46 @@ body {
   z-index: 2;
 }
 
-/* Glassmorphism background for the calculator container */
+
+/* Glassmorphism background with linear gradient and shimmering light effect */
 .glassmorphism {
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  padding: 1rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-
-.text-glass {
-  color: #ffffff;
-}
-
-.bg-dark-forest {
   background-color: #2d372a;
+  /* your original background */
+  overflow: hidden;
+  z-index: 1;
 }
 
-/* ////////////////////////////////////////////////////////////////// */
-/* removing those arrows on the inputbox  */
-/* Remove arrows for Chrome */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+/* shimmer border only */
+.glassmorphism::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(60deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  background-size: 300% 300%;
+  animation: shimmer-border 4s linear infinite;
 }
 
-/* Remove arrows for Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
+@keyframes shimmer-border {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
