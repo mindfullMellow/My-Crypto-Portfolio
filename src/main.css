@@ -149,32 +149,56 @@ body {
   transition-timing-function: ease-in;
   position: relative;
   z-index: 1;
-  /* Ensure buttons are above sliding border */
 }
 
-/* Active tab button style */
 .tab-btn.opacity-100 {
   color: #f3f4f6;
-  /* Brighter white for active tab */
 }
 
-/* Inactive tab button style */
 .tab-btn.opacity-85 {
   color: #a5b6a0;
-  /* Use text-color-1 from Tailwind config */
 }
 
 /* Sliding border */
 .sliding-border {
   position: absolute;
   bottom: -1px;
-  /* Overlap the parent border to ensure visibility */
   left: 0;
   height: 2px;
-  /* Match border-b-2 */
   background-color: #0a7121;
-  /* Use hover color from Tailwind config (border-hover) */
   transition: left 300ms ease-in, width 300ms ease-in;
   z-index: 2;
-  /* Ensure it appears above the parent border */
+}
+
+/* Glassmorphism background for the calculator container */
+.glassmorphism {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.text-glass {
+  color: #ffffff;
+}
+
+.bg-dark-forest {
+  background-color: #2d372a;
+}
+
+/* ////////////////////////////////////////////////////////////////// */
+/* removing those arrows on the inputbox  */
+/* Remove arrows for Chrome */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove arrows for Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

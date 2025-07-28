@@ -15,6 +15,9 @@ export default {
         "tabel-top-border": "#42513e",
         "change-red": "#da0b35",
         "change-green": "#0bda35",
+        placeholder: "#6f816a",
+        "input-bg": "#f2f4f1",
+        "input-text": "#131612",
       },
       fontFamily: {
         manrope: ["Manrope", "sans-serif"],

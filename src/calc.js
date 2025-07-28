@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", () =>
 
 //////////////////////////////////////////////////////
 // Selective calculator tab switching function
+// in this code scope ihad to attch the function to the windows object sincce i am using the inline html handler (onclick) this put the functiononthe global scope so if i instead used addeventListener iwouldnt need to attach the window object to the function ..thats why this function is the most unique function in THIS PROJECT 😂😂
 window.switchCalc = function (calcId) {
   // Hide all calc-content divs
   document.querySelectorAll(".calc-content").forEach((calc) => {
@@ -146,7 +147,7 @@ window.switchCalc = function (calcId) {
   });
 
   // Show the selected tab
-  document.getElementById(calcId).classList.remove("hidden");
+  document.getElementById(calcId).classList.replace("hidden", "flex");
 
   // Activate the selected button
   const targetButton = document.querySelector(`[data-tab="${calcId}"]`);
