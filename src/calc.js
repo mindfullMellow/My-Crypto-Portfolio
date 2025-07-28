@@ -77,7 +77,7 @@ overlayEL.addEventListener("click", closeProfileModal);
 console.log("this works");
 
 ///////////////////////////////////////////////////
-//tab switching function
+//seletive calculator tab switching function
 function switchTab(tabId) {
   // Hide all tab contents
   document.querySelectorAll(".tab-content").forEach((tab) => {
@@ -130,3 +130,31 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 document.addEventListener("DOMContentLoaded", () =>
   switchTab("tab-risk-reward")
 );
+
+//////////////////////////////////////////////////////
+// Selective calculator tab switching function
+window.switchCalc = function (calcId) {
+  // Hide all calc-content divs
+  document.querySelectorAll(".calc-content").forEach((calc) => {
+    calc.classList.add("hidden");
+  });
+
+  // Remove active styles from all rr-btn buttons
+  document.querySelectorAll(".rr-btn").forEach((rr) => {
+    rr.classList.replace("text-white", "text-text-color-1");
+    rr.classList.replace("border-opacity-100", "border-opacity-0");
+  });
+
+  // Show the selected tab
+  document.getElementById(calcId).classList.remove("hidden");
+
+  // Activate the selected button
+  const targetButton = document.querySelector(`[data-tab="${calcId}"]`);
+  targetButton.classList.replace("text-text-color-1", "text-white");
+  targetButton.classList.replace("border-opacity-0", "border-opacity-100");
+};
+
+// Initialize the default tab on page load
+window.onload = () => {
+  window.switchCalc("long-trade");
+};

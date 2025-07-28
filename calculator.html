@@ -205,8 +205,8 @@
   <section class="px-5 calculator-section py-9 lg:px-10">
     <div class="container mx-auto max-w-[1200px] flex flex-col gap-4">
       <!-- Tabs -->
-      <div class="relative mb-4 border-b border-border-color">
-        <ul class="flex space-x-8 text-sm font-medium font-Noto">
+      <div class="relative border-b border-border-color">
+        <ul class="flex space-x-8 text-base font-medium font-Noto">
           <li class="pb-2 text-white transition-all duration-300 opacity-100 cursor-pointer tab-btn"
             data-tab="tab-risk-reward" id="tab-risk-reward-btn">Crypto Trade Risk & Reward Calculator</li>
           <li class="pb-2 text-white transition-all duration-300 cursor-pointer opacity-85 tab-btn"
@@ -218,8 +218,32 @@
       </div>
 
       <!-- Tab Content -->
-      <div id="tab-risk-reward" class="opacity-100 tab-content">
-        <p>Liquidation calculator content here</p>
+      <!-- crypto percentage risk-reward calcuator -->
+      <div id="tab-risk-reward" class="p-6 opacity-100 tab-content bg-border-color rounded-2xl">
+
+        <div class="flex flex-col gap-8">
+          <!-- long and short button div -->
+          <ul class="flex items-center justify-start space-x-12 text-sm font-medium font-Noto">
+            <li
+              class="pb-1 transition-all duration-200 ease-in border-b-2 border-opacity-0 cursor-pointer text-text-color-1 border-change-green rr-btn"
+              data-tab="long-trade" onclick="switchCalc('long-trade')">
+              Long Trade</li>
+            <li
+              class="pb-1 transition-all duration-200 ease-in border-b-2 border-opacity-0 cursor-pointer text-text-color-1 border-change-red rr-btn"
+              data-tab="short-trade" onclick="switchCalc('short-trade')">
+              Short Trade</li>
+          </ul>
+
+
+          <!-- calculator input -->
+          <div class="hidden calc-content" id="long-trade"> whaw;qlkjdghgWJKL;LSKKJM</div>
+
+          <div class="hidden calc-content" id="short-trade">JEDHQJKO;wjiohjQDLPKOHUKJ</div>
+        </div>
+
+
+        <!-- output div -->
+        <div></div>
       </div>
 
       <div id="tab-percentage-change" class="invisible opacity-0 tab-content">
