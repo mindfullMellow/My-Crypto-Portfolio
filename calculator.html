@@ -205,17 +205,20 @@
   <section class="px-5 calculator-section py-9 lg:px-10">
     <div class="container mx-auto max-w-[1200px] flex flex-col gap-4">
       <!-- Tabs -->
-      <div class="relative border-b border-border-color">
-        <ul class="flex space-x-8 text-base font-medium font-Noto">
-          <li class="pb-2 text-white transition-all duration-300 opacity-100 cursor-pointer tab-btn"
-            data-tab="tab-risk-reward" id="tab-risk-reward-btn">Crypto Trade Risk & Reward Calculator</li>
-          <li class="pb-2 text-white transition-all duration-300 cursor-pointer opacity-85 tab-btn"
-            data-tab="tab-percentage-change" id="tab-percentage-change-btn">Percentage Change Calculator</li>
-          <li class="pb-2 text-white transition-all duration-300 cursor-pointer opacity-85 tab-btn"
-            data-tab="tab-profit-loss" id="tab-profit-loss-btn">Profit-loss</li>
-        </ul>
-        <span class="sliding-border"></span>
+      <div class="w-full overflow-x-auto scrollbar-hide">
+        <div class="relative border-b border-border-color min-w-[650px] ">
+          <ul class="flex space-x-8 text-base font-medium font-Noto">
+            <li class="pb-2 text-white transition-all duration-300 opacity-100 cursor-pointer tab-btn"
+              data-tab="tab-risk-reward" id="tab-risk-reward-btn">Crypto Trade Risk & Reward Calculator</li>
+            <li class="pb-2 text-white transition-all duration-300 cursor-pointer opacity-85 tab-btn"
+              data-tab="tab-percentage-change" id="tab-percentage-change-btn">Percentage Change Calculator</li>
+            <li class="pb-2 text-white transition-all duration-300 cursor-pointer opacity-85 tab-btn"
+              data-tab="tab-profit-loss" id="tab-profit-loss-btn">Profit-loss</li>
+          </ul>
+          <span class="sliding-border"></span>
+        </div>
       </div>
+
 
       <!-- Tab Content -->
       <!-- crypto percentage risk-reward calcuator -->
