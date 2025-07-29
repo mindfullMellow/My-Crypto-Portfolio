@@ -159,3 +159,16 @@ window.switchCalc = function (calcId) {
 window.onload = () => {
   window.switchCalc("long-trade");
 };
+//////////////////////////////////////////////
+//logic for crytpto-risk-reward calcuator(LONG-TRADE)
+const calcLong = document.querySelector("#long-btn-calc");
+
+function calcLongTrade(calcBtn) {
+  calcBtn.addEventListener("click", () => {
+    document
+      .querySelector(".glassmorphism")
+      .classList.replace("hidden", "flex");
+  });
+}
+
+calcLongTrade(calcLong);
