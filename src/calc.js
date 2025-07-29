@@ -160,15 +160,138 @@ window.onload = () => {
   window.switchCalc("long-trade");
 };
 //////////////////////////////////////////////
-//logic for crytpto-risk-reward calcuator(LONG-TRADE)
+// logic for crypto-risk-reward calculator (LONG-TRADE)
 const calcLong = document.querySelector("#long-btn-calc");
+const glassmorphism = document.querySelector(".glassmorphism");
 
-function calcLongTrade(calcBtn) {
-  calcBtn.addEventListener("click", () => {
-    document
-      .querySelector(".glassmorphism")
-      .classList.replace("hidden", "flex");
+function calcLongTrade() {
+  // Clean and convert input values
+  const capital = Number(
+    document.getElementById("capital").value.replace(/[^0-9.]/g, "")
+  );
+  const entryPrice = Number(
+    document.getElementById("entry-price").value.replace(/[^0-9.]/g, "")
+  );
+  const tpPrice = Number(
+    document.getElementById("tp-price").value.replace(/[^0-9.]/g, "")
+  );
+  const leverage = Number(
+    document.getElementById("leverage").value.replace(/[^0-9.]/g, "")
+  );
+
+  // Validate inputs
+  const inputs = ["entry-price", "tp-price", "leverage", "capital"];
+  let allFilled = true;
+
+  inputs.forEach((id) => {
+    const input = document.getElementById(id);
+    if (!input.value.trim()) {
+      input.style.border = "2px solid red";
+      allFilled = false;
+    } else {
+      input.style.border = "";
+    }
   });
+
+  if (!allFilled) return;
+
+  // liquidation price
+  const longLP = entryPrice * (1 - 1 / leverage);
+  document.getElementById("long-lp").textContent =
+    "$" +
+    longLP.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+  // Risk to Reward
+  const risk = entryPrice - longLP;
+  const reward = tpPrice - entryPrice;
+  const RRR = risk !== 0 ? reward / risk : 0;
+
+  const rrElem = document.getElementById("long-rr");
+  rrElem.textContent =
+    "1:" +
+    Math.abs(RRR).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  rrElem.style.color = RRR < 0 ? "red" : "#b4ff59";
+
+  // TP %
+  const tpGain = ((tpPrice - entryPrice) / entryPrice) * 100 * leverage;
+  const tpElem = document.getElementById("long-tp");
+  tpElem.textContent =
+    tpGain.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }) + "%";
+  tpElem.style.color = tpGain < 0 ? "red" : "#b4ff59";
+
+  // TP $
+  const tpGainDol = ((tpPrice - entryPrice) * leverage * capital) / entryPrice;
+  const tpDolElem = document.getElementById("long-capital");
+  tpDolElem.textContent =
+    "$" +
+    tpGainDol.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  tpDolElem.style.color = tpGainDol < 0 ? "red" : "#b4ff59";
+
+  // Show result box
+  if (glassmorphism.classList.contains("hidden")) {
+    glassmorphism.classList.remove("hidden");
+    glassmorphism.classList.add("flex");
+  }
 }
 
-calcLongTrade(calcLong);
+// Attach button click
+calcLong.addEventListener("click", () => calcLongTrade());
+
+// Format $ inputs
+["entry-price", "tp-price", "capital"].forEach((id) => {
+  const input = document.getElementById(id);
+
+  input.addEventListener("blur", () => {
+    let val = input.value.trim().replace(/[^0-9.]/g, "");
+    if (val) {
+      const formatted =
+        "$" +
+        Number(val).toLocaleString("en-US", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2,
+        });
+      input.value = formatted;
+    }
+  });
+
+  input.addEventListener("focus", () => {
+    let val = input.value.trim();
+    if (val.startsWith("$")) {
+      input.value = val.replace(/[^0-9.]/g, "");
+    }
+  });
+});
+
+// Format leverage input with 'x'
+const leverageInput = document.getElementById("leverage");
+
+leverageInput.addEventListener("blur", () => {
+  let val = leverageInput.value.trim().replace(/[^0-9.]/g, "");
+  if (val) {
+    const formatted =
+      Number(val).toLocaleString("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+      }) + "x";
+    leverageInput.value = formatted;
+  }
+});
+
+leverageInput.addEventListener("focus", () => {
+  let val = leverageInput.value.trim();
+  if (val.endsWith("x")) {
+    leverageInput.value = val.replace(/[^0-9.]/g, "");
+  }
+});
