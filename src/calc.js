@@ -235,26 +235,37 @@ function calcLongTrade() {
     });
   rrElem.style.color = RRR < 0 ? "red" : "#b4ff59";
 
-  // TP %
-  const tpGain = ((tpPrice - entryPrice) / entryPrice) * 100 * leverage;
-  const tpElem = document.getElementById("long-tp");
-  tpElem.textContent =
-    tpGain.toLocaleString("en-US", {
+  // PNL Percent %
+  const PNLpercent = ((tpPrice - entryPrice) / entryPrice) * 100 * leverage;
+  const PNLpercentEL = document.getElementById("long-pnl");
+  PNLpercentEL.textContent =
+    PNLpercent.toLocaleString("en-US", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }) + "%";
-  tpElem.style.color = tpGain < 0 ? "red" : "#b4ff59";
+  PNLpercentEL.style.color = PNLpercent < 0 ? "red" : "#b4ff59";
 
-  // TP $
-  const tpGainDol = ((tpPrice - entryPrice) * leverage * capital) / entryPrice;
-  const tpDolElem = document.getElementById("long-capital");
-  tpDolElem.textContent =
+  // Total Return $
+  const totalReturn =
+    ((tpPrice - entryPrice) * leverage * capital) / entryPrice;
+  const totalReturnEL = document.getElementById("long-return");
+  totalReturnEL.textContent =
     "$" +
-    tpGainDol.toLocaleString("en-US", {
+    totalReturn.toLocaleString("en-US", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
-  tpDolElem.style.color = tpGainDol < 0 ? "red" : "#b4ff59";
+  totalReturnEL.style.color = totalReturn < 0 ? "red" : "#b4ff59";
+
+  //Net Profit Value $
+  const netProfit = totalReturn - capital;
+  const npEL = document.getElementById("long-NP");
+  npEL.textContent =
+    "$" +
+    netProfit.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
 }
 
 // Modified: Updated showResultBox to handle tab-specific containers
