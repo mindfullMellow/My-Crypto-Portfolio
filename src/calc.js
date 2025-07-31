@@ -159,11 +159,19 @@ window.switchCalc = function (calcId) {
 window.onload = () => {
   window.switchCalc("long-trade");
 };
+
 //////////////////////////////////////////////
 // logic for crypto-risk-reward calculator (LONG-TRADE)
-const calcLong = document.querySelector("#long-btn-calc");
-const glassmorphism = document.querySelector(".glassmorphism");
+const calcLong = document.getElementById("long-btn-calc");
+const calcShort = document.getElementById("short-btn-calc");
 
+// Modified: Use tab-specific glassmorphism containers
+const glassmorphismLong = document.querySelector(".long-glassmorphism");
+const glassmorphismShort = document.querySelector(".short-glassmorphism");
+
+/////////////////////////////////////////
+/////logic for the long trade calculation
+/////////////////////////////////////////
 function calcLongTrade() {
   // Clean and convert input values
   const capital = Number(
@@ -179,13 +187,19 @@ function calcLongTrade() {
     document.getElementById("leverage").value.replace(/[^0-9.]/g, "")
   );
 
-  // Validate inputs
+  // Modified: Enhanced validation to prevent multiple decimals and invalid inputs
   const inputs = ["entry-price", "tp-price", "leverage", "capital"];
   let allFilled = true;
-
   inputs.forEach((id) => {
     const input = document.getElementById(id);
-    if (!input.value.trim()) {
+    const value = input.value.trim().replace(/[^0-9.]/g, "");
+    // Check for valid number, positive value, and single decimal point
+    if (
+      !value ||
+      isNaN(value) ||
+      value <= 0 ||
+      (value.match(/\./g) || []).length > 1
+    ) {
       input.style.border = "2px solid red";
       allFilled = false;
     } else {
@@ -195,7 +209,10 @@ function calcLongTrade() {
 
   if (!allFilled) return;
 
-  // liquidation price
+  // Modified: Show tab-specific glassmorphism for long tab
+  showResultBox("long");
+
+  // Liquidation price
   const longLP = entryPrice * (1 - 1 / leverage);
   document.getElementById("long-lp").textContent =
     "$" +
@@ -238,8 +255,11 @@ function calcLongTrade() {
       maximumFractionDigits: 2,
     });
   tpDolElem.style.color = tpGainDol < 0 ? "red" : "#b4ff59";
+}
 
-  // Show result box
+// Modified: Updated showResultBox to handle tab-specific containers
+function showResultBox(tab) {
+  const glassmorphism = tab === "long" ? glassmorphismLong : glassmorphismShort;
   if (glassmorphism.classList.contains("hidden")) {
     glassmorphism.classList.remove("hidden");
     glassmorphism.classList.add("flex");
@@ -255,7 +275,13 @@ calcLong.addEventListener("click", () => calcLongTrade());
 
   input.addEventListener("blur", () => {
     let val = input.value.trim().replace(/[^0-9.]/g, "");
-    if (val) {
+    // Modified: Validate for single decimal and positive number
+    if (
+      val &&
+      !isNaN(val) &&
+      Number(val) > 0 &&
+      (val.match(/\./g) || []).length <= 1
+    ) {
       const formatted =
         "$" +
         Number(val).toLocaleString("en-US", {
@@ -263,6 +289,9 @@ calcLong.addEventListener("click", () => calcLongTrade());
           maximumFractionDigits: 2,
         });
       input.value = formatted;
+    } else {
+      input.value = "";
+      input.style.border = "2px solid red";
     }
   });
 
@@ -279,13 +308,22 @@ const leverageInput = document.getElementById("leverage");
 
 leverageInput.addEventListener("blur", () => {
   let val = leverageInput.value.trim().replace(/[^0-9.]/g, "");
-  if (val) {
+  // Modified: Validate for single decimal and positive number
+  if (
+    val &&
+    !isNaN(val) &&
+    Number(val) > 0 &&
+    (val.match(/\./g) || []).length <= 1
+  ) {
     const formatted =
       Number(val).toLocaleString("en-US", {
         minimumFractionDigits: 0,
         maximumFractionDigits: 2,
       }) + "x";
     leverageInput.value = formatted;
+  } else {
+    leverageInput.value = "";
+    leverageInput.style.border = "2px solid red";
   }
 });
 
@@ -293,5 +331,160 @@ leverageInput.addEventListener("focus", () => {
   let val = leverageInput.value.trim();
   if (val.endsWith("x")) {
     leverageInput.value = val.replace(/[^0-9.]/g, "");
+  }
+});
+
+//////////////////////////////////////////
+/////logic for the short trade calculation
+//////////////////////////////////////////
+function calcShortTrade() {
+  // Clean and convert input values
+  const capital = Number(
+    document.getElementById("capital-sh").value.replace(/[^0-9.]/g, "")
+  );
+  const entryPrice = Number(
+    document.getElementById("entry-price-sh").value.replace(/[^0-9.]/g, "")
+  );
+  const tpPrice = Number(
+    document.getElementById("tp-price-sh").value.replace(/[^0-9.]/g, "")
+  );
+  const leverage = Number(
+    document.getElementById("leverage-sh").value.replace(/[^0-9.]/g, "")
+  );
+
+  // Modified: Enhanced validation to prevent multiple decimals and invalid inputs
+  const inputs = ["entry-price-sh", "tp-price-sh", "leverage-sh", "capital-sh"];
+  let allFilled = true;
+  inputs.forEach((id) => {
+    const input = document.getElementById(id);
+    const value = input.value.trim().replace(/[^0-9.]/g, "");
+    if (
+      !value ||
+      isNaN(value) ||
+      value <= 0 ||
+      (value.match(/\./g) || []).length > 1
+    ) {
+      input.style.border = "2px solid red";
+      allFilled = false;
+    } else {
+      input.style.border = "";
+    }
+  });
+
+  if (!allFilled) return;
+
+  // Modified: Show tab-specific glassmorphism for short tab
+  showResultBox("short");
+
+  // Liquidation price calculation
+  const shortLP = entryPrice * (1 + 1 / leverage);
+  document.getElementById("short-lp").textContent =
+    "$" +
+    shortLP.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+  // Modified: Clarified risk-to-reward for short trades
+  const risk = shortLP - entryPrice; // Risk = Liquidation - Entry
+  const reward = entryPrice - tpPrice; // Reward = Entry - TP
+  const RRR = risk !== 0 ? reward / risk : 0;
+
+  const rrElem = document.getElementById("short-rr");
+  rrElem.textContent =
+    "1:" +
+    Math.abs(RRR).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  rrElem.style.color = RRR < 0 ? "red" : "#b4ff59";
+
+  // Modified: Ensured TP% calculation is correct for short trades
+  const tpGain = ((entryPrice - tpPrice) / entryPrice) * 100 * leverage;
+  const tpElem = document.getElementById("short-tp");
+  tpElem.textContent =
+    tpGain.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }) + "%";
+  tpElem.style.color = tpGain < 0 ? "red" : "#b4ff59";
+
+  // Modified: Ensured TP$ calculation is correct for short trades
+  const tpGainDol = ((entryPrice - tpPrice) * leverage * capital) / entryPrice;
+  const tpDolElem = document.getElementById("short-capital");
+  tpDolElem.textContent =
+    "$" +
+    tpGainDol.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  tpDolElem.style.color = tpGainDol < 0 ? "red" : "#b4ff59";
+}
+
+// Attach button click
+calcShort.addEventListener("click", () => calcShortTrade());
+
+// Format $ inputs
+["entry-price-sh", "tp-price-sh", "capital-sh"].forEach((id) => {
+  const input = document.getElementById(id);
+
+  input.addEventListener("blur", () => {
+    let val = input.value.trim().replace(/[^0-9.]/g, "");
+    // Modified: Validate for single decimal and positive number
+    if (
+      val &&
+      !isNaN(val) &&
+      Number(val) > 0 &&
+      (val.match(/\./g) || []).length <= 1
+    ) {
+      const formatted =
+        "$" +
+        Number(val).toLocaleString("en-US", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2,
+        });
+      input.value = formatted;
+    } else {
+      input.value = "";
+      input.style.border = "2px solid red";
+    }
+  });
+
+  input.addEventListener("focus", () => {
+    let val = input.value.trim();
+    if (val.startsWith("$")) {
+      input.value = val.replace(/[^0-9.]/g, "");
+    }
+  });
+});
+
+// Format leverage input with 'x'
+const shortLeverageInput = document.getElementById("leverage-sh");
+
+shortLeverageInput.addEventListener("blur", () => {
+  let val = shortLeverageInput.value.trim().replace(/[^0-9.]/g, "");
+  // Modified: Validate for single decimal and positive number
+  if (
+    val &&
+    !isNaN(val) &&
+    Number(val) > 0 &&
+    (val.match(/\./g) || []).length <= 1
+  ) {
+    const formatted =
+      Number(val).toLocaleString("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+      }) + "x";
+    shortLeverageInput.value = formatted;
+  } else {
+    shortLeverageInput.value = "";
+    shortLeverageInput.style.border = "2px solid red";
+  }
+});
+
+shortLeverageInput.addEventListener("focus", () => {
+  let val = shortLeverageInput.value.trim();
+  if (val.endsWith("x")) {
+    shortLeverageInput.value = val.replace(/[^0-9.]/g, "");
   }
 });

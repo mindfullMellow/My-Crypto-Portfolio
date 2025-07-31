@@ -172,7 +172,8 @@ body {
 
 
 /* Glassmorphism background with linear gradient and shimmering light effect */
-.glassmorphism {
+.long-glassmorphism,
+.short-glassmorphism {
   position: relative;
   padding: 1rem;
   border-radius: 1rem;
@@ -183,7 +184,8 @@ body {
 }
 
 /* shimmer border only */
-.glassmorphism::before {
+.long-glassmorphism::before,
+.short-glassmorphism::before {
   content: "";
   position: absolute;
   top: -2px;
