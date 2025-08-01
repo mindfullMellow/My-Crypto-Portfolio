@@ -157,7 +157,7 @@ window.switchCalc = function (calcId) {
 
 // Initialize the default tab on page load
 window.onload = () => {
-  window.switchCalc("long-trade");
+  window.switchCalc("short-trade");
 };
 
 //////////////////////////////////////////////
@@ -383,7 +383,7 @@ function calcShortTrade() {
     document.getElementById("leverage-sh").value.replace(/[^0-9.]/g, "")
   );
 
-  // Modified: Enhanced validation to prevent multiple decimals and invalid inputs
+  // Enhanced validation to prevent multiple decimals and invalid inputs
   const inputs = ["entry-price-sh", "tp-price-sh", "leverage-sh", "capital-sh"];
   let allFilled = true;
   inputs.forEach((id) => {
@@ -404,23 +404,50 @@ function calcShortTrade() {
 
   if (!allFilled) return;
 
-  // Modified: Show tab-specific glassmorphism for short tab
-  showResultBox("short");
-
   // Liquidation price calculation
   const shortLP = entryPrice * (1 + 1 / leverage);
-  document.getElementById("short-lp").textContent =
-    "$" +
-    shortLP.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+  const formattedShortLp = shortLP.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
-  // Modified: Clarified risk-to-reward for short trades
+  const shErrMessage = document.getElementById("short-err");
+
+  //show err message if tp > liquidation price
+  if (tpPrice > shortLP) {
+    // hide glassmorphsim if visible
+    glassmorphismLong.classList.add("hidden");
+    glassmorphismLong.classList.remove("flex");
+    //show the error message
+    document.getElementById("short-err-no").textContent = `${formattedShortLp}`;
+    shErrMessage.classList.replace("opacity-0", "opacity-100");
+    shErrMessage.classList.replace("invisible", "visible");
+    shErrMessage.classList.replace(
+      "pointer-events-none",
+      "pointer-events-auto"
+    );
+  } else {
+    // show glassmorphsim if all condition is met
+    showResultBox("short");
+  }
+
+  //Hide after 3 seconds
+  setTimeout(() => {
+    shErrMessage.classList.replace("opacity-100", "opacity-0");
+    shErrMessage.classList.replace("visible", "invisible");
+    shErrMessage.classList.replace(
+      "pointer-events-auto",
+      "pointer-events-none"
+    );
+  }, 3000);
+
+  //display liquidation price in the glassmorphism
+  document.getElementById("short-lp").textContent = "$" + formattedShortLp;
+
+  // Risk Reward calculation
   const risk = shortLP - entryPrice; // Risk = Liquidation - Entry
   const reward = entryPrice - tpPrice; // Reward = Entry - TP
   const RRR = risk !== 0 ? reward / risk : 0;
-
   const rrElem = document.getElementById("short-rr");
   rrElem.textContent =
     "1:" +
@@ -430,26 +457,37 @@ function calcShortTrade() {
     });
   rrElem.style.color = RRR < 0 ? "red" : "#b4ff59";
 
-  // Modified: Ensured TP% calculation is correct for short trades
-  const tpGain = ((entryPrice - tpPrice) / entryPrice) * 100 * leverage;
-  const tpElem = document.getElementById("short-tp");
-  tpElem.textContent =
-    tpGain.toLocaleString("en-US", {
+  // short PNL calculation
+  const shortPNL = ((entryPrice - tpPrice) / entryPrice) * 100 * leverage;
+  const shortPNLel = document.getElementById("short-pnl");
+  shortPNLel.textContent =
+    shortPNL.toLocaleString("en-US", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }) + "%";
-  tpElem.style.color = tpGain < 0 ? "red" : "#b4ff59";
+  shortPNLel.style.color = shortPNL < 0 ? "red" : "#b4ff59";
 
-  // Modified: Ensured TP$ calculation is correct for short trades
-  const tpGainDol = ((entryPrice - tpPrice) * leverage * capital) / entryPrice;
-  const tpDolElem = document.getElementById("short-capital");
-  tpDolElem.textContent =
+  // Total Return $
+  const shTotalReturn = capital * (1 + shortPNL / 100);
+  const shTotalReturnEl = document.getElementById("short-return");
+  shTotalReturnEl.textContent =
     "$" +
-    tpGainDol.toLocaleString("en-US", {
+    shTotalReturn.toLocaleString("en-US", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
-  tpDolElem.style.color = tpGainDol < 0 ? "red" : "#b4ff59";
+  shTotalReturnEl.style.color = shTotalReturn <= 0 ? "red" : "#b4ff59";
+
+  //Net Profit $
+  const shNetProfit = shTotalReturn - capital;
+  const shNetProfitEl = document.getElementById("short-NP");
+  shNetProfitEl.textContent =
+    "$" +
+    shNetProfit.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  shNetProfitEl.style.color = shNetProfit <= 0 ? "red" : "#b4ff59";
 }
 
 // Attach button click
