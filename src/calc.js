@@ -268,8 +268,7 @@ function calcLongTrade() {
   PNLpercentEL.style.color = PNLpercent < 0 ? "red" : "#b4ff59";
 
   // Total Return $
-  const totalReturn =
-    ((tpPrice - entryPrice) * leverage * capital) / entryPrice;
+  const totalReturn = capital * (1 + PNLpercent / 100);
   const totalReturnEL = document.getElementById("long-return");
   totalReturnEL.textContent =
     "$" +
