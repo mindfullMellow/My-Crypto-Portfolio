@@ -241,7 +241,8 @@
 
 
           <!-- calculator input (long TRADE)-->
-          <div class="flex-col flex-wrap items-start hidden w-full gap-16 lg:flex-row calc-content " id="long-trade">
+          <div class="relative flex-col flex-wrap items-start hidden w-full gap-16 lg:flex-row calc-content"
+            id="long-trade">
             <!-- calculation input (LONG) -->
             <div class="flex flex-col  gap-6 w-full lg:max-w-[450px] font-manrope">
 
@@ -277,7 +278,7 @@
             <!-- calculator ouptput (LONG) -->
             <div
               class="hidden w-full lg:w-[350px] min-h-[150px] p-4 long-glassmorphism justify-self-start  flex-col gap-4 justify-center font-manrope">
-              <p class="text-lg font-bold tracking-wide text-white">Liquidation Price: <span class=" text-lime-300"
+              <p class="text-lg font-bold tracking-wide text-white">Liquidation Price: <span class="text-[#ff0000]"
                   id="long-lp">$2,345</span>
               </p>
               <p class="text-lg font-bold tracking-wider text-white">Risk to Reward Ratio: <span class="text-lime-300"
@@ -290,6 +291,16 @@
                   id="long-return">$3,244</span></p>
 
             </div>
+
+            <div
+              class="text-[#ff0000] font-manrope p-4 text-sm font-medium bg-table-bg  rounded-full absolute left-1/2 -top-12 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible pointer-events-none transition-all duration-200 ease-in"
+              id="long-err">
+              TP
+              price
+              cannot be lower
+              than
+              liquidation price of <span id="err-no" class="text-lime-300"></span></div>
+
           </div>
 
           <!-- calculator input (SHORT TRADE)-->

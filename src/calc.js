@@ -209,11 +209,28 @@ function calcLongTrade() {
 
   if (!allFilled) return;
 
-  // Modified: Show tab-specific glassmorphism for long tab
-  showResultBox("long");
-
   // Liquidation price
   const longLP = entryPrice * (1 - 1 / leverage);
+
+  //show error message if TP < LP
+  const errmessage = document.getElementById("long-err");
+  if (tpPrice < longLP) {
+    document.getElementById("err-no").textContent = `${longLP}`;
+    errmessage.classList.replace("opacity-0", "opacity-100");
+    errmessage.classList.replace("invisible", "visible");
+    errmessage.classList.replace("pointer-events-none", "pointer-events-auto");
+  } else {
+    // Modified: Show tab-specific glassmorphism for long tab
+    showResultBox("long");
+  }
+  //Hide after 3 seconds
+  setTimeout(() => {
+    errmessage.classList.replace("opacity-100", "opacity-0");
+    errmessage.classList.replace("visible", "invisible");
+    errmessage.classList.replace("pointer-events-auto", "pointer-events-none");
+  }, 3000);
+
+  //display liquidation price in the lp container
   document.getElementById("long-lp").textContent =
     "$" +
     longLP.toLocaleString("en-US", {
@@ -229,7 +246,7 @@ function calcLongTrade() {
   const rrElem = document.getElementById("long-rr");
   rrElem.textContent =
     "1:" +
-    Math.abs(RRR).toLocaleString("en-US", {
+    RRR.toLocaleString("en-US", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
@@ -266,6 +283,7 @@ function calcLongTrade() {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
+  npEL.style.color = netProfit < 0 ? "red" : "#b4ff59";
 }
 
 // Modified: Updated showResultBox to handle tab-specific containers
@@ -276,8 +294,7 @@ function showResultBox(tab) {
     glassmorphism.classList.add("flex");
   }
 }
-
-// Attach button click
+// calling the function
 calcLong.addEventListener("click", () => calcLongTrade());
 
 // Format $ inputs
