@@ -211,6 +211,10 @@ function calcLongTrade() {
 
   // Liquidation price
   const longLP = entryPrice * (1 - 1 / leverage);
+  const formattedLP = longLP.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
   //show error message if TP < LP
   const errmessage = document.getElementById("long-err");
@@ -220,7 +224,7 @@ function calcLongTrade() {
     glassmorphismLong.classList.add("hidden");
     glassmorphismLong.classList.remove("flex");
     //show the error message
-    document.getElementById("err-no").textContent = `${longLP}`;
+    document.getElementById("err-no").textContent = `${formattedLP}`;
     errmessage.classList.replace("opacity-0", "opacity-100");
     errmessage.classList.replace("invisible", "visible");
     errmessage.classList.replace("pointer-events-none", "pointer-events-auto");
@@ -236,12 +240,7 @@ function calcLongTrade() {
   }, 3000);
 
   //display liquidation price in the lp container
-  document.getElementById("long-lp").textContent =
-    "$" +
-    longLP.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+  document.getElementById("long-lp").textContent = "$" + formattedLP;
 
   // Risk to Reward
   const risk = entryPrice - longLP;
@@ -276,7 +275,7 @@ function calcLongTrade() {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
-  totalReturnEL.style.color = totalReturn < 0 ? "red" : "#b4ff59";
+  totalReturnEL.style.color = totalReturn <= 0 ? "red" : "#b4ff59";
 
   //Net Profit Value $
   const netProfit = totalReturn - capital;
@@ -287,7 +286,7 @@ function calcLongTrade() {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
-  npEL.style.color = netProfit < 0 ? "red" : "#b4ff59";
+  npEL.style.color = netProfit <= 0 ? "red" : "#b4ff59";
 }
 
 // Modified: Updated showResultBox to handle tab-specific containers
