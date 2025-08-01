@@ -237,7 +237,7 @@ function calcLongTrade() {
     errmessage.classList.replace("opacity-100", "opacity-0");
     errmessage.classList.replace("visible", "invisible");
     errmessage.classList.replace("pointer-events-auto", "pointer-events-none");
-  }, 3000);
+  }, 4000);
 
   //display liquidation price in the lp container
   document.getElementById("long-lp").textContent = "$" + formattedLP;
@@ -439,7 +439,7 @@ function calcShortTrade() {
       "pointer-events-auto",
       "pointer-events-none"
     );
-  }, 3000);
+  }, 4000);
 
   //display liquidation price in the glassmorphism
   document.getElementById("short-lp").textContent = "$" + formattedShortLp;
