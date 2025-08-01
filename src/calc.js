@@ -214,13 +214,18 @@ function calcLongTrade() {
 
   //show error message if TP < LP
   const errmessage = document.getElementById("long-err");
+
   if (tpPrice < longLP) {
+    // hide glassmorphsim if visible
+    glassmorphismLong.classList.add("hidden");
+    glassmorphismLong.classList.remove("flex");
+    //show the error message
     document.getElementById("err-no").textContent = `${longLP}`;
     errmessage.classList.replace("opacity-0", "opacity-100");
     errmessage.classList.replace("invisible", "visible");
     errmessage.classList.replace("pointer-events-none", "pointer-events-auto");
   } else {
-    // Modified: Show tab-specific glassmorphism for long tab
+    // show glassmorphsim if all condition is met
     showResultBox("long");
   }
   //Hide after 3 seconds
