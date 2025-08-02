@@ -203,8 +203,10 @@
 
   <!-- calculator -->
   <section class="px-5 calculator-section py-9 lg:px-10">
-    <div class="container mx-auto max-w-[1200px] flex flex-col gap-4">
-      <!-- Tabs -->
+    <div class="container mx-auto max-w-[1200px]">
+
+
+      <!-- Tabs buttons-->
       <div class="w-full overflow-x-auto scrollbar-hide">
         <div class="relative border-b border-border-color min-w-[650px] ">
           <ul class="flex space-x-8 text-base font-medium font-Noto">
@@ -222,7 +224,7 @@
 
       <!-- Tab Content -->
       <!-- crypto percentage risk-reward calcuator -->
-      <div id="tab-risk-reward" class="p-6 opacity-100 tab-content bg-border-color rounded-2xl">
+      <div id="tab-risk-reward" class="p-6 mt-4 opacity-100 tab-content bg-border-color rounded-2xl">
         <!-- 
         <p class="pb-8 text-lg font-medium text-[#f3f4f6] font-Noto">Pls Input The Trade Details</p> -->
 
@@ -291,7 +293,7 @@
 
             <!--long err message -->
             <div
-              class="text-[#ff0000] font-manrope p-3 text-sm font-medium bg-table-bg  rounded-full absolute left-1/2 -top-12 transform -translate-x-1/2 -translate-y-1/2  transition-all duration-200 ease-in opacity-0 invisible pointer-events-none w-full max-w-sm  max-[500px]:text-xs text-center"
+              class="text-[#ff0000] font-manrope p-2 text-sm font-medium bg-table-bg  rounded-full absolute left-1/2 -top-12 transform -translate-x-1/2 -translate-y-1/2  transition-all duration-200 ease-in opacity-0 invisible pointer-events-none w-full max-w-sm  max-[500px]:text-xs text-center"
               id="long-err">
               <p>
                 TP
@@ -354,7 +356,7 @@
 
             <!--Short err message -->
             <div
-              class="text-[#ff0000] font-manrope p-3 text-sm font-medium bg-table-bg  rounded-full absolute left-1/2 -top-12 transform -translate-x-1/2 -translate-y-1/2  transition-all duration-200 ease-in w-full max-w-sm opacity-0 invisible pointer-events-none  max-[500px]:text-xs text-center"
+              class="text-[#ff0000] font-manrope p-2 text-sm font-medium bg-table-bg  rounded-full absolute left-1/2 -top-12 transform -translate-x-1/2 -translate-y-1/2  transition-all duration-200 ease-in w-full max-w-sm opacity-0 invisible pointer-events-none  max-[500px]:text-xs text-center"
               id="short-err">
               <p>
                 TP
@@ -365,24 +367,24 @@
             </div>
 
           </div>
-
-          <div class="hidden calc-content" id="short-trade">JEDHQJKO;wjiohjQDLPKOHUKJ</div>
         </div>
 
       </div>
 
-      <div id="tab-percentage-change" class="invisible opacity-0 tab-content">
+      <!-- percentage drop calculation -->
+      <div id="tab-percentage-change" class="text white tab-content">
         <p>Take Profit calculator content here</p>
       </div>
-      <div id="tab-profit-loss" class="invisible opacity-0 tab-content">
+
+      <div id="tab-profit-loss" class="hidden tab-content">
         <p>Take Profit calculator content here</p>
       </div>
     </div>
 
 
-
-    <!-- darkoverlay -->
-    <div class="hidden overlay"></div>
+  </section>
+  <!-- darkoverlay -->
+  <div class="hidden overlay"></div>
 </body>
 
 <script type="module" src="./src/calc.js"></script>

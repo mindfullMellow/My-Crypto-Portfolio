@@ -81,9 +81,7 @@ console.log("this works");
 function switchTab(tabId) {
   // Hide all tab contents
   document.querySelectorAll(".tab-content").forEach((tab) => {
-    tab.classList.add("invisible");
-    tab.classList.remove("opacity-100");
-    tab.classList.add("opacity-0");
+    tab.classList.add("hidden");
   });
 
   // Reset all tab buttons
@@ -95,9 +93,7 @@ function switchTab(tabId) {
   // Show selected tab content
   const activeTab = document.getElementById(tabId);
   if (activeTab) {
-    activeTab.classList.remove("invisible");
-    activeTab.classList.remove("opacity-0");
-    activeTab.classList.add("opacity-100");
+    activeTab.classList.remove("hidden");
   }
 
   // Activate selected tab button and position sliding border
@@ -169,6 +165,21 @@ const calcShort = document.getElementById("short-btn-calc");
 const glassmorphismLong = document.querySelector(".long-glassmorphism");
 const glassmorphismShort = document.querySelector(".short-glassmorphism");
 
+// Reuseable functions
+//function to show error message
+function openErrEl(errMessageEl) {
+  errMessageEl.classList.replace("opacity-0", "opacity-100");
+  errMessageEl.classList.replace("invisible", "visible");
+  errMessageEl.classList.replace("pointer-events-none", "pointer-events-auto");
+}
+
+//function to remove error message
+function closeErrEl(errMessageEl) {
+  errMessageEl.classList.replace("opacity-100", "opacity-0");
+  errMessageEl.classList.replace("visible", "invisible");
+  errMessageEl.classList.replace("pointer-events-auto", "pointer-events-none");
+}
+
 /////////////////////////////////////////
 /////logic for the long trade calculation
 /////////////////////////////////////////
@@ -225,18 +236,14 @@ function calcLongTrade() {
     glassmorphismLong.classList.remove("flex");
     //show the error message
     document.getElementById("err-no").textContent = `${formattedLP}`;
-    errmessage.classList.replace("opacity-0", "opacity-100");
-    errmessage.classList.replace("invisible", "visible");
-    errmessage.classList.replace("pointer-events-none", "pointer-events-auto");
+    openErrEl(errmessage);
   } else {
     // show glassmorphsim if all condition is met
     showResultBox("long");
   }
   //Hide after 3 seconds
   setTimeout(() => {
-    errmessage.classList.replace("opacity-100", "opacity-0");
-    errmessage.classList.replace("visible", "invisible");
-    errmessage.classList.replace("pointer-events-auto", "pointer-events-none");
+    closeErrEl(errmessage);
   }, 4000);
 
   //display liquidation price in the lp container
@@ -420,12 +427,7 @@ function calcShortTrade() {
     glassmorphismLong.classList.remove("flex");
     //show the error message
     document.getElementById("short-err-no").textContent = `${formattedShortLp}`;
-    shErrMessage.classList.replace("opacity-0", "opacity-100");
-    shErrMessage.classList.replace("invisible", "visible");
-    shErrMessage.classList.replace(
-      "pointer-events-none",
-      "pointer-events-auto"
-    );
+    openErrEl(shErrMessage);
   } else {
     // show glassmorphsim if all condition is met
     showResultBox("short");
@@ -433,12 +435,7 @@ function calcShortTrade() {
 
   //Hide after 3 seconds
   setTimeout(() => {
-    shErrMessage.classList.replace("opacity-100", "opacity-0");
-    shErrMessage.classList.replace("visible", "invisible");
-    shErrMessage.classList.replace(
-      "pointer-events-auto",
-      "pointer-events-none"
-    );
+    closeErrEl(shErrMessage);
   }, 4000);
 
   //display liquidation price in the glassmorphism
