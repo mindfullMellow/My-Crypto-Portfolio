@@ -174,7 +174,9 @@ body {
 /* Glassmorphism background with linear gradient and shimmering light effect */
 .long-glassmorphism,
 .short-glassmorphism,
-.error-glassmorphism {
+.error-glassmorphism,
+.byprice-glassmorphism,
+.bymc-glassmorphism {
   position: relative;
   padding: 1rem;
   border-radius: 1rem;
@@ -187,7 +189,9 @@ body {
 /* shimmer border only */
 .long-glassmorphism::before,
 .short-glassmorphism::before,
-.error-glassmorphism::before {
+.error-glassmorphism::before,
+.byprice-glassmorphism::before,
+.bymc-glassmorphism::before {
   content: "";
   position: absolute;
   top: -2px;

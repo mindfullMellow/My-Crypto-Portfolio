@@ -554,9 +554,117 @@ shortLeverageInput.addEventListener("focus", () => {
     shortLeverageInput.value = val.replace(/[^0-9.]/g, "");
   }
 });
+
 ////////////////////////////////////////////////////////////////////////////
 // PERCENTAGE CALCULATOR LOGIC
 ////////////////////////////////////////////////////////////////////////////
+// Global variiables for percentge caculation
+const calcByPriceBtn = document.getElementById("by-price-btn");
+const calcByMarketCapBtn = document.getElementById("by-market-cap-btn");
+
+//Morphsim cotainer vairaibles
+const glassmorphismByPrice = document.querySelector(".byprice-glassmorphism");
+const glassmorphismByMC = document.querySelector(".bymc-glassmorphism");
+
+//////////////////
+// Reuseable functions
+function cleanConvertInputValues(inputId) {
+  return Number(document.getElementById(inputId).value.replace(/[^0-9.]/g, ""));
+}
+// function to Enhanced validation to prevent multiple decimals and invalid inputs
+function enhancedValidation(...ids) {
+  let allFilled = true;
+  ids.forEach((id) => {
+    const input = document.getElementById(id);
+    const value = input.value.trim().replace(/[^0-9.]/g, "");
+    // Check for valid number, positive value, and single decimal point
+    if (
+      !value ||
+      isNaN(value) ||
+      value <= 0 ||
+      (value.match(/\./g) || []).length > 1
+    ) {
+      input.style.border = "2px solid red";
+      allFilled = false;
+    } else {
+      input.style.border = "";
+    }
+  });
+
+  if (!allFilled) return;
+}
+
+//function to clean any calulation
+function cleanCalc(mainCalc, calcEl, sign = false) {
+  // decide what sign to show
+  let prefix = "";
+  let suffix = "";
+
+  if (sign) {
+    prefix = "$";
+  } else if (!sign) {
+    suffix = "%";
+  }
+
+  calcEl.textContent =
+    prefix +
+    mainCalc.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }) +
+    suffix;
+  calcEl.style.color = mainCalc <= 0 ? "red" : "#b4ff59";
+}
+
+// function to format $ inputs
+function formatInputsToDollar(...ids) {
+  ids.forEach((id) => {
+    const input = document.getElementById(id);
+    if (!input) return;
+
+    input.addEventListener("blur", () => {
+      let val = input.value.trim().replace(/[^0-9.]/g, "");
+      if (
+        val &&
+        !isNaN(val) &&
+        Number(val) > 0 &&
+        (val.match(/\./g) || []).length <= 1
+      ) {
+        const formatted =
+          "$" +
+          Number(val).toLocaleString("en-US", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2,
+          });
+        input.value = formatted;
+      } else {
+        input.value = "";
+        input.style.border = "2px solid red";
+      }
+    });
+
+    input.addEventListener("focus", () => {
+      let val = input.value.trim();
+      if (val.startsWith("$")) {
+        input.value = val.replace(/[^0-9.]/g, "");
+      }
+    });
+  });
+}
+
+// Function to show the right result box based on the tab clicked
+function showRightTab(tab) {
+  const glassmorphism =
+    tab === "by-price" ? glassmorphismByPrice : glassmorphismByMC;
+
+  // If it's hidden, show it by removing "hidden" class and adding "flex"
+  if (glassmorphism.classList.contains("hidden")) {
+    glassmorphism.classList.remove("hidden");
+    glassmorphism.classList.add("flex");
+  }
+}
+
+/////////////////////////////////////////////////////////////
 // Selective calculator tab switching function (percentage calculator (pc))
 window.switchPercentageCalculator = function (PcId) {
   //hide all pc content divs
@@ -583,3 +691,38 @@ window.switchPercentageCalculator = function (PcId) {
 window.onload = () => {
   window.switchPercentageCalculator("by-price");
 };
+
+//////////////////////////////////////////
+/////logic for the BY PRICE calcultion
+//////////////////////////////////////////
+function calcByPrice() {
+  // clean and convert input values
+  const capital = cleanConvertInputValues("by-price-capital");
+  const entryPrice = cleanConvertInputValues("by-price-entry");
+  const exitPrice = cleanConvertInputValues("by-price-exit");
+
+  showRightTab("by-price");
+
+  enhancedValidation("by-price-capital", "by-price-entry", "by-price-exit");
+
+  //Roi calculation
+  const returnOfIndex = ((exitPrice - entryPrice) / entryPrice) * 100;
+  const returnOfIndexEl = document.getElementById("by-price-roi");
+  cleanCalc(returnOfIndex, returnOfIndexEl, false);
+
+  //Total return
+  const totalReturn = capital * (1 + returnOfIndex / 100);
+  const totalReturnEL = document.getElementById("by-price-total-return");
+  cleanCalc(totalReturn, totalReturnEL, true);
+
+  //Net Profit
+  const netProfit = totalReturn - capital;
+  const npEL = document.getElementById("by-price-NP");
+  cleanCalc(netProfit, npEL, true);
+}
+
+//calling the logic function
+calcByPriceBtn.addEventListener("click", () => calcByPrice());
+
+//call the function to format inout on blur
+formatInputsToDollar("by-price-capital", "by-price-entry", "by-price-exit");
