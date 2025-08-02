@@ -509,12 +509,50 @@
 
           <!-- BUY ASSET tab -->
           <div class="flex-col flex-wrap items-start hidden w-full gap-16 lg:flex-row asset-content" id="buy-asset">
-            jsut checin
+
+            <!-- BUY asset tab input -->
+            <div class="flex flex-col gap-6 w-full lg:max-w-[450px]    font-manrope">
+              <!-- Amount to spend  input -->
+              <input type="text" id="buy-asset-amount" placeholder="Amount to spend"
+                class="w-full px-4 py-2 text-base font-medium leading-normal border-none rounded-lg placeholder:text-placeholder bg-input-bg text-input-text focus:outline-0 focus:ring-hover focus:ring-2 caret-hover"
+                required>
+
+              <!-- Price of asset input -->
+              <input type="text" id="buy-asset-price" placeholder="Price of the asset"
+                class="w-full px-4 py-2 text-base font-medium leading-normal border-none rounded-lg placeholder:text-placeholder bg-input-bg text-input-text focus:outline-0 focus:ring-hover focus:ring-2 caret-hover"
+                required>
+
+              <!-- ac button -->
+              <button class="px-4 py-2 text-base font-bold leading-normal rounded-full text-input-text bg-change-green"
+                id="ac-buy-btn">Calculate
+              </button>
+
+
+            </div>
+
           </div>
 
           <!-- SELL ASSET tab -->
           <div class="flex-col flex-wrap items-start hidden w-full gap-16 lg:flex-row asset-content" id="sell-asset">
-            it works
+            <!-- SELL asset tab input -->
+            <div class="flex flex-col gap-6 w-full lg:max-w-[450px]    font-manrope">
+              <!-- Asset amount input -->
+              <input type="text" id="sell-asset-amount" placeholder="Asset amount to sell"
+                class="w-full px-4 py-2 text-base font-medium leading-normal border-none rounded-lg placeholder:text-placeholder bg-input-bg text-input-text focus:outline-0 focus:ring-hover focus:ring-2 caret-hover"
+                required>
+
+              <!-- Price of asset input -->
+              <input type="text" id="sell-asset-price" placeholder="Current price of the asset"
+                class="w-full px-4 py-2 text-base font-medium leading-normal border-none rounded-lg placeholder:text-placeholder bg-input-bg text-input-text focus:outline-0 focus:ring-hover focus:ring-2 caret-hover"
+                required>
+
+              <!-- ac button -->
+              <button class="px-4 py-2 text-base font-bold leading-normal rounded-full text-input-text bg-change-red"
+                id="ac-sell-btn">Calculate
+              </button>
+
+
+            </div>
           </div>
 
 
