@@ -228,8 +228,9 @@
         <!-- 
         <p class="pb-8 text-lg font-medium text-[#f3f4f6] font-Noto">Pls Input The Trade Details</p> -->
 
-        <!-- long and short button div -->
+
         <div class="flex flex-col gap-8">
+          <!-- long and short button  -->
           <ul class="flex items-center justify-start space-x-12 text-sm font-medium font-Noto">
             <li
               class="pb-1 transition-all duration-200 ease-in border-b-2 border-opacity-0 cursor-pointer text-text-color-1 border-change-green rr-btn"
@@ -372,8 +373,26 @@
       </div>
 
       <!-- percentage drop calculation -->
-      <div id="tab-percentage-change" class="text white tab-content">
-        <p>Take Profit calculator content here</p>
+      <div id="tab-percentage-change" class="p-6 mt-4 opacity-100 tab-content bg-border-color rounded-2xl">
+        <div class="flex flex-col gap-8">
+          <!-- BY PRICE and BY MARKET CAP button-->
+          <ul class="flex items-center justify-start space-x-12 text-sm font-medium font-Noto">
+            <li
+              class="pb-1 transition-all duration-200 ease-in border-b-2 border-opacity-0 cursor-pointer text-text-color-1 border-change-green pc-btn"
+              data-tab="by-price" onclick="switchPercentageCalculator('by-price')">Price</li>
+            <li
+              class="pb-1 transition-all duration-200 ease-in border-b-2 border-opacity-0 cursor-pointer text-text-color-1 border-change-green pc-btn"
+              data-tab="market-cap" onclick="switchPercentageCalculator('market-cap')">Market Tab</li>
+          </ul>
+
+
+          <!-- By price tab -->
+          <div class="text-white pc-content" id="by-price">
+            <p></p>
+          </div>
+          <div class="pc-content" id="market-cap"></div>
+
+        </div>
       </div>
 
       <div id="tab-profit-loss" class="hidden tab-content">

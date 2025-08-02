@@ -124,11 +124,11 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 
 // Set default active tab on page load
 document.addEventListener("DOMContentLoaded", () =>
-  switchTab("tab-risk-reward")
+  switchTab("tab-percentage-change")
 );
 
 //////////////////////////////////////////////////////
-// Selective calculator tab switching function
+// Selective calculator tab switching function (risk - reward calculator)
 // in this code scope ihad to attch the function to the windows object sincce i am using the inline html handler (onclick) this put the functiononthe global scope so if i instead used addeventListener iwouldnt need to attach the window object to the function ..thats why this function is the most unique function in THIS PROJECT 😂😂
 window.switchCalc = function (calcId) {
   // Hide all calc-content divs
@@ -153,10 +153,10 @@ window.switchCalc = function (calcId) {
 
 // Initialize the default tab on page load
 window.onload = () => {
-  window.switchCalc("short-trade");
+  window.switchCalc("long-trade");
 };
 
-//////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 // logic for crypto-risk-reward calculator (LONG-TRADE)
 const calcLong = document.getElementById("long-btn-calc");
 const calcShort = document.getElementById("short-btn-calc");
@@ -554,3 +554,31 @@ shortLeverageInput.addEventListener("focus", () => {
     shortLeverageInput.value = val.replace(/[^0-9.]/g, "");
   }
 });
+
+//////////////////////////////////////////////////////
+// Selective calculator tab switching function (percentage calculator (pc))
+window.switchPercentageCalculator = function (PcId) {
+  //hide all pc content divs
+  document.querySelectorAll(".pc-content").forEach((pc) => {
+    pc.classList.add("hidden");
+  });
+
+  //Remove active styles from all pc-btn buttons
+  document.querySelectorAll(".pc-btn").forEach((pcbtn) => {
+    pcbtn.classList.replace("text-white", "text-text-color-1");
+    pcbtn.classList.replace("border-opacity-100", "border-opacity-0");
+  });
+
+  //show the selected tab
+  document.getElementById(PcId).classList.replace("hidden", "flex");
+
+  //Activate the selected button
+  const targetPc = document.querySelector(`[data-tab="${PcId}"]`);
+  targetPc.classList.replace("text-text-color-1", "text-white");
+  targetPc.classList.replace("border-opacity-0", "border-opacity-100");
+};
+
+// initialize the default tab on page load
+window.onload = () => {
+  window.switchPercentageCalculator("by-price");
+};
