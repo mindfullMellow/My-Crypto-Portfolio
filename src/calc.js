@@ -554,8 +554,9 @@ shortLeverageInput.addEventListener("focus", () => {
     shortLeverageInput.value = val.replace(/[^0-9.]/g, "");
   }
 });
-
-//////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+// PERCENTAGE CALCULATOR LOGIC
+////////////////////////////////////////////////////////////////////////////
 // Selective calculator tab switching function (percentage calculator (pc))
 window.switchPercentageCalculator = function (PcId) {
   //hide all pc content divs
