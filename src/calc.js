@@ -124,7 +124,7 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 
 // Set default active tab on page load
 document.addEventListener("DOMContentLoaded", () =>
-  switchTab("tab-risk-reward")
+  switchTab("tab-asset-quantity")
 );
 
 //////////////////////////////////////////////////////
@@ -160,7 +160,6 @@ window.addEventListener("DOMContentLoaded", () => {
 // logic for crypto-risk-reward calculator (LONG-TRADE)
 const calcLong = document.getElementById("long-btn-calc");
 const calcShort = document.getElementById("short-btn-calc");
-
 // Modified: Use tab-specific glassmorphism containers
 const glassmorphismLong = document.querySelector(".long-glassmorphism");
 const glassmorphismShort = document.querySelector(".short-glassmorphism");
@@ -706,9 +705,10 @@ window.switchPercentageCalculator = function (PcId) {
 };
 
 // initialize the default tab on page load
-window.onload = () => {
-  window.switchPercentageCalculator("by-price");
-};
+// initialize the default tab on page load
+window.addEventListener("DOMContentLoaded", () => {
+  window.switchAssetQuantityCalculator("by-price");
+});
 
 //////////////////////////////////////////
 /////logic for the BY PRICE calcultion
@@ -838,3 +838,33 @@ formatInputsToDollar(
   "by-market-cap-entry",
   "by-market-cap-exit"
 );
+
+////////////////////////////////////////////////////////////////////////////
+// ASSETS QUANTITY CALCULATOR LOGIC
+////////////////////////////////////////////////////////////////////////////
+// Selective calculator tab switching function (asset quantity calculator (ac))
+window.switchAssetQuantityCalculator = function (assetID) {
+  //hide all ac content divs
+  document.querySelectorAll(".asset-content").forEach((ac) => {
+    ac.classList.add("hidden");
+  });
+
+  //Remove active styles from all Ac-btn buttons
+  document.querySelectorAll(".asset-btn").forEach((acbtn) => {
+    acbtn.classList.replace("text-white", "text-text-color-1");
+    acbtn.classList.replace("border-opacity-100", "border-opacity-0");
+  });
+
+  //show the selected tab
+  document.getElementById(assetID).classList.replace("hidden", "flex");
+
+  //Activate the selected button
+  const targetAc = document.querySelector(`[data-tab="${assetID}"]`);
+  targetAc.classList.replace("text-text-color-1", "text-white");
+  targetAc.classList.replace("border-opacity-0", "border-opacity-100");
+};
+
+// initialize the default tab on page load
+window.addEventListener("DOMContentLoaded", () => {
+  window.switchAssetQuantityCalculator("buy-asset");
+});

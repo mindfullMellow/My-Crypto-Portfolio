@@ -215,7 +215,7 @@
             <li class="pb-2 text-white transition-all duration-300 cursor-pointer opacity-85 tab-btn"
               data-tab="tab-percentage-change" id="tab-percentage-change-btn">Percentage Change Calculator</li>
             <li class="pb-2 text-white transition-all duration-300 cursor-pointer opacity-85 tab-btn"
-              data-tab="tab-profit-loss" id="tab-profit-loss-btn">Asset Quantity Calculator</li>
+              data-tab="tab-asset-quantity" id="tab-profit-loss-btn">Asset Quantity Calculator</li>
           </ul>
           <span class="sliding-border"></span>
         </div>
@@ -372,8 +372,9 @@
 
       </div>
 
-      <!-- percentage drop calculation -->
-      <div id="tab-percentage-change" class="p-6 mt-4 opacity-100 tab-content bg-border-color rounded-2xl">
+      <!-- percentage drop calculator -->
+      <div id="tab-percentage-change"
+        class="p-6 mt-4 transition-all duration-200 ease-in opacity-100 tab-content bg-border-color rounded-2xl">
         <div class="flex flex-col gap-8">
           <!-- BY PRICE and BY MARKET CAP button-->
           <ul class="flex items-center justify-start space-x-12 text-sm font-medium font-Noto">
@@ -491,9 +492,37 @@
         </div>
       </div>
 
-      <div id="tab-profit-loss" class="hidden tab-content">
-        <p>Take Profit calculator content here</p>
+      <!-- Assets quantity calculator -->
+      <div id="tab-asset-quantity"
+        class="p-6 mt-4 transition-all duration-200 ease-in opacity-100 tab-content bg-border-color rounded-2xl">
+
+        <div class="flex flex-col gap-8">
+          <!-- BUY or Sell calculator button -->
+          <ul class="flex items-center justify-start space-x-12 text-sm font-medium font-Noto">
+            <li
+              class="pb-1 transition-all duration-200 ease-in border-b-2 border-opacity-0 cursor-pointer text-text-color-1 border-change-green asset-btn"
+              data-tab="buy-asset" onclick="switchAssetQuantityCalculator('buy-asset')">Buy Asset</li>
+            <li
+              class="pb-1 transition-all duration-200 ease-in border-b-2 border-opacity-0 cursor-pointer text-text-color-1 border-change-red asset-btn"
+              data-tab="sell-asset" onclick="switchAssetQuantityCalculator('sell-asset')">Sell Asset</li>
+          </ul>
+
+          <!-- BUY ASSET tab -->
+          <div class="flex-col flex-wrap items-start hidden w-full gap-16 lg:flex-row asset-content" id="buy-asset">
+            jsut checin
+          </div>
+
+          <!-- SELL ASSET tab -->
+          <div class="flex-col flex-wrap items-start hidden w-full gap-16 lg:flex-row asset-content" id="sell-asset">
+            it works
+          </div>
+
+
+        </div>
+
       </div>
+
+
     </div>
 
 
