@@ -634,7 +634,7 @@ function formatInputsToDollar(...ids) {
           "$" +
           Number(val).toLocaleString("en-US", {
             minimumFractionDigits: 0,
-            maximumFractionDigits: 2,
+            maximumFractionDigits: 4,
           });
         input.value = formatted;
       } else {
@@ -662,6 +662,24 @@ function showRightTab(tab) {
     glassmorphism.classList.remove("hidden");
     glassmorphism.classList.add("flex");
   }
+}
+
+// function to convert b to billion eetc
+function normalizeInput(value) {
+  value = value.toLowerCase().trim().replace(/,/g, ""); // remove commas
+
+  const match = value.match(/^([\d.]+)([kmbh])?$/);
+  if (!match) return NaN;
+
+  const number = parseFloat(match[1]);
+  const suffix = match[2];
+
+  if (suffix === "b") return number * 1_000_000_000;
+  if (suffix === "m") return number * 1_000_000;
+  if (suffix === "k") return number * 1_000;
+  if (suffix === "h") return number * 100;
+
+  return number;
 }
 
 /////////////////////////////////////////////////////////////
@@ -726,3 +744,65 @@ calcByPriceBtn.addEventListener("click", () => calcByPrice());
 
 //call the function to format inout on blur
 formatInputsToDollar("by-price-capital", "by-price-entry", "by-price-exit");
+
+//////////////////////////////////////////
+/////logic for the BY MARKET CAP calcultion
+//////////////////////////////////////////
+const mcInputs = [
+  document.getElementById("by-market-cap-capital"),
+  document.getElementById("by-market-cap-entry"),
+  document.getElementById("by-market-cap-exit"),
+];
+
+// add blur event once when page loads
+mcInputs.forEach((input) => {
+  input.addEventListener("blur", () => {
+    const num = normalizeInput(input.value);
+    if (!isNaN(num)) {
+      input.value = num.toLocaleString("en-US");
+    }
+  });
+});
+
+function calcByMarketCap() {
+  const [mcCapital, mcEntry, mcExit] = mcInputs;
+
+  showRightTab("by-mc-price");
+
+  // validate
+  enhancedValidation(
+    "by-market-cap-capital",
+    "by-market-cap-entry",
+    "by-market-cap-exit"
+  );
+
+  // do the calculation
+  const mcCapitalValue = Number(mcCapital.value.replace(/[^0-9.]/g, ""));
+  const mcEntryValue = Number(mcEntry.value.replace(/[^0-9.]/g, ""));
+  const mcExitValue = Number(mcExit.value.replace(/[^0-9.]/g, ""));
+
+  //ROI calculation
+  const returnOfIndex = ((mcExitValue - mcEntryValue) / mcEntryValue) * 100;
+  const returnOfIndexEl = document.getElementById("by-mc-roi");
+  cleanCalc(returnOfIndex, returnOfIndexEl, false);
+
+  //Total return
+  const totalReturn = mcCapitalValue * (1 + returnOfIndex / 100);
+  const totalReturnEL = document.getElementById("by-mc-total-return");
+  cleanCalc(totalReturn, totalReturnEL, true);
+
+  //Net profit
+  const netProfit = totalReturn - mcCapitalValue;
+  const npEL = document.getElementById("by-mc-NP");
+  cleanCalc(netProfit, npEL, true);
+}
+
+// calling the logic function
+calcByMarketCapBtn.addEventListener("click", () => calcByMarketCap());
+
+//call the function to format inout on blur
+formatInputsToDollar(
+  "by-market-cap-capital",
+  "by-market-cap-entry",
+  "by-market-cap-exit"
+);
