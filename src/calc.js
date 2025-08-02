@@ -426,7 +426,9 @@ function calcShortTrade() {
     glassmorphismLong.classList.add("hidden");
     glassmorphismLong.classList.remove("flex");
     //show the error message
-    document.getElementById("short-err-no").textContent = `${formattedShortLp}`;
+    document.getElementById(
+      "short-err-no"
+    ).textContent = `$${formattedShortLp}`;
     openErrEl(shErrMessage);
   } else {
     // show glassmorphsim if all condition is met
@@ -577,7 +579,6 @@ function enhancedValidation(...ids) {
   ids.forEach((id) => {
     const input = document.getElementById(id);
     const value = input.value.trim().replace(/[^0-9.]/g, "");
-    // Check for valid number, positive value, and single decimal point
     if (
       !value ||
       isNaN(value) ||
@@ -590,8 +591,7 @@ function enhancedValidation(...ids) {
       input.style.border = "";
     }
   });
-
-  if (!allFilled) return;
+  return allFilled; // ✅ important
 }
 
 //function to clean any calulation
@@ -718,10 +718,12 @@ function calcByPrice() {
   const capital = cleanConvertInputValues("by-price-capital");
   const entryPrice = cleanConvertInputValues("by-price-entry");
   const exitPrice = cleanConvertInputValues("by-price-exit");
+  const errMessage = document.getElementById("by-price-err");
 
-  showRightTab("by-price");
-
-  enhancedValidation("by-price-capital", "by-price-entry", "by-price-exit");
+  if (
+    !enhancedValidation("by-price-capital", "by-price-entry", "by-price-exit")
+  )
+    return;
 
   //Roi calculation
   const returnOfIndex = ((exitPrice - entryPrice) / entryPrice) * 100;
@@ -737,6 +739,20 @@ function calcByPrice() {
   const netProfit = totalReturn - capital;
   const npEL = document.getElementById("by-price-NP");
   cleanCalc(netProfit, npEL, true);
+
+  //show err message if total retun is =< zero
+  if (totalReturn <= 0) {
+    // hide glassmorphsim if visible
+    glassmorphismByPrice.classList.add("hidden");
+    glassmorphismByPrice.classList.remove("flex");
+    openErrEl(errMessage);
+  } else {
+    showRightTab("by-price");
+  }
+
+  setTimeout(() => {
+    closeErrEl(errMessage);
+  }, 4000);
 }
 
 //calling the logic function
@@ -753,6 +769,7 @@ const mcInputs = [
   document.getElementById("by-market-cap-entry"),
   document.getElementById("by-market-cap-exit"),
 ];
+const errMessage = document.getElementById("by-mc-err");
 
 // add blur event once when page loads
 mcInputs.forEach((input) => {
@@ -767,14 +784,15 @@ mcInputs.forEach((input) => {
 function calcByMarketCap() {
   const [mcCapital, mcEntry, mcExit] = mcInputs;
 
-  showRightTab("by-mc-price");
-
   // validate
-  enhancedValidation(
-    "by-market-cap-capital",
-    "by-market-cap-entry",
-    "by-market-cap-exit"
-  );
+  if (
+    !enhancedValidation(
+      "by-market-cap-capital",
+      "by-market-cap-entry",
+      "by-market-cap-exit"
+    )
+  )
+    return;
 
   // do the calculation
   const mcCapitalValue = Number(mcCapital.value.replace(/[^0-9.]/g, ""));
@@ -795,6 +813,20 @@ function calcByMarketCap() {
   const netProfit = totalReturn - mcCapitalValue;
   const npEL = document.getElementById("by-mc-NP");
   cleanCalc(netProfit, npEL, true);
+
+  //show err message if total retun is =< zero
+  if (totalReturn <= 0) {
+    // hide glassmorphsim if visible
+    glassmorphismByPrice.classList.add("hidden");
+    glassmorphismByPrice.classList.remove("flex");
+    openErrEl(errMessage);
+  } else {
+    showRightTab("by-market-cap");
+  }
+
+  setTimeout(() => {
+    closeErrEl(errMessage);
+  }, 4000);
 }
 
 // calling the logic function
