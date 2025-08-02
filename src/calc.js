@@ -124,7 +124,7 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 
 // Set default active tab on page load
 document.addEventListener("DOMContentLoaded", () =>
-  switchTab("tab-percentage-change")
+  switchTab("tab-risk-reward")
 );
 
 //////////////////////////////////////////////////////
@@ -152,9 +152,9 @@ window.switchCalc = function (calcId) {
 };
 
 // Initialize the default tab on page load
-window.onload = () => {
+window.addEventListener("DOMContentLoaded", () => {
   window.switchCalc("long-trade");
-};
+});
 
 //////////////////////////////////////////////////////////////
 // logic for crypto-risk-reward calculator (LONG-TRADE)
