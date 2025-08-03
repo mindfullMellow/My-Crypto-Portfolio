@@ -1,7 +1,7 @@
 "use strict";
 
 import "./main.css";
-import "./asset_quantity_calc";
+// import "./asset_quantity_calc";
 // Function to apply animation to an element
 function applyAnimation(element) {
   element.innerHTML = element.textContent
