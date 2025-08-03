@@ -866,5 +866,5 @@ window.switchAssetQuantityCalculator = function (assetID) {
 
 // initialize the default tab on page load
 window.addEventListener("DOMContentLoaded", () => {
-  window.switchAssetQuantityCalculator("buy-asset");
+  window.switchAssetQuantityCalculator("sell-asset");
 });

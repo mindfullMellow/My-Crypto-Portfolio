@@ -512,6 +512,10 @@
 
             <!-- BUY asset tab input -->
             <div class="flex flex-col gap-6 w-full lg:max-w-[450px]    font-manrope">
+              <!-- Asset name   input -->
+              <input type="text" id="buy-asset-name" placeholder="Asset name (e.g. SOL)"
+                class="w-full px-4 py-2 text-base font-medium leading-normal border-none rounded-lg placeholder:text-placeholder bg-input-bg text-input-text focus:outline-0 focus:ring-hover focus:ring-2 caret-hover">
+
               <!-- Amount to spend  input -->
               <input type="text" id="buy-asset-amount" placeholder="Amount to spend"
                 class="w-full px-4 py-2 text-base font-medium leading-normal border-none rounded-lg placeholder:text-placeholder bg-input-bg text-input-text focus:outline-0 focus:ring-hover focus:ring-2 caret-hover"
@@ -530,12 +534,40 @@
 
             </div>
 
+            <!-- BUY asset tab output -->
+            <div
+              class="w-full lg:w-[350px] min-h-[150px] p-4 bymc-glassmorphism justify-self-start  flex-col gap-4 justify-center font-manrope">
+
+              <p class="pb-2 text-lg font-bold tracking-wider text-white">Asset Name: <span class="text-lime-300"
+                  id="buy-name">$SOL</span>
+              </p>
+
+              <p class="pb-2 text-lg font-bold tracking-wider text-white">Price of the asset: <span
+                  class="text-lime-300" id="buy-price">$168.30</span>
+              </p>
+
+              <p class="pb-2 text-lg font-bold tracking-wider text-white">Amount to buy: <span class="text-lime-300"
+                  id="buy-price-el">$100</span> worth of
+                <span class="text-lime-300" id="buy-amount"></span>
+              </p>
+
+              <p class="pb-2 text-lg font-bold tracking-wider text-white">Amount to recieve: <span class="text-lime-300"
+                  id="buy-receive">0.01 sol</span>
+              </p>
+
+            </div>
+
           </div>
 
           <!-- SELL ASSET tab -->
           <div class="flex-col flex-wrap items-start hidden w-full gap-16 lg:flex-row asset-content" id="sell-asset">
             <!-- SELL asset tab input -->
             <div class="flex flex-col gap-6 w-full lg:max-w-[450px]    font-manrope">
+
+              <!-- Asset name input -->
+              <input type="text" id="sell-asset-name" placeholder="Asset name (e.g. SOL)"
+                class="w-full px-4 py-2 text-base font-medium leading-normal border-none rounded-lg placeholder:text-placeholder bg-input-bg text-input-text focus:outline-0 focus:ring-hover focus:ring-2 caret-hover">
+
               <!-- Asset amount input -->
               <input type="text" id="sell-asset-amount" placeholder="Asset amount to sell"
                 class="w-full px-4 py-2 text-base font-medium leading-normal border-none rounded-lg placeholder:text-placeholder bg-input-bg text-input-text focus:outline-0 focus:ring-hover focus:ring-2 caret-hover"
@@ -553,6 +585,31 @@
 
 
             </div>
+
+
+            <!-- SELL asset tab output -->
+            <div
+              class="w-full lg:w-[350px] min-h-[150px] p-4 bymc-glassmorphism justify-self-start  flex-col gap-4 justify-center font-manrope">
+
+              <p class="pb-2 text-lg font-bold tracking-wider text-white">Asset Name: <span class="text-lime-300"
+                  id="sell-name">$SOL</span>
+              </p>
+
+              <p class="pb-2 text-lg font-bold tracking-wider text-white">Price of the asset: <span
+                  class="text-lime-300" id="sell-price">$168.30</span>
+              </p>
+
+              <p class="pb-2 text-lg font-bold tracking-wider text-white">Amount to sell:
+                <span class="text-lime-300" id="sell-amount">0.01 sol</span>
+              </p>
+
+              <p class="pb-2 text-lg font-bold tracking-wider text-white">Total Return: <span class="text-lime-300"
+                  id="sell-receive">$1,200</span>
+              </p>
+
+            </div>
+
+
           </div>
 
 
