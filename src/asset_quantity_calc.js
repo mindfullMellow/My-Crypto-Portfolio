@@ -296,7 +296,11 @@ function calculateBuyAsset() {
   const assetName = document.getElementById("buy-asset-name").value;
   const BuyAssetAmount = cleanConvertInputValues("buy-asset-amount");
   const BuyAssetPrice = cleanConvertInputValues("buy-asset-price");
-  const BuyChange = buyAssetDetails.change_24h + "%";
+  const BuyChange =
+    buyAssetDetails.change_24h.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }) + "%";
   const assetSymbol = buySelectedSymbolName;
 
   if (!enhancedValidation("buy-asset-amount", "buy-asset-price")) return;
@@ -341,7 +345,11 @@ function calculateSellAsset() {
   const assetName = document.getElementById("sell-asset-name").value;
   const SellAssetAmount = cleanConvertInputValues("sell-asset-amount");
   const SellAssetPrice = cleanConvertInputValues("sell-asset-price");
-  const SellChange = sellAssetDetails.change_24h + "%";
+  const SellChange =
+    sellAssetDetails.change_24h.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }) + "%";
   const assetSymbol = sellSelectedSymbolName;
 
   if (!enhancedValidation("sell-asset-amount", "sell-asset-price")) return;
