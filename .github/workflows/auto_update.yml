@@ -8,16 +8,14 @@ on:
 jobs:
   update-json:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Setup SSH
+      - name: Debug SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_ed25519
+          ssh -T git@github.com || true
 
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -37,6 +35,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+          git remote set-url origin git@github.com:mindfullMellow/My-Crypto-Portfolio.git
           git add public/top_500_assets.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
