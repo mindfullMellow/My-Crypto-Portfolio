@@ -707,7 +707,7 @@ window.switchPercentageCalculator = function (PcId) {
 // initialize the default tab on page load
 // initialize the default tab on page load
 window.addEventListener("DOMContentLoaded", () => {
-  window.switchAssetQuantityCalculator("by-price");
+  window.switchPercentageCalculator("by-price");
 });
 
 //////////////////////////////////////////
@@ -838,33 +838,3 @@ formatInputsToDollar(
   "by-market-cap-entry",
   "by-market-cap-exit"
 );
-
-////////////////////////////////////////////////////////////////////////////
-// ASSETS QUANTITY CALCULATOR LOGIC
-////////////////////////////////////////////////////////////////////////////
-// Selective calculator tab switching function (asset quantity calculator (ac))
-window.switchAssetQuantityCalculator = function (assetID) {
-  //hide all ac content divs
-  document.querySelectorAll(".asset-content").forEach((ac) => {
-    ac.classList.add("hidden");
-  });
-
-  //Remove active styles from all Ac-btn buttons
-  document.querySelectorAll(".asset-btn").forEach((acbtn) => {
-    acbtn.classList.replace("text-white", "text-text-color-1");
-    acbtn.classList.replace("border-opacity-100", "border-opacity-0");
-  });
-
-  //show the selected tab
-  document.getElementById(assetID).classList.replace("hidden", "flex");
-
-  //Activate the selected button
-  const targetAc = document.querySelector(`[data-tab="${assetID}"]`);
-  targetAc.classList.replace("text-text-color-1", "text-white");
-  targetAc.classList.replace("border-opacity-0", "border-opacity-100");
-};
-
-// initialize the default tab on page load
-window.addEventListener("DOMContentLoaded", () => {
-  window.switchAssetQuantityCalculator("sell-asset");
-});
