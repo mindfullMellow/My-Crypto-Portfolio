@@ -124,7 +124,7 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 
 // Set default active tab on page load
 document.addEventListener("DOMContentLoaded", () =>
-  switchTab("tab-risk-reward")
+  switchTab("tab-asset-quantity")
 );
 
 //////////////////////////////////////////////////////

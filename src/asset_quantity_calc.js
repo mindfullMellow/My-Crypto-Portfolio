@@ -296,9 +296,18 @@ function calculateBuyAsset() {
   const assetName = document.getElementById("buy-asset-name").value;
   const BuyAssetAmount = cleanConvertInputValues("buy-asset-amount");
   const BuyAssetPrice = cleanConvertInputValues("buy-asset-price");
+  const BuyChange = buyAssetDetails.change_24h + "%";
   const assetSymbol = buySelectedSymbolName;
 
   if (!enhancedValidation("buy-asset-amount", "buy-asset-price")) return;
+
+  //show the asset img
+  document.getElementById("buy-asset-img").src = buyAssetDetails.image;
+
+  //show 24hr change
+  document.getElementById("buy-change").textContent = BuyChange;
+  document.getElementById("buy-change").style.color =
+    BuyChange < 0 ? "red" : "#b4ff59";
 
   //asset quantity calculation and show the content
   const assetQuantity = BuyAssetAmount / BuyAssetPrice;
