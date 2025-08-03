@@ -623,10 +623,16 @@
 
             <!-- SELL asset tab output -->
             <div
-              class="w-full  hidden lg:w-[350px] min-h-[150px] p-4 sell-asset-glassmorphism justify-self-start  flex-col gap-4 justify-center font-manrope">
+              class="w-full  lg:w-[350px] min-h-[150px] p-4 sell-asset-glassmorphism justify-self-start hidden flex-col gap-4 justify-center font-manrope">
 
-              <p class="pb-2 text-lg font-bold tracking-wider text-white">Asset Name: <span class="text-lime-300"
-                  id="sell-name"></span>
+              <p class="flex items-center gap-2 pb-2 text-lg font-bold tracking-wider text-white">
+                Asset Name:
+                <img src="" alt="Asset img" id="sell-asset-img" class="w-6 h-6 rounded-full" />
+                <span class="text-lime-300" id="sell-name"></span>
+              </p>
+
+              <p class="pb-2 text-lg font-bold tracking-wider text-white ">24hr change: <span class="text-lime-300"
+                  id="sell-change"></span>
               </p>
 
               <p class="pb-2 text-lg font-bold tracking-wider text-white">Price of the asset: <span

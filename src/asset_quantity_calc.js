@@ -27,7 +27,7 @@ window.switchAssetQuantityCalculator = function (assetID) {
 
 // initialize the default tab on page load
 window.addEventListener("DOMContentLoaded", () => {
-  window.switchAssetQuantityCalculator("buy-asset");
+  window.switchAssetQuantityCalculator("sell-asset");
 });
 
 //GLOBAL VARIBLES
@@ -341,9 +341,18 @@ function calculateSellAsset() {
   const assetName = document.getElementById("sell-asset-name").value;
   const SellAssetAmount = cleanConvertInputValues("sell-asset-amount");
   const SellAssetPrice = cleanConvertInputValues("sell-asset-price");
+  const SellChange = sellAssetDetails.change_24h + "%";
   const assetSymbol = sellSelectedSymbolName;
 
   if (!enhancedValidation("sell-asset-amount", "sell-asset-price")) return;
+
+  //show asset image
+  document.getElementById("sell-asset-img").src = sellAssetDetails.image;
+
+  //show 24hrs change
+  document.getElementById("sell-change").textContent = SellChange;
+  document.getElementById("sell-change").style.color =
+    SellChange < 0 ? "red" : "#b4ff59";
 
   //show asset name
   document.getElementById("sell-name").textContent = assetSymbol;
