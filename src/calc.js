@@ -124,7 +124,7 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 
 // Set default active tab on page load
 document.addEventListener("DOMContentLoaded", () =>
-  switchTab("tab-asset-quantity")
+  switchTab("tab-risk-reward")
 );
 
 //////////////////////////////////////////////////////
@@ -160,11 +160,10 @@ window.addEventListener("DOMContentLoaded", () => {
 // logic for crypto-risk-reward calculator (LONG-TRADE)
 const calcLong = document.getElementById("long-btn-calc");
 const calcShort = document.getElementById("short-btn-calc");
-// Modified: Use tab-specific glassmorphism containers
 const glassmorphismLong = document.querySelector(".long-glassmorphism");
 const glassmorphismShort = document.querySelector(".short-glassmorphism");
 
-// Reuseable functions
+// ////////////////////////////////Reuseable functions
 //function to show error message
 function openErrEl(errMessageEl) {
   errMessageEl.classList.replace("opacity-0", "opacity-100");
@@ -179,31 +178,17 @@ function closeErrEl(errMessageEl) {
   errMessageEl.classList.replace("pointer-events-auto", "pointer-events-none");
 }
 
-/////////////////////////////////////////
-/////logic for the long trade calculation
-/////////////////////////////////////////
-function calcLongTrade() {
-  // Clean and convert input values
-  const capital = Number(
-    document.getElementById("capital").value.replace(/[^0-9.]/g, "")
-  );
-  const entryPrice = Number(
-    document.getElementById("entry-price").value.replace(/[^0-9.]/g, "")
-  );
-  const tpPrice = Number(
-    document.getElementById("tp-price").value.replace(/[^0-9.]/g, "")
-  );
-  const leverage = Number(
-    document.getElementById("leverage").value.replace(/[^0-9.]/g, "")
-  );
+//function to getclean inputs
+function cleanConvertInputValues(inputId) {
+  return Number(document.getElementById(inputId).value.replace(/[^0-9.]/g, ""));
+}
 
-  // Modified: Enhanced validation to prevent multiple decimals and invalid inputs
-  const inputs = ["entry-price", "tp-price", "leverage", "capital"];
+// function to Enhanced validation to prevent multiple decimals and invalid inputs
+function enhancedValidation(...ids) {
   let allFilled = true;
-  inputs.forEach((id) => {
+  ids.forEach((id) => {
     const input = document.getElementById(id);
     const value = input.value.trim().replace(/[^0-9.]/g, "");
-    // Check for valid number, positive value, and single decimal point
     if (
       !value ||
       isNaN(value) ||
@@ -216,8 +201,121 @@ function calcLongTrade() {
       input.style.border = "";
     }
   });
+  return allFilled; // ✅ important
+}
 
-  if (!allFilled) return;
+//function to clean any calulation
+function cleanCalc(mainCalc, calcEl, sign = false) {
+  // decide what sign to show
+  let prefix = "";
+  let suffix = "";
+
+  if (sign) {
+    prefix = "$";
+  } else if (!sign) {
+    suffix = "%";
+  }
+
+  calcEl.textContent =
+    prefix +
+    mainCalc.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }) +
+    suffix;
+  calcEl.style.color = mainCalc <= 0 ? "red" : "#b4ff59";
+}
+
+//function to switch tabs
+function showResultBox(tab) {
+  const glassmorphism = tab === "long" ? glassmorphismLong : glassmorphismShort;
+  if (glassmorphism.classList.contains("hidden")) {
+    glassmorphism.classList.remove("hidden");
+    glassmorphism.classList.add("flex");
+  }
+}
+
+// function to format $ inputs
+function formatInputsToDollar(...ids) {
+  ids.forEach((id) => {
+    const input = document.getElementById(id);
+    if (!input) return;
+
+    input.addEventListener("blur", () => {
+      let val = input.value.trim().replace(/[^0-9.]/g, "");
+      if (
+        val &&
+        !isNaN(val) &&
+        Number(val) > 0 &&
+        (val.match(/\./g) || []).length <= 1
+      ) {
+        const formatted =
+          "$" +
+          Number(val).toLocaleString("en-US", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 4,
+          });
+        input.value = formatted;
+      } else {
+        input.value = "";
+        input.style.border = "2px solid red";
+      }
+    });
+
+    input.addEventListener("focus", () => {
+      let val = input.value.trim();
+      if (val.startsWith("$")) {
+        input.value = val.replace(/[^0-9.]/g, "");
+      }
+    });
+  });
+}
+
+//// Format leverage input with 'x'
+function formatInputToLeverage(xinput) {
+  xinput.addEventListener("blur", () => {
+    let val = xinput.value.trim().replace(/[^0-9.]/g, "");
+    // Modified: Validate for single decimal and positive number
+    if (
+      val &&
+      !isNaN(val) &&
+      Number(val) > 0 &&
+      (val.match(/\./g) || []).length <= 1
+    ) {
+      const formatted =
+        Number(val).toLocaleString("en-US", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2,
+        }) + "x";
+      xinput.value = formatted;
+    } else {
+      xinput.value = "";
+      xinput.style.border = "2px solid red";
+    }
+  });
+
+  xinput.addEventListener("focus", () => {
+    let val = xinput.value.trim();
+    if (val.endsWith("x")) {
+      xinput.value = val.replace(/[^0-9.]/g, "");
+    }
+  });
+}
+
+/////////////////////////////////////////
+/////logic for the long trade calculation
+/////////////////////////////////////////
+function calcLongTrade() {
+  // Clean and convert input values
+  const capital = cleanConvertInputValues("capital");
+  const entryPrice = cleanConvertInputValues("entry-price");
+
+  const tpPrice = cleanConvertInputValues("tp-price");
+  const leverage = cleanConvertInputValues("leverage");
+
+  // Modified: Enhanced validation to prevent multiple decimals and invalid inputs
+  if (!enhancedValidation("entry-price", "tp-price", "leverage", "capital"))
+    return;
 
   // Liquidation price
   const longLP = entryPrice * (1 - 1 / leverage);
@@ -265,111 +363,27 @@ function calcLongTrade() {
   // PNL Percent %
   const PNLpercent = ((tpPrice - entryPrice) / entryPrice) * 100 * leverage;
   const PNLpercentEL = document.getElementById("long-pnl");
-  PNLpercentEL.textContent =
-    PNLpercent.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }) + "%";
-  PNLpercentEL.style.color = PNLpercent < 0 ? "red" : "#b4ff59";
+  cleanCalc(PNLpercent, PNLpercentEL, false);
 
   // Total Return $
   const totalReturn = capital * (1 + PNLpercent / 100);
   const totalReturnEL = document.getElementById("long-return");
-  totalReturnEL.textContent =
-    "$" +
-    totalReturn.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  totalReturnEL.style.color = totalReturn <= 0 ? "red" : "#b4ff59";
+  cleanCalc(totalReturn, totalReturnEL, true);
 
   //Net Profit Value $
   const netProfit = totalReturn - capital;
   const npEL = document.getElementById("long-NP");
-  npEL.textContent =
-    "$" +
-    netProfit.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  npEL.style.color = netProfit <= 0 ? "red" : "#b4ff59";
+  cleanCalc(netProfit, npEL, true);
 }
 
-// Modified: Updated showResultBox to handle tab-specific containers
-function showResultBox(tab) {
-  const glassmorphism = tab === "long" ? glassmorphismLong : glassmorphismShort;
-  if (glassmorphism.classList.contains("hidden")) {
-    glassmorphism.classList.remove("hidden");
-    glassmorphism.classList.add("flex");
-  }
-}
 // calling the function
 calcLong.addEventListener("click", () => calcLongTrade());
 
-// Format $ inputs
-["entry-price", "tp-price", "capital"].forEach((id) => {
-  const input = document.getElementById(id);
-
-  input.addEventListener("blur", () => {
-    let val = input.value.trim().replace(/[^0-9.]/g, "");
-    // Modified: Validate for single decimal and positive number
-    if (
-      val &&
-      !isNaN(val) &&
-      Number(val) > 0 &&
-      (val.match(/\./g) || []).length <= 1
-    ) {
-      const formatted =
-        "$" +
-        Number(val).toLocaleString("en-US", {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 2,
-        });
-      input.value = formatted;
-    } else {
-      input.value = "";
-      input.style.border = "2px solid red";
-    }
-  });
-
-  input.addEventListener("focus", () => {
-    let val = input.value.trim();
-    if (val.startsWith("$")) {
-      input.value = val.replace(/[^0-9.]/g, "");
-    }
-  });
-});
+// Format $ inputs on blur
+formatInputsToDollar("entry-price", "tp-price", "capital");
 
 // Format leverage input with 'x'
-const leverageInput = document.getElementById("leverage");
-
-leverageInput.addEventListener("blur", () => {
-  let val = leverageInput.value.trim().replace(/[^0-9.]/g, "");
-  // Modified: Validate for single decimal and positive number
-  if (
-    val &&
-    !isNaN(val) &&
-    Number(val) > 0 &&
-    (val.match(/\./g) || []).length <= 1
-  ) {
-    const formatted =
-      Number(val).toLocaleString("en-US", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2,
-      }) + "x";
-    leverageInput.value = formatted;
-  } else {
-    leverageInput.value = "";
-    leverageInput.style.border = "2px solid red";
-  }
-});
-
-leverageInput.addEventListener("focus", () => {
-  let val = leverageInput.value.trim();
-  if (val.endsWith("x")) {
-    leverageInput.value = val.replace(/[^0-9.]/g, "");
-  }
-});
+formatInputToLeverage(document.getElementById("leverage"));
 
 //////////////////////////////////////////
 /////logic for the short trade calculation
@@ -555,286 +569,3 @@ shortLeverageInput.addEventListener("focus", () => {
     shortLeverageInput.value = val.replace(/[^0-9.]/g, "");
   }
 });
-
-////////////////////////////////////////////////////////////////////////////
-// PERCENTAGE CALCULATOR LOGIC
-////////////////////////////////////////////////////////////////////////////
-// Global variiables for percentge caculation
-const calcByPriceBtn = document.getElementById("by-price-btn");
-const calcByMarketCapBtn = document.getElementById("by-market-cap-btn");
-
-//Morphsim cotainer vairaibles
-const glassmorphismByPrice = document.querySelector(".byprice-glassmorphism");
-const glassmorphismByMC = document.querySelector(".bymc-glassmorphism");
-
-//////////////////
-// Reuseable functions
-function cleanConvertInputValues(inputId) {
-  return Number(document.getElementById(inputId).value.replace(/[^0-9.]/g, ""));
-}
-// function to Enhanced validation to prevent multiple decimals and invalid inputs
-function enhancedValidation(...ids) {
-  let allFilled = true;
-  ids.forEach((id) => {
-    const input = document.getElementById(id);
-    const value = input.value.trim().replace(/[^0-9.]/g, "");
-    if (
-      !value ||
-      isNaN(value) ||
-      value <= 0 ||
-      (value.match(/\./g) || []).length > 1
-    ) {
-      input.style.border = "2px solid red";
-      allFilled = false;
-    } else {
-      input.style.border = "";
-    }
-  });
-  return allFilled; // ✅ important
-}
-
-//function to clean any calulation
-function cleanCalc(mainCalc, calcEl, sign = false) {
-  // decide what sign to show
-  let prefix = "";
-  let suffix = "";
-
-  if (sign) {
-    prefix = "$";
-  } else if (!sign) {
-    suffix = "%";
-  }
-
-  calcEl.textContent =
-    prefix +
-    mainCalc.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }) +
-    suffix;
-  calcEl.style.color = mainCalc <= 0 ? "red" : "#b4ff59";
-}
-
-// function to format $ inputs
-function formatInputsToDollar(...ids) {
-  ids.forEach((id) => {
-    const input = document.getElementById(id);
-    if (!input) return;
-
-    input.addEventListener("blur", () => {
-      let val = input.value.trim().replace(/[^0-9.]/g, "");
-      if (
-        val &&
-        !isNaN(val) &&
-        Number(val) > 0 &&
-        (val.match(/\./g) || []).length <= 1
-      ) {
-        const formatted =
-          "$" +
-          Number(val).toLocaleString("en-US", {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 4,
-          });
-        input.value = formatted;
-      } else {
-        input.value = "";
-        input.style.border = "2px solid red";
-      }
-    });
-
-    input.addEventListener("focus", () => {
-      let val = input.value.trim();
-      if (val.startsWith("$")) {
-        input.value = val.replace(/[^0-9.]/g, "");
-      }
-    });
-  });
-}
-
-// Function to show the right result box based on the tab clicked
-function showRightTab(tab) {
-  const glassmorphism =
-    tab === "by-price" ? glassmorphismByPrice : glassmorphismByMC;
-
-  // If it's hidden, show it by removing "hidden" class and adding "flex"
-  if (glassmorphism.classList.contains("hidden")) {
-    glassmorphism.classList.remove("hidden");
-    glassmorphism.classList.add("flex");
-  }
-}
-
-// function to convert b to billion eetc
-function normalizeInput(value) {
-  value = value.toLowerCase().trim().replace(/,/g, ""); // remove commas
-
-  const match = value.match(/^([\d.]+)([kmbh])?$/);
-  if (!match) return NaN;
-
-  const number = parseFloat(match[1]);
-  const suffix = match[2];
-
-  if (suffix === "b") return number * 1_000_000_000;
-  if (suffix === "m") return number * 1_000_000;
-  if (suffix === "k") return number * 1_000;
-  if (suffix === "h") return number * 100;
-
-  return number;
-}
-
-/////////////////////////////////////////////////////////////
-// Selective calculator tab switching function (percentage calculator (pc))
-window.switchPercentageCalculator = function (PcId) {
-  //hide all pc content divs
-  document.querySelectorAll(".pc-content").forEach((pc) => {
-    pc.classList.add("hidden");
-  });
-
-  //Remove active styles from all pc-btn buttons
-  document.querySelectorAll(".pc-btn").forEach((pcbtn) => {
-    pcbtn.classList.replace("text-white", "text-text-color-1");
-    pcbtn.classList.replace("border-opacity-100", "border-opacity-0");
-  });
-
-  //show the selected tab
-  document.getElementById(PcId).classList.replace("hidden", "flex");
-
-  //Activate the selected button
-  const targetPc = document.querySelector(`[data-tab="${PcId}"]`);
-  targetPc.classList.replace("text-text-color-1", "text-white");
-  targetPc.classList.replace("border-opacity-0", "border-opacity-100");
-};
-
-// initialize the default tab on page load
-// initialize the default tab on page load
-window.addEventListener("DOMContentLoaded", () => {
-  window.switchPercentageCalculator("by-price");
-});
-
-//////////////////////////////////////////
-/////logic for the BY PRICE calcultion
-//////////////////////////////////////////
-function calcByPrice() {
-  // clean and convert input values
-  const capital = cleanConvertInputValues("by-price-capital");
-  const entryPrice = cleanConvertInputValues("by-price-entry");
-  const exitPrice = cleanConvertInputValues("by-price-exit");
-  const errMessage = document.getElementById("by-price-err");
-
-  if (
-    !enhancedValidation("by-price-capital", "by-price-entry", "by-price-exit")
-  )
-    return;
-
-  //Roi calculation
-  const returnOfIndex = ((exitPrice - entryPrice) / entryPrice) * 100;
-  const returnOfIndexEl = document.getElementById("by-price-roi");
-  cleanCalc(returnOfIndex, returnOfIndexEl, false);
-
-  //Total return
-  const totalReturn = capital * (1 + returnOfIndex / 100);
-  const totalReturnEL = document.getElementById("by-price-total-return");
-  cleanCalc(totalReturn, totalReturnEL, true);
-
-  //Net Profit
-  const netProfit = totalReturn - capital;
-  const npEL = document.getElementById("by-price-NP");
-  cleanCalc(netProfit, npEL, true);
-
-  //show err message if total retun is =< zero
-  if (totalReturn <= 0) {
-    // hide glassmorphsim if visible
-    glassmorphismByPrice.classList.add("hidden");
-    glassmorphismByPrice.classList.remove("flex");
-    openErrEl(errMessage);
-  } else {
-    showRightTab("by-price");
-  }
-
-  setTimeout(() => {
-    closeErrEl(errMessage);
-  }, 4000);
-}
-
-//calling the logic function
-calcByPriceBtn.addEventListener("click", () => calcByPrice());
-
-//call the function to format inout on blur
-formatInputsToDollar("by-price-capital", "by-price-entry", "by-price-exit");
-
-//////////////////////////////////////////
-/////logic for the BY MARKET CAP calcultion
-//////////////////////////////////////////
-const mcInputs = [
-  document.getElementById("by-market-cap-capital"),
-  document.getElementById("by-market-cap-entry"),
-  document.getElementById("by-market-cap-exit"),
-];
-const errMessage = document.getElementById("by-mc-err");
-
-// add blur event once when page loads
-mcInputs.forEach((input) => {
-  input.addEventListener("blur", () => {
-    const num = normalizeInput(input.value);
-    if (!isNaN(num)) {
-      input.value = num.toLocaleString("en-US");
-    }
-  });
-});
-
-function calcByMarketCap() {
-  const [mcCapital, mcEntry, mcExit] = mcInputs;
-
-  // validate
-  if (
-    !enhancedValidation(
-      "by-market-cap-capital",
-      "by-market-cap-entry",
-      "by-market-cap-exit"
-    )
-  )
-    return;
-
-  // do the calculation
-  const mcCapitalValue = Number(mcCapital.value.replace(/[^0-9.]/g, ""));
-  const mcEntryValue = Number(mcEntry.value.replace(/[^0-9.]/g, ""));
-  const mcExitValue = Number(mcExit.value.replace(/[^0-9.]/g, ""));
-
-  //ROI calculation
-  const returnOfIndex = ((mcExitValue - mcEntryValue) / mcEntryValue) * 100;
-  const returnOfIndexEl = document.getElementById("by-mc-roi");
-  cleanCalc(returnOfIndex, returnOfIndexEl, false);
-
-  //Total return
-  const totalReturn = mcCapitalValue * (1 + returnOfIndex / 100);
-  const totalReturnEL = document.getElementById("by-mc-total-return");
-  cleanCalc(totalReturn, totalReturnEL, true);
-
-  //Net profit
-  const netProfit = totalReturn - mcCapitalValue;
-  const npEL = document.getElementById("by-mc-NP");
-  cleanCalc(netProfit, npEL, true);
-
-  //show err message if total retun is =< zero
-  if (totalReturn <= 0) {
-    // hide glassmorphsim if visible
-    glassmorphismByPrice.classList.add("hidden");
-    glassmorphismByPrice.classList.remove("flex");
-    openErrEl(errMessage);
-  } else {
-    showRightTab("by-market-cap");
-  }
-
-  setTimeout(() => {
-    closeErrEl(errMessage);
-  }, 4000);
-}
-
-// calling the logic function
-calcByMarketCapBtn.addEventListener("click", () => calcByMarketCap());
-
-//call the function to format inout on blur
-formatInputsToDollar(
-  "by-market-cap-capital",
-  "by-market-cap-entry",
-  "by-market-cap-exit"
-);

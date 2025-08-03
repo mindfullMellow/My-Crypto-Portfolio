@@ -6,7 +6,8 @@ export default defineConfig({
       input: {
         main: "index.html",
         calculator: "calculator.html",
-        asset_quantity_calc: "./src/asset_quantity_calc.js", // Add this
+        asset_quantity_calc: "./src/asset_quantity_calc.js",
+        percentagecalc: "./src/percentagecalc.js",
       },
     },
   },
