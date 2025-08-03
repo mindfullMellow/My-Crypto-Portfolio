@@ -1,6 +1,7 @@
 import requests
 import json
 from datetime import datetime
+import os
 
 def fetch_top_500_assets():
     assets = []
@@ -17,7 +18,11 @@ def fetch_top_500_assets():
                 if symbol not in seen:
                     assets.append({
                         "name": coin["name"],
-                        "symbol": symbol
+                        "symbol": symbol,
+                        "price": coin["current_price"],
+                        "market_cap": coin["market_cap"],
+                        "change_24h": coin["price_change_percentage_24h"],
+                        "image": coin["image"]
                     })
                     seen.add(symbol)
         else:
@@ -29,11 +34,14 @@ def fetch_top_500_assets():
         "assets": assets
     }
 
-    # Save to JSON
-    with open("top_500_assets.json", "w") as f:
+    # Create public folder if not exists
+    os.makedirs("public", exist_ok=True)
+
+    # Save JSON to public folder
+    with open("public/top_500_assets.json", "w") as f:
         json.dump(result, f, indent=2)
 
-    print(f"Saved {len(assets)} top assets with timestamp to top_500_assets.json")
+    print(f"Saved {len(assets)} assets to public/top_500_assets.json")
 
 # Run it
 fetch_top_500_assets()
