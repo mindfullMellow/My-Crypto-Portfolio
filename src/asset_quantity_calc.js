@@ -36,6 +36,7 @@ window.addEventListener("DOMContentLoaded", () => {
 let assetList = [];
 let selectedSymbolName = ""; // only store the name
 const buyBtn = document.getElementById("ac-buy-btn");
+const sellBtn = document.getElementById("ac-sell-btn");
 const glassmorphismBuy = document.querySelector(".buy-asset-glassmorphism");
 const glassmorphismSell = document.querySelector(".sell-asset-glassmorphism");
 
@@ -67,11 +68,31 @@ function cleanConvertInputValues(inputId) {
 }
 
 // Show suggestions as user types.. Only allow letters (remove numbers/symbols)
+let buySelectedSymbolName = "";
+let sellSelectedSymbolName = "";
+
+// Show suggestions as user types. Only allow letters (remove numbers/symbols)
+
 function setupAssetAutoSuggest(inputId) {
   const input = document.getElementById(inputId);
   const suggestionBox = document.getElementById(`${inputId}-suggestions`);
+  const errMessageEl = document.getElementById(`${inputId}-err`);
   let validAssetSelected = false;
   let errorTimeout = null;
+
+  // Check if elements exist
+  if (!input) {
+    console.error(`Input element with ID "${inputId}" not found.`);
+    return;
+  }
+  if (!suggestionBox) {
+    console.error(`Suggestion box with ID "${inputId}-suggestions" not found.`);
+    return;
+  }
+  if (!assetList) {
+    console.error(`assetList is not defined for "${inputId}".`);
+    return;
+  }
 
   input.addEventListener("input", () => {
     input.value = input.value.replace(/[^a-zA-Z]/g, "");
@@ -101,11 +122,15 @@ function setupAssetAutoSuggest(inputId) {
     suggestionBox.classList.remove("hidden");
   });
 
-  suggestionBox.addEventListener("click", (e) => {
+  suggestionBox.addEventListener("mousedown", (e) => {
     if (e.target.tagName === "LI") {
       const [, name] = e.target.textContent.split(" - ");
       input.value = `$${e.target.textContent.split(" - ")[0]}`;
-      selectedSymbolName = name.trim(); // store only the name
+      if (inputId === "buy-asset-name") {
+        buySelectedSymbolName = name.trim(); // Store in buy-specific global
+      } else if (inputId === "sell-asset-name") {
+        sellSelectedSymbolName = name.trim(); // Store in sell-specific global
+      }
       validAssetSelected = true;
       suggestionBox.classList.add("hidden");
     }
@@ -125,7 +150,6 @@ function setupAssetAutoSuggest(inputId) {
               asset.name.toLowerCase() === value ||
               asset.symbol.toLowerCase() === value
           );
-          const errMessageEl = document.getElementById("asset-err");
           if (!isValidAsset && errMessageEl) {
             if (errorTimeout) clearTimeout(errorTimeout); // Clear any existing timeout
             openErrEl(errMessageEl);
@@ -135,12 +159,24 @@ function setupAssetAutoSuggest(inputId) {
           }
         }
         input.value = "";
-        selectedSymbolName = "";
+        if (inputId === "buy-asset-name") {
+          buySelectedSymbolName = ""; // Clear buy-specific global
+        } else if (inputId === "sell-asset-name") {
+          sellSelectedSymbolName = ""; // Clear sell-specific global
+        }
       }
       validAssetSelected = false;
-    }, 100);
+    }, 200);
   });
 }
+
+// Initialize both inputs on DOMContentLoaded
+window.addEventListener("DOMContentLoaded", () => {
+  const inputIds = ["buy-asset-name", "sell-asset-name"];
+  inputIds.forEach((inputId) => {
+    setupAssetAutoSuggest(inputId);
+  });
+});
 
 // function to Enhanced validation to prevent multiple decimals and invalid inputs
 function enhancedValidation(...ids) {
@@ -224,16 +260,12 @@ function showRightTab(tab) {
 
 //////////////////////////////////////////////////////////////
 // logic for Asset Quantity calcuator (BUY)
-//call the suggestion fuction
-window.addEventListener("DOMContentLoaded", () => {
-  setupAssetAutoSuggest("buy-asset-name");
-});
 
 function calculateBuyAsset() {
   const assetName = document.getElementById("buy-asset-name").value;
   const BuyAssetAmount = cleanConvertInputValues("buy-asset-amount");
   const BuyAssetPrice = cleanConvertInputValues("buy-asset-price");
-  const assetSymbol = selectedSymbolName;
+  const assetSymbol = buySelectedSymbolName;
 
   if (!enhancedValidation("buy-asset-amount", "buy-asset-price")) return;
 
@@ -260,3 +292,39 @@ function calculateBuyAsset() {
 formatInputsToDollar("buy-asset-amount", "buy-asset-price");
 
 buyBtn.addEventListener("click", () => calculateBuyAsset());
+
+//////////////////////////////////////////////////////////////
+//logic for asset Quantity calulator (SELL)
+
+function calculateSellAsset() {
+  const assetName = document.getElementById("sell-asset-name").value;
+  const SellAssetAmount = cleanConvertInputValues("sell-asset-amount");
+  const SellAssetPrice = cleanConvertInputValues("sell-asset-price");
+  const assetSymbol = sellSelectedSymbolName;
+
+  if (!enhancedValidation("sell-asset-amount", "sell-asset-price")) return;
+
+  //show asset name
+  document.getElementById("sell-name").textContent = assetSymbol;
+
+  //show asset price
+  document.getElementById("sell-price").textContent = "$" + SellAssetPrice;
+
+  //show amout of the asset
+  document.getElementById(
+    "sell-amount"
+  ).textContent = `${SellAssetAmount} ${assetName.slice(1)}`;
+
+  const totalReturn = SellAssetPrice * SellAssetAmount;
+  const totalReturnEL = document.getElementById("sell-receive");
+  totalReturnEL.textContent =
+    "$" +
+    totalReturn.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 4,
+    });
+}
+
+formatInputsToDollar("sell-asset-amount", "sell-asset-price");
+
+sellBtn.addEventListener("click", () => calculateSellAsset());
