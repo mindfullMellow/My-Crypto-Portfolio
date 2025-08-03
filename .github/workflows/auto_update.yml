@@ -2,7 +2,7 @@ name: Auto Update JSON
 
 on:
   schedule:
-    - cron: "*/3 * * * *" # every 3 mins
+    - cron: "*/2 * * * *" # every 3 mins
   workflow_dispatch:
 
 jobs:
