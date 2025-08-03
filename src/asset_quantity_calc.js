@@ -73,7 +73,6 @@ let sellAssetDetails = {};
 
 // Show suggestions as user types. Only allow letters (remove numbers/symbols)
 function setupAssetAutoSuggest(inputId, priceInputId) {
-  // ✅ added second param (price input ID)
   const input = document.getElementById(inputId);
   const suggestionBox = document.getElementById(`${inputId}-suggestions`);
   const errMessageEl = document.getElementById(`${inputId}-err`);
