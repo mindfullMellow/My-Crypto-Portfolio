@@ -390,39 +390,21 @@ formatInputToLeverage(document.getElementById("leverage"));
 //////////////////////////////////////////
 function calcShortTrade() {
   // Clean and convert input values
-  const capital = Number(
-    document.getElementById("capital-sh").value.replace(/[^0-9.]/g, "")
-  );
-  const entryPrice = Number(
-    document.getElementById("entry-price-sh").value.replace(/[^0-9.]/g, "")
-  );
-  const tpPrice = Number(
-    document.getElementById("tp-price-sh").value.replace(/[^0-9.]/g, "")
-  );
-  const leverage = Number(
-    document.getElementById("leverage-sh").value.replace(/[^0-9.]/g, "")
-  );
+  const capital = cleanConvertInputValues("capital-sh");
+  const entryPrice = cleanConvertInputValues("entry-price-sh");
+  const tpPrice = cleanConvertInputValues("tp-price-sh");
+  const leverage = cleanConvertInputValues("leverage-sh");
 
   // Enhanced validation to prevent multiple decimals and invalid inputs
-  const inputs = ["entry-price-sh", "tp-price-sh", "leverage-sh", "capital-sh"];
-  let allFilled = true;
-  inputs.forEach((id) => {
-    const input = document.getElementById(id);
-    const value = input.value.trim().replace(/[^0-9.]/g, "");
-    if (
-      !value ||
-      isNaN(value) ||
-      value <= 0 ||
-      (value.match(/\./g) || []).length > 1
-    ) {
-      input.style.border = "2px solid red";
-      allFilled = false;
-    } else {
-      input.style.border = "";
-    }
-  });
-
-  if (!allFilled) return;
+  if (
+    !enhancedValidation(
+      "entry-price-sh",
+      "tp-price-sh",
+      "leverage-sh",
+      "capital-sh"
+    )
+  )
+    return;
 
   // Liquidation price calculation
   const shortLP = entryPrice * (1 + 1 / leverage);
@@ -472,100 +454,24 @@ function calcShortTrade() {
   // short PNL calculation
   const shortPNL = ((entryPrice - tpPrice) / entryPrice) * 100 * leverage;
   const shortPNLel = document.getElementById("short-pnl");
-  shortPNLel.textContent =
-    shortPNL.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }) + "%";
-  shortPNLel.style.color = shortPNL < 0 ? "red" : "#b4ff59";
+  cleanCalc(shortPNL, shortPNLel, false);
 
   // Total Return $
   const shTotalReturn = capital * (1 + shortPNL / 100);
   const shTotalReturnEl = document.getElementById("short-return");
-  shTotalReturnEl.textContent =
-    "$" +
-    shTotalReturn.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  shTotalReturnEl.style.color = shTotalReturn <= 0 ? "red" : "#b4ff59";
+  cleanCalc(shTotalReturn, shTotalReturnEl, true);
 
   //Net Profit $
   const shNetProfit = shTotalReturn - capital;
   const shNetProfitEl = document.getElementById("short-NP");
-  shNetProfitEl.textContent =
-    "$" +
-    shNetProfit.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  shNetProfitEl.style.color = shNetProfit <= 0 ? "red" : "#b4ff59";
+  cleanCalc(shNetProfit, shNetProfitEl, true);
 }
 
 // Attach button click
 calcShort.addEventListener("click", () => calcShortTrade());
 
 // Format $ inputs
-["entry-price-sh", "tp-price-sh", "capital-sh"].forEach((id) => {
-  const input = document.getElementById(id);
-
-  input.addEventListener("blur", () => {
-    let val = input.value.trim().replace(/[^0-9.]/g, "");
-    // Modified: Validate for single decimal and positive number
-    if (
-      val &&
-      !isNaN(val) &&
-      Number(val) > 0 &&
-      (val.match(/\./g) || []).length <= 1
-    ) {
-      const formatted =
-        "$" +
-        Number(val).toLocaleString("en-US", {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 2,
-        });
-      input.value = formatted;
-    } else {
-      input.value = "";
-      input.style.border = "2px solid red";
-    }
-  });
-
-  input.addEventListener("focus", () => {
-    let val = input.value.trim();
-    if (val.startsWith("$")) {
-      input.value = val.replace(/[^0-9.]/g, "");
-    }
-  });
-});
+formatInputsToDollar("entry-price-sh", "tp-price-sh", "capital-sh");
 
 // Format leverage input with 'x'
-const shortLeverageInput = document.getElementById("leverage-sh");
-
-shortLeverageInput.addEventListener("blur", () => {
-  let val = shortLeverageInput.value.trim().replace(/[^0-9.]/g, "");
-  // Modified: Validate for single decimal and positive number
-  if (
-    val &&
-    !isNaN(val) &&
-    Number(val) > 0 &&
-    (val.match(/\./g) || []).length <= 1
-  ) {
-    const formatted =
-      Number(val).toLocaleString("en-US", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2,
-      }) + "x";
-    shortLeverageInput.value = formatted;
-  } else {
-    shortLeverageInput.value = "";
-    shortLeverageInput.style.border = "2px solid red";
-  }
-});
-
-shortLeverageInput.addEventListener("focus", () => {
-  let val = shortLeverageInput.value.trim();
-  if (val.endsWith("x")) {
-    shortLeverageInput.value = val.replace(/[^0-9.]/g, "");
-  }
-});
+formatInputToLeverage(document.getElementById("leverage-sh"));
