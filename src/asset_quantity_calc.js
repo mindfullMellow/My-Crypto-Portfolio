@@ -34,7 +34,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //GLOBAL VARIBLES
 let assetList = [];
+let selectedSymbolName = ""; // only store the name
 const buyBtn = document.getElementById("ac-buy-btn");
+const glassmorphismBuy = document.querySelector(".buy-asset-glassmorphism");
+const glassmorphismSell = document.querySelector(".sell-asset-glassmorphism");
 
 //load the jsn and store its values in the assetlist
 fetch("top_500_assets.json")
@@ -45,6 +48,20 @@ fetch("top_500_assets.json")
 
 ////////////////////////////////////////////////////////
 //Reuseable functions
+//function to show error message
+function openErrEl(errMessageEl) {
+  errMessageEl.classList.replace("opacity-0", "opacity-100");
+  errMessageEl.classList.replace("invisible", "visible");
+  errMessageEl.classList.replace("pointer-events-none", "pointer-events-auto");
+}
+
+//function to remove error message
+function closeErrEl(errMessageEl) {
+  errMessageEl.classList.replace("opacity-100", "opacity-0");
+  errMessageEl.classList.replace("visible", "invisible");
+  errMessageEl.classList.replace("pointer-events-auto", "pointer-events-none");
+}
+
 function cleanConvertInputValues(inputId) {
   return Number(document.getElementById(inputId).value.replace(/[^0-9.]/g, ""));
 }
@@ -53,12 +70,13 @@ function cleanConvertInputValues(inputId) {
 function setupAssetAutoSuggest(inputId) {
   const input = document.getElementById(inputId);
   const suggestionBox = document.getElementById(`${inputId}-suggestions`);
-  let validAssetSelected = false; // track if user selected a valid asset
+  let validAssetSelected = false;
+  let errorTimeout = null;
 
   input.addEventListener("input", () => {
     input.value = input.value.replace(/[^a-zA-Z]/g, "");
     const value = input.value.trim().toLowerCase();
-    validAssetSelected = false; // reset every input
+    validAssetSelected = false;
 
     const matches = assetList
       .filter(
@@ -85,9 +103,10 @@ function setupAssetAutoSuggest(inputId) {
 
   suggestionBox.addEventListener("click", (e) => {
     if (e.target.tagName === "LI") {
-      const symbol = e.target.textContent.split(" - ")[0];
-      input.value = `$${symbol}`;
-      validAssetSelected = true; // mark as valid
+      const [, name] = e.target.textContent.split(" - ");
+      input.value = `$${e.target.textContent.split(" - ")[0]}`;
+      selectedSymbolName = name.trim(); // store only the name
+      validAssetSelected = true;
       suggestionBox.classList.add("hidden");
     }
   });
@@ -95,13 +114,29 @@ function setupAssetAutoSuggest(inputId) {
   input.addEventListener("blur", () => {
     setTimeout(() => {
       suggestionBox.classList.add("hidden");
-
-      // show alert and clear if not valid
       if (!validAssetSelected) {
-        alert("Please select a valid asset from the list.");
+        const value = input.value
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-zA-Z]/g, "");
+        if (value !== "") {
+          const isValidAsset = assetList.some(
+            (asset) =>
+              asset.name.toLowerCase() === value ||
+              asset.symbol.toLowerCase() === value
+          );
+          const errMessageEl = document.getElementById("asset-err");
+          if (!isValidAsset && errMessageEl) {
+            if (errorTimeout) clearTimeout(errorTimeout); // Clear any existing timeout
+            openErrEl(errMessageEl);
+            errorTimeout = setTimeout(() => {
+              closeErrEl(errMessageEl);
+            }, 4000);
+          }
+        }
         input.value = "";
+        selectedSymbolName = "";
       }
-
       validAssetSelected = false;
     }, 100);
   });
@@ -174,6 +209,19 @@ function cleanCalc(mainCalc, calcEl, assetName) {
   calcEl.style.color = mainCalc <= 0 ? "red" : "#b4ff59";
 }
 
+// Function to show the right result box based on the tab clicked
+//Morphsim cotainer vairaibles
+function showRightTab(tab) {
+  const glassmorphism =
+    tab === "buy-asset" ? glassmorphismBuy : glassmorphismSell;
+
+  // If it's hidden, show it by removing "hidden" class and adding "flex"
+  if (glassmorphism.classList.contains("hidden")) {
+    glassmorphism.classList.remove("hidden");
+    glassmorphism.classList.add("flex");
+  }
+}
+
 //////////////////////////////////////////////////////////////
 // logic for Asset Quantity calcuator (BUY)
 //call the suggestion fuction
@@ -185,24 +233,28 @@ function calculateBuyAsset() {
   const assetName = document.getElementById("buy-asset-name").value;
   const BuyAssetAmount = cleanConvertInputValues("buy-asset-amount");
   const BuyAssetPrice = cleanConvertInputValues("buy-asset-price");
+  const assetSymbol = selectedSymbolName;
 
   if (!enhancedValidation("buy-asset-amount", "buy-asset-price")) return;
 
-  //asset quantity calculation
+  //asset quantity calculation and show the content
   const assetQuantity = BuyAssetAmount / BuyAssetPrice;
   const assetQuantityEL = document.getElementById("buy-receive");
   cleanCalc(assetQuantity, assetQuantityEL, assetName);
 
-  //showing the elements in the calssmorphsim container
+  //showing the asset name
   const assetNameEl = document.getElementById("buy-name");
-  assetNameEl.textContent = assetName;
+  assetNameEl.textContent = assetSymbol;
 
+  //show the price of the asset
   document.getElementById("buy-price").textContent = "$" + BuyAssetPrice;
+
+  //amount to buy and the symbol of the supoosed asset
   document.getElementById("buy-price-el").textContent = "$" + BuyAssetAmount;
   document.getElementById("buy-amount").textContent = assetName;
-  // document.getElementById(
-  //   "buy-receive"
-  // ).textContent = `${assetQuantity} ${assetName.slice(1)}`;
+
+  //show the glass morphism tab
+  showRightTab("buy-asset");
 }
 
 formatInputsToDollar("buy-asset-amount", "buy-asset-price");

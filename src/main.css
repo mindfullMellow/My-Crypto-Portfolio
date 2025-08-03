@@ -176,7 +176,9 @@ body {
 .short-glassmorphism,
 .error-glassmorphism,
 .byprice-glassmorphism,
-.bymc-glassmorphism {
+.bymc-glassmorphism,
+.sell-asset-glassmorphism,
+.buy-asset-glassmorphism {
   position: relative;
   padding: 1rem;
   border-radius: 1rem;
@@ -191,7 +193,9 @@ body {
 .short-glassmorphism::before,
 .error-glassmorphism::before,
 .byprice-glassmorphism::before,
-.bymc-glassmorphism::before {
+.bymc-glassmorphism::before,
+.sell-asset-glassmorphism::before,
+.buy-asset-glassmorphism::before {
   content: "";
   position: absolute;
   top: -2px;
