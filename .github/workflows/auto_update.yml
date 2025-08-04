@@ -1,7 +1,7 @@
 name: Auto Update JSON
 
 on:
-  workflow_dispatch: # Only allows manual or external trigger
+  workflow_dispatch:
 
 jobs:
   update-json:
