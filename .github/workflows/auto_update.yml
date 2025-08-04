@@ -37,8 +37,9 @@ jobs:
           git config user.email "actions@github.com"
           git remote set-url origin git@github.com:mindfullMellow/My-Crypto-Portfolio.git
           git add public/top_500_assets.json
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
+          if ! git diff --staged --quiet; then
             git commit -m "auto updating json"
             git push origin main
+          else
+            echo "No changes to commit"
+          fi
