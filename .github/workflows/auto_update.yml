@@ -1,9 +1,7 @@
 name: Auto Update JSON
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"
-  workflow_dispatch:
+  workflow_dispatch: # Only allows manual or external trigger
 
 jobs:
   update-json:
@@ -42,4 +40,3 @@ jobs:
           else
             git commit -m "auto updating json"
             git push origin main
-          fi
