@@ -264,6 +264,7 @@ function formatInputsToDollar(...ids) {
       }
     });
   });
+  console.log("Checking input:", id, input);
 }
 
 //function to clean any calulation
