@@ -550,23 +550,28 @@
             <!-- BUY asset tab output -->
             <div
               class="w-full lg:w-[400px]  min-h-[150px] p-4 buy-asset-glassmorphism justify-self-start hidden flex-col gap-4 justify-center font-manrope">
-              <p class="flex items-center gap-2 text-lg font-bold tracking-wider text-white">
+              <p class="flex items-center gap-2 text-lg font-bold tracking-wider text-white" id="buy-asset-sub-div1">
                 Asset Name:
                 <img src="" alt="Asset img" id="buy-asset-img" class="w-6 h-6 rounded-full" />
                 <span class="text-lime-300" id="buy-name"></span>
               </p>
 
-              <p class="text-lg font-bold tracking-wider text-white ">24hr change: <span class="text-lime-300"
-                  id="buy-change"></span>
+              <p class="text-lg font-bold tracking-wider text-white " id="buy-asset-sub-div2">24hr change: <span
+                  class="text-lime-300" id="buy-change"></span>
               </p>
 
               <p class="text-lg font-bold tracking-wider text-white ">Price of the asset: <span class="text-lime-300"
                   id="buy-price"></span>
               </p>
 
-              <p class="text-lg font-bold tracking-wider text-white ">Amount to buy: <span class="text-lime-300"
-                  id="buy-price-el">$100</span> worth of
+              <p class="text-lg font-bold tracking-wider text-white " id="buy-asset-sub-div3">Amount to buy: <span
+                  class="text-lime-300" id="buy-price-el">$100</span> worth of
                 <span class="text-lime-300" id="buy-amount"></span>
+              </p>
+
+
+              <p class="hidden text-lg font-bold tracking-wider text-white " id="buy-asset-sub-div4">Capital Used: <span
+                  class="text-lime-300" id="buy-price-el2"></span>
               </p>
 
               <p class="text-lg font-bold tracking-wider text-white ">Amount to receive: <span class="text-lime-300"
@@ -623,16 +628,17 @@
 
             <!-- SELL asset tab output -->
             <div
-              class="w-full  lg:w-[350px] min-h-[150px] p-4 sell-asset-glassmorphism justify-self-start hidden flex-col gap-4 justify-center font-manrope">
+              class="w-full  lg:w-[350px] min-h-[150px] p-4 sell-asset-glassmorphism justify-self-start hidden flex-col gap-4 justify-center font-manrope ">
 
-              <p class="flex items-center gap-2 pb-2 text-lg font-bold tracking-wider text-white">
+              <p class="flex items-center gap-2 pb-2 text-lg font-bold tracking-wider text-white"
+                id="sell-asset-sub-div1">
                 Asset Name:
                 <img src="" alt="Asset img" id="sell-asset-img" class="w-6 h-6 rounded-full" />
                 <span class="text-lime-300" id="sell-name"></span>
               </p>
 
-              <p class="pb-2 text-lg font-bold tracking-wider text-white ">24hr change: <span class="text-lime-300"
-                  id="sell-change"></span>
+              <p class="pb-2 text-lg font-bold tracking-wider text-white " id="sell-asset-sub-div2">24hr change: <span
+                  class="text-lime-300" id="sell-change"></span>
               </p>
 
               <p class="pb-2 text-lg font-bold tracking-wider text-white">Price of the asset: <span

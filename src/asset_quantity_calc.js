@@ -228,6 +228,7 @@ function enhancedValidation(...ids) {
     }
   });
   return allFilled; // ✅ important
+  console.log("Checking input:", id, input);
 }
 
 // function to format $ inputs
@@ -264,7 +265,6 @@ function formatInputsToDollar(...ids) {
       }
     });
   });
-  console.log("Checking input:", id, input);
 }
 
 //function to clean any calulation
@@ -272,7 +272,7 @@ function cleanCalc(mainCalc, calcEl, assetName) {
   calcEl.textContent =
     mainCalc.toLocaleString("en-US", {
       minimumFractionDigits: 2,
-      maximumFractionDigits: 4,
+      maximumFractionDigits: 6,
     }) + ` ${assetName.slice(1)}`;
   calcEl.style.color = mainCalc <= 0 ? "red" : "#b4ff59";
 }
@@ -297,22 +297,44 @@ function calculateBuyAsset() {
   const assetName = document.getElementById("buy-asset-name").value;
   const BuyAssetAmount = cleanConvertInputValues("buy-asset-amount");
   const BuyAssetPrice = cleanConvertInputValues("buy-asset-price");
-  const BuyChange =
-    buyAssetDetails.change_24h.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }) + "%";
-  const assetSymbol = buySelectedSymbolName;
+
+  // ✅ added this fallback if user didn't pick an asset
+  const BuyChange = buyAssetDetails.change_24h
+    ? buyAssetDetails.change_24h.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }) + "%"
+    : "0.00%";
+
+  const assetSymbol = buySelectedSymbolName || assetName;
 
   if (!enhancedValidation("buy-asset-amount", "buy-asset-price")) return;
 
   //show the asset img
-  document.getElementById("buy-asset-img").src = buyAssetDetails.image;
+  if (buyAssetDetails.image) {
+    document.getElementById("buy-asset-img").src = buyAssetDetails.image;
+    document.getElementById("buy-asset-sub-div1").classList.remove("hidden");
+    document.getElementById("buy-asset-sub-div2").classList.remove("hidden");
+    document.getElementById("buy-asset-sub-div3").classList.remove("hidden");
+    document
+      .getElementById("buy-asset-sub-div4")
+      .classList.replace("block", "hidden");
+  } else {
+    document.getElementById("buy-asset-sub-div1").classList.add("hidden");
+    document.getElementById("buy-asset-sub-div2").classList.add("hidden");
+    document.getElementById("buy-asset-sub-div3").classList.add("hidden");
+    document
+      .getElementById("buy-asset-sub-div4")
+      .classList.replace("hidden", "block");
+  }
 
   //show 24hr change
+
+  const buyChangeColor =
+    Number(buyAssetDetails.change_24h) < 0 ? "red" : "#b4ff59";
+
   document.getElementById("buy-change").textContent = BuyChange;
-  document.getElementById("buy-change").style.color =
-    BuyChange < 0 ? "red" : "#b4ff59";
+  document.getElementById("buy-change").style.color = buyChangeColor;
 
   //asset quantity calculation and show the content
   const assetQuantity = BuyAssetAmount / BuyAssetPrice;
@@ -328,6 +350,7 @@ function calculateBuyAsset() {
 
   //amount to buy and the symbol of the supoosed asset
   document.getElementById("buy-price-el").textContent = "$" + BuyAssetAmount;
+  document.getElementById("buy-price-el2").textContent = "$" + BuyAssetAmount;
   document.getElementById("buy-amount").textContent = assetName;
 
   //show the glass morphism tab
@@ -342,26 +365,38 @@ buyBtn.addEventListener("click", () => calculateBuyAsset());
 //logic for asset Quantity calulator (SELL)
 
 function calculateSellAsset() {
-  console.log("Sell function triggered");
   const assetName = document.getElementById("sell-asset-name").value;
   const SellAssetAmount = cleanConvertInputValues("sell-asset-amount");
   const SellAssetPrice = cleanConvertInputValues("sell-asset-price");
-  const SellChange =
-    sellAssetDetails.change_24h.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }) + "%";
-  const assetSymbol = sellSelectedSymbolName;
+
+  // ✅ added fallback like in buy to avoid crash
+  const SellChange = sellAssetDetails.change_24h
+    ? sellAssetDetails.change_24h.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }) + "%"
+    : "0.00%";
+
+  const assetSymbol = sellSelectedSymbolName || assetName;
 
   if (!enhancedValidation("sell-asset-amount", "sell-asset-price")) return;
 
   //show asset image
-  document.getElementById("sell-asset-img").src = sellAssetDetails.image;
+  if (sellAssetDetails.image) {
+    document.getElementById("sell-asset-img").src = sellAssetDetails.image;
+    document.getElementById("sell-asset-sub-div1").classList.remove("hidden");
+    document.getElementById("sell-asset-sub-div2").classList.remove("hidden");
+  } else {
+    document.getElementById("sell-asset-sub-div1").classList.add("hidden");
+    document.getElementById("sell-asset-sub-div2").classList.add("hidden");
+  }
 
   //show 24hrs change
+  const sellChangeColor =
+    Number(sellAssetDetails.change_24h) < 0 ? "red" : "#b4ff59";
+
   document.getElementById("sell-change").textContent = SellChange;
-  document.getElementById("sell-change").style.color =
-    SellChange < 0 ? "red" : "#b4ff59";
+  document.getElementById("sell-change").style.color = sellChangeColor;
 
   //show asset name
   document.getElementById("sell-name").textContent = assetSymbol;
