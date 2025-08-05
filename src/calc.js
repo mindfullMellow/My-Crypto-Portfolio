@@ -74,8 +74,6 @@ for (let i = 0; i < profileBtn.length; i++) {
 // close modal when overlay is clicked
 overlayEL.addEventListener("click", closeProfileModal);
 
-console.log("this works");
-
 ///////////////////////////////////////////////////
 //seletive calculator tab switching function
 function switchTab(tabId) {
@@ -124,7 +122,7 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 
 // Set default active tab on page load
 document.addEventListener("DOMContentLoaded", () =>
-  switchTab("tab-asset-quantity")
+  switchTab("tab-risk-reward")
 );
 
 //////////////////////////////////////////////////////
