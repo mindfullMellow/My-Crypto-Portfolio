@@ -298,20 +298,18 @@ function calculateBuyAsset() {
   const BuyAssetAmount = cleanConvertInputValues("buy-asset-amount");
   const BuyAssetPrice = cleanConvertInputValues("buy-asset-price");
 
-  // ✅ added this fallback if user didn't pick an asset
-  const BuyChange = buyAssetDetails.change_24h
-    ? buyAssetDetails.change_24h.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }) + "%"
-    : "0.00%";
-
   const assetSymbol = buySelectedSymbolName || assetName;
 
+  // Validate the necessery inputs
   if (!enhancedValidation("buy-asset-amount", "buy-asset-price")) return;
 
-  //show the asset img
+  //////////////////////////////
+  if (!assetName.trim()) {
+    buyAssetDetails = {};
+  }
+
   if (buyAssetDetails.image) {
+    //show the asset img
     document.getElementById("buy-asset-img").src = buyAssetDetails.image;
     document.getElementById("buy-asset-sub-div1").classList.remove("hidden");
     document.getElementById("buy-asset-sub-div2").classList.remove("hidden");
@@ -328,11 +326,17 @@ function calculateBuyAsset() {
       .classList.replace("hidden", "block");
   }
 
-  //show 24hr change
+  /*//////show 24hr change////////////*/
+  //  added this fallback if user didn't pick an asset
+  const BuyChange = buyAssetDetails.change_24h
+    ? buyAssetDetails.change_24h.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }) + "%"
+    : "0.00%";
 
   const buyChangeColor =
     Number(buyAssetDetails.change_24h) < 0 ? "red" : "#b4ff59";
-
   document.getElementById("buy-change").textContent = BuyChange;
   document.getElementById("buy-change").style.color = buyChangeColor;
 
@@ -369,17 +373,15 @@ function calculateSellAsset() {
   const SellAssetAmount = cleanConvertInputValues("sell-asset-amount");
   const SellAssetPrice = cleanConvertInputValues("sell-asset-price");
 
-  // ✅ added fallback like in buy to avoid crash
-  const SellChange = sellAssetDetails.change_24h
-    ? sellAssetDetails.change_24h.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }) + "%"
-    : "0.00%";
-
   const assetSymbol = sellSelectedSymbolName || assetName;
 
+  // Validate the necessery inputs
   if (!enhancedValidation("sell-asset-amount", "sell-asset-price")) return;
+
+  // 👇 Reset asset details if input is empty
+  if (!assetName.trim()) {
+    sellAssetDetails = {};
+  }
 
   //show asset image
   if (sellAssetDetails.image) {
@@ -391,10 +393,17 @@ function calculateSellAsset() {
     document.getElementById("sell-asset-sub-div2").classList.add("hidden");
   }
 
-  //show 24hrs change
+  /*//////show 24hr change////////////*/
+  // added fallback like in buy to avoid crash
+  const SellChange = sellAssetDetails.change_24h
+    ? sellAssetDetails.change_24h.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }) + "%"
+    : "0.00%";
+
   const sellChangeColor =
     Number(sellAssetDetails.change_24h) < 0 ? "red" : "#b4ff59";
-
   document.getElementById("sell-change").textContent = SellChange;
   document.getElementById("sell-change").style.color = sellChangeColor;
 
