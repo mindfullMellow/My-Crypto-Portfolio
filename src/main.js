@@ -18,7 +18,7 @@ function applyAnimation(element) {
 let coinData = {}; // Store fetched data
 
 function fetchPortfolio() {
-  fetch("http://127.0.0.1:5000/binance-calc")
+  fetch(`http://${window.location.hostname}:5000/binance-calc`)
     .then((res) => {
       if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
       return res.json();
