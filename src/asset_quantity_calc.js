@@ -303,7 +303,7 @@ function calculateBuyAsset() {
   // Validate the necessery inputs
   if (!enhancedValidation("buy-asset-amount", "buy-asset-price")) return;
 
-  //////////////////////////////
+  // Reset asset details if input is empty
   if (!assetName.trim()) {
     buyAssetDetails = {};
   }
