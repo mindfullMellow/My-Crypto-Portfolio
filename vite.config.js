@@ -12,8 +12,10 @@ export default defineConfig({
     },
   },
   server: {
+    host: "0.0.0.0", // this is the key part for phone access
+    port: 5173,
     hmr: {
-      host: "localhost",
+      host: "0.0.0.0",
       port: 5173,
       protocol: "ws",
     },
