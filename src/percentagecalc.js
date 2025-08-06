@@ -163,7 +163,6 @@ window.switchPercentageCalculator = function (PcId) {
 };
 
 // initialize the default tab on page load
-// initialize the default tab on page load
 window.addEventListener("DOMContentLoaded", () => {
   window.switchPercentageCalculator("by-price");
 });
@@ -178,33 +177,40 @@ function calcByPrice() {
   const exitPrice = cleanConvertInputValues("by-price-exit");
   const errMessage = document.getElementById("by-price-err");
 
-  if (
-    !enhancedValidation("by-price-capital", "by-price-entry", "by-price-exit")
-  )
-    return;
+  //  Only validate entry and exit
+  if (!enhancedValidation("by-price-entry", "by-price-exit")) return;
 
   //Roi calculation
   const returnOfIndex = ((exitPrice - entryPrice) / entryPrice) * 100;
   const returnOfIndexEl = document.getElementById("by-price-roi");
   cleanCalc(returnOfIndex, returnOfIndexEl, false);
 
-  //Total return
-  const totalReturn = capital * (1 + returnOfIndex / 100);
   const totalReturnEL = document.getElementById("by-price-total-return");
-  cleanCalc(totalReturn, totalReturnEL, true);
-
-  //Net Profit
-  const netProfit = totalReturn - capital;
   const npEL = document.getElementById("by-price-NP");
-  cleanCalc(netProfit, npEL, true);
 
-  //show err message if total retun is =< zero
-  if (totalReturn <= 0) {
-    // hide glassmorphsim if visible
-    glassmorphismByPrice.classList.add("hidden");
-    glassmorphismByPrice.classList.remove("flex");
-    openErrEl(errMessage);
+  //  if capital is given, calculate totalReturn and netProfit
+  if (!isNaN(capital) && capital > 0) {
+    //Total return
+    const totalReturn = capital * (1 + returnOfIndex / 100);
+    cleanCalc(totalReturn, totalReturnEL, true);
+
+    //Net Profit
+    const netProfit = totalReturn - capital;
+    cleanCalc(netProfit, npEL, true);
+
+    //show err message if total retun is =< zero
+    if (totalReturn <= 0) {
+      // hide glassmorphsim if visible
+      glassmorphismByPrice.classList.add("hidden");
+      glassmorphismByPrice.classList.remove("flex");
+      openErrEl(errMessage);
+    } else {
+      showRightTab("by-price");
+    }
   } else {
+    // Show placeholder if capital not entered
+    totalReturnEL.textContent = "--";
+    npEL.textContent = "--";
     showRightTab("by-price");
   }
 
@@ -242,15 +248,8 @@ mcInputs.forEach((input) => {
 function calcByMarketCap() {
   const [mcCapital, mcEntry, mcExit] = mcInputs;
 
-  // validate
-  if (
-    !enhancedValidation(
-      "by-market-cap-capital",
-      "by-market-cap-entry",
-      "by-market-cap-exit"
-    )
-  )
-    return;
+  // only validate entry and exit
+  if (!enhancedValidation("by-market-cap-entry", "by-market-cap-exit")) return;
 
   // do the calculation
   const mcCapitalValue = Number(mcCapital.value.replace(/[^0-9.]/g, ""));
@@ -262,23 +261,32 @@ function calcByMarketCap() {
   const returnOfIndexEl = document.getElementById("by-mc-roi");
   cleanCalc(returnOfIndex, returnOfIndexEl, false);
 
-  //Total return
-  const totalReturn = mcCapitalValue * (1 + returnOfIndex / 100);
   const totalReturnEL = document.getElementById("by-mc-total-return");
-  cleanCalc(totalReturn, totalReturnEL, true);
-
-  //Net profit
-  const netProfit = totalReturn - mcCapitalValue;
   const npEL = document.getElementById("by-mc-NP");
-  cleanCalc(netProfit, npEL, true);
 
-  //show err message if total retun is =< zero
-  if (totalReturn <= 0) {
-    // hide glassmorphsim if visible
-    glassmorphismByPrice.classList.add("hidden");
-    glassmorphismByPrice.classList.remove("flex");
-    openErrEl(errMessage);
+  //  Only calculate total and profit if capital is valid
+  if (!isNaN(mcCapitalValue) && mcCapitalValue > 0) {
+    //Total return
+    const totalReturn = mcCapitalValue * (1 + returnOfIndex / 100);
+    cleanCalc(totalReturn, totalReturnEL, true);
+
+    //Net profit
+    const netProfit = totalReturn - mcCapitalValue;
+    cleanCalc(netProfit, npEL, true);
+
+    //show err message if total retun is =< zero
+    if (totalReturn <= 0) {
+      // hide glassmorphsim if visible
+      glassmorphismByPrice.classList.add("hidden");
+      glassmorphismByPrice.classList.remove("flex");
+      openErrEl(errMessage);
+    } else {
+      showRightTab("by-market-cap");
+    }
   } else {
+    // Show placeholders for missing capital
+    totalReturnEL.textContent = "--";
+    npEL.textContent = "--";
     showRightTab("by-market-cap");
   }
 
