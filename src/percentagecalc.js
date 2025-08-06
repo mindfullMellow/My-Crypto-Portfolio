@@ -248,7 +248,7 @@ mcInputs.forEach((input) => {
 function calcByMarketCap() {
   const [mcCapital, mcEntry, mcExit] = mcInputs;
 
-  // 🟢 MODIFIED: only validate entry and exit
+  // only validate entry and exit
   if (!enhancedValidation("by-market-cap-entry", "by-market-cap-exit")) return;
 
   // do the calculation
@@ -264,7 +264,7 @@ function calcByMarketCap() {
   const totalReturnEL = document.getElementById("by-mc-total-return");
   const npEL = document.getElementById("by-mc-NP");
 
-  // 🟢 MODIFIED: Only calculate total and profit if capital is valid
+  //  Only calculate total and profit if capital is valid
   if (!isNaN(mcCapitalValue) && mcCapitalValue > 0) {
     //Total return
     const totalReturn = mcCapitalValue * (1 + returnOfIndex / 100);
@@ -284,7 +284,7 @@ function calcByMarketCap() {
       showRightTab("by-market-cap");
     }
   } else {
-    // 🟢 MODIFIED: Show placeholders for missing capital
+    // Show placeholders for missing capital
     totalReturnEL.textContent = "--";
     npEL.textContent = "--";
     showRightTab("by-market-cap");
