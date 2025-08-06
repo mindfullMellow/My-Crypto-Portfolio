@@ -32,18 +32,25 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //GLOBAL VARIBLES
 let assetList = [];
+console.log(assetList);
 let selectedSymbolName = ""; // only store the name
 const buyBtn = document.getElementById("ac-buy-btn");
 const sellBtn = document.getElementById("ac-sell-btn");
 const glassmorphismBuy = document.querySelector(".buy-asset-glassmorphism");
 const glassmorphismSell = document.querySelector(".sell-asset-glassmorphism");
 
-//load the jsn and store its values in the assetlist
-fetch("top_500_assets.json")
-  .then((res) => res.json())
-  .then((data) => {
-    assetList = data.assets; // Use "assets" array from the file
-  });
+function fetchAssetList() {
+  fetch("https://lucky-resonance-c4e1.samueldaniel4198.workers.dev")
+    .then((res) => res.json())
+    .then((data) => {
+      assetList = data; // update global asset list
+    })
+    .catch((err) => console.error("Fetch error:", err));
+}
+
+// fetch immediately, then every 10 seconds
+fetchAssetList();
+setInterval(fetchAssetList, 10000); // 10000ms = 10 seconds
 
 ////////////////////////////////////////////////////////
 //Reuseable functions
