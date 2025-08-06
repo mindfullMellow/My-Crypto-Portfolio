@@ -32,7 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //GLOBAL VARIBLES
 let assetList = [];
-console.log(assetList);
+
 let selectedSymbolName = ""; // only store the name
 const buyBtn = document.getElementById("ac-buy-btn");
 const sellBtn = document.getElementById("ac-sell-btn");
@@ -44,6 +44,7 @@ function fetchAssetList() {
     .then((res) => res.json())
     .then((data) => {
       assetList = data; // update global asset list
+      console.log(assetList);
     })
     .catch((err) => console.error("Fetch error:", err));
 }
