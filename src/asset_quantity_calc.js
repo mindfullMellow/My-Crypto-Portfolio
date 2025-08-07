@@ -39,12 +39,15 @@ const sellBtn = document.getElementById("ac-sell-btn");
 const glassmorphismBuy = document.querySelector(".buy-asset-glassmorphism");
 const glassmorphismSell = document.querySelector(".sell-asset-glassmorphism");
 
+let lastUpdated = ""; // store timestamp
+
 function fetchAssetList() {
   fetch("https://lucky-resonance-c4e1.samueldaniel4198.workers.dev")
     .then((res) => res.json())
     .then((data) => {
-      assetList = data; // update global asset list
-      console.log(assetList);
+      assetList = data.coins; // array of coins
+      lastUpdated = data.last_updated; // timestamp string
+      console.log("Updated:", lastUpdated);
     })
     .catch((err) => console.error("Fetch error:", err));
 }
