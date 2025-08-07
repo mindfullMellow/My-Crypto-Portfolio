@@ -12,6 +12,7 @@ export default defineConfig({
         calculator: "calculator.html",
         asset_quantity_calc: "./src/asset_quantity_calc.js",
         percentagecalc: "./src/percentagecalc.js",
+        ApiLogic: "./src/ApiLogic.js",
       },
     },
   },
