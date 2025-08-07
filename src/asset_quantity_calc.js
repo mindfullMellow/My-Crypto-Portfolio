@@ -32,6 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //GLOBAL VARIBLES
 let assetList = [];
+let lastUpdated = ""; // store timestamp
 
 let selectedSymbolName = ""; // only store the name
 const buyBtn = document.getElementById("ac-buy-btn");
@@ -39,20 +40,57 @@ const sellBtn = document.getElementById("ac-sell-btn");
 const glassmorphismBuy = document.querySelector(".buy-asset-glassmorphism");
 const glassmorphismSell = document.querySelector(".sell-asset-glassmorphism");
 
-function fetchAssetList() {
-  fetch("https://lucky-resonance-c4e1.samueldaniel4198.workers.dev")
-    .then((res) => res.json())
-    .then((data) => {
-      assetList = data; // update global asset list
-      console.log(assetList);
-    })
-    .catch((err) => console.error("Fetch error:", err));
+const cached = JSON.parse(localStorage.getItem("asset_data"));
+if (cached && cached.coins) {
+  assetList = cached.coins;
+  console.log("Loaded from cache:", assetList);
 }
 
-// fetch immediately, then every 10 seconds
-fetchAssetList();
-setInterval(fetchAssetList, 10000); // 10000ms = 10 seconds
+// 🔁 Function to fetch fresh data if needed
+function fetchIfNeeded() {
+  const lastUpdated = Number(localStorage.getItem("asset_last_updated")) || 0;
+  const now = Date.now();
 
+  // Fetch only if tab is visible and data is older than 10s
+  if (document.visibilityState === "visible" && now - lastUpdated > 10000) {
+    fetch("https://lucky-resonance-c4e1.samueldaniel4198.workers.dev")
+      .then((res) => res.json())
+      .then((data) => {
+        assetList = data.coins || [];
+        localStorage.setItem("asset_data", JSON.stringify(data));
+        localStorage.setItem("asset_last_updated", now.toString());
+        console.log("Fetched & updated:", assetList);
+      })
+      .catch((err) => console.error("Fetch error:", err));
+  }
+}
+
+// 🔄 Check every 5 seconds
+let fetchInterval = setInterval(fetchIfNeeded, 5000);
+
+// 🧠 Auto-stop fetch after 5 mins inactivity
+let inactivityTimeout;
+
+function resetInactivityTimer() {
+  clearTimeout(inactivityTimeout);
+  inactivityTimeout = setTimeout(() => {
+    clearInterval(fetchInterval);
+    console.log("Stopped fetch due to inactivity");
+  }, 5 * 60 * 1000); // 5 mins
+}
+
+document.addEventListener("mousemove", resetInactivityTimer);
+document.addEventListener("keydown", resetInactivityTimer);
+resetInactivityTimer();
+
+// 🔁 Update assetList if another tab updates the cache
+window.addEventListener("storage", (e) => {
+  if (e.key === "asset_data") {
+    const newData = JSON.parse(e.newValue);
+    assetList = newData.coins || [];
+    console.log("Updated from other tab:", assetList);
+  }
+});
 ////////////////////////////////////////////////////////
 //Reuseable functions
 //function to show error message
