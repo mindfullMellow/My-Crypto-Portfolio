@@ -69,3 +69,7 @@ window.addEventListener("storage", (e) => {
 export function getAssetList() {
   return assetList;
 }
+
+export function getLastUpdated() {
+  return Number(localStorage.getItem("asset_last_updated") || Date.now());
+}

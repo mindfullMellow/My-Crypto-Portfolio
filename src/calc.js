@@ -1,6 +1,7 @@
 "use strict";
 
 import "./main.css";
+import { getLastUpdated } from "./ApiLogic.js";
 
 ///////////////////////////////////////////////////////////////////////
 // code to dynamically implement the mobile nav logic
@@ -84,6 +85,18 @@ document.addEventListener("keydown", function (e) {
     }
   }
 });
+
+/////////////////////////////////////////////////
+// code to get current year
+const Newyear = new Date().getFullYear();
+document.getElementById("year").textContent = Newyear;
+
+/////////////////////////////////////////////////
+// code to get the last updated time
+const lastUpdated = new Date(getLastUpdated()).toLocaleString();
+const [date, time, suffix] = lastUpdated.split(" ");
+const output = `${date.replace(",", "")} at ${time} ${suffix}`;
+document.getElementById("last-updated").textContent = output;
 
 ///////////////////////////////////////////////////
 //seletive calculator tab switching function

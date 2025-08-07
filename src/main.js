@@ -1,7 +1,6 @@
 "use strict";
 
 import "./main.css";
-// import "./asset_quantity_calc";
 // Function to apply animation to an element
 function applyAnimation(element) {
   element.innerHTML = element.textContent
@@ -190,3 +189,8 @@ for (let i = 0; i < profileBtn.length; i++) {
 
 // close modal when overlay is clicked
 overlayEL.addEventListener("click", closeProfileModal);
+
+/////////////////////////////////////////////////
+// code to get current year
+const Newyear = new Date().getFullYear();
+document.getElementById("year").textContent = Newyear;
