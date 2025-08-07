@@ -1,4 +1,5 @@
 let assetList = [];
+let inactivityTimeout;
 
 // 🗂 Load cached data
 const cached = JSON.parse(localStorage.getItem("asset_data"));
@@ -15,7 +16,7 @@ if (now - lastUpdated > 30 * 60 * 1000) {
   console.log("✅ Loaded from cache:", assetList);
 }
 
-// 🔁 Fetch fresh data if needed
+// Fetch fresh data if needed
 function fetchIfNeeded() {
   const lastUpdated = Number(localStorage.getItem("asset_last_updated")) || 0;
   const now = Date.now();
@@ -33,7 +34,7 @@ function fetchIfNeeded() {
   }
 }
 
-// 🔄 Auto-fetch every 5s
+// Auto-fetch every 5s
 let fetchInterval = setInterval(fetchIfNeeded, 5000);
 
 // ⏸ Stop fetching after 5 mins inactivity
@@ -55,7 +56,7 @@ document.addEventListener("mousemove", resetInactivityTimer);
 document.addEventListener("keydown", resetInactivityTimer);
 resetInactivityTimer();
 
-// 🔄 Update if another tab modifies localStorage
+// Update if another tab modifies localStorage
 window.addEventListener("storage", (e) => {
   if (e.key === "asset_data") {
     const newData = JSON.parse(e.newValue);
@@ -64,9 +65,7 @@ window.addEventListener("storage", (e) => {
   }
 });
 
-// 📤 Export for use in other files
+// Export for use in other files
 export function getAssetList() {
   return assetList;
 }
-
-//import { getAssetList } from "./ApiLogic.js";
