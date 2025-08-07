@@ -32,6 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //GLOBAL VARIBLES
 let assetList = [];
+let lastUpdated = ""; // store timestamp
 
 let selectedSymbolName = ""; // only store the name
 const buyBtn = document.getElementById("ac-buy-btn");
@@ -39,22 +40,48 @@ const sellBtn = document.getElementById("ac-sell-btn");
 const glassmorphismBuy = document.querySelector(".buy-asset-glassmorphism");
 const glassmorphismSell = document.querySelector(".sell-asset-glassmorphism");
 
-let lastUpdated = ""; // store timestamp
-
-function fetchAssetList() {
-  fetch("https://lucky-resonance-c4e1.samueldaniel4198.workers.dev")
-    .then((res) => res.json())
-    .then((data) => {
-      assetList = data.coins; // array of coins
-      lastUpdated = data.last_updated; // timestamp string
-      console.log("Updated:", lastUpdated);
-    })
-    .catch((err) => console.error("Fetch error:", err));
+// Show cached data immediately
+const cached = JSON.parse(localStorage.getItem("asset_data"));
+if (cached) {
+  assetList = cached.coins;
+  lastUpdated = cached.last_updated;
+  console.log("Loaded cached assetList:", assetList);
 }
 
-// fetch immediately, then every 10 seconds
-fetchAssetList();
-setInterval(fetchAssetList, 10000); // 10000ms = 10 seconds
+// Only fetch if tab is visible and data is old
+function fetchIfNeeded() {
+  const lastFetch = Number(localStorage.getItem("asset_last_updated")) || 0;
+  const now = Date.now();
+
+  if (document.visibilityState === "visible" && now - lastFetch > 10000) {
+    fetch("https://lucky-resonance-c4e1.samueldaniel4198.workers.dev")
+      .then((res) => res.json())
+      .then((data) => {
+        localStorage.setItem("asset_data", JSON.stringify(data));
+        localStorage.setItem("asset_last_updated", now.toString());
+
+        assetList = data.coins; // ✅ update global coin list
+        lastUpdated = data.last_updated; // ✅ update time
+        console.log("Fetched new assetList:", assetList);
+      })
+      .catch((err) => console.error("Fetch error:", err));
+  }
+}
+
+console.log(lastUpdated);
+
+// Check every second
+setInterval(fetchIfNeeded, 1000);
+
+// Update assetList if another tab updates localStorage
+window.addEventListener("storage", (e) => {
+  if (e.key === "asset_data") {
+    const newData = JSON.parse(e.newValue);
+    assetList = newData.coins;
+    lastUpdated = newData.last_updated;
+    console.log("Updated from another tab:", assetList);
+  }
+});
 
 ////////////////////////////////////////////////////////
 //Reuseable functions
