@@ -74,6 +74,17 @@ for (let i = 0; i < profileBtn.length; i++) {
 // close modal when overlay is clicked
 overlayEL.addEventListener("click", closeProfileModal);
 
+// Close modal when Escape key is pressed
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && !overlayEL.classList.contains("hidden")) {
+    overlayEL.classList.add("hidden");
+    zIndex.classList.add("z-50");
+    for (let i = 0; i < profileModal.length; i++) {
+      profileModal[i].classList.replace("flex", "hidden");
+    }
+  }
+});
+
 ///////////////////////////////////////////////////
 //seletive calculator tab switching function
 function switchTab(tabId) {
