@@ -1,40 +1,75 @@
-# Asset Fetch Logic (Frontend)
+# 📊 Asset Fetch Logic (Frontend)
 
-This script manages how the frontend fetches and shares asset data across multiple browser tabs using `localStorage`.
+This script handles **efficient asset data fetching**, **inactivity handling**, and **multi-tab sync** using `localStorage`.
 
-## 🔧 What It Does
+---
 
-1. **Loads Cached Data Immediately**
+## 🔧 What This Script Does
 
-   - If data exists in `localStorage` (`asset_data`), it's loaded right away.
+### 1. ✅ Loads Cached Data Immediately
 
-2. **Fetches New Data (Only When Needed)**
+- On page load, it checks `localStorage` for:
+  - `asset_data` – saved coin data.
+  - `asset_last_updated` – when the data was saved.
+- If data is **less than 30 mins old**, it uses it directly.
+- If data is **older than 30 mins**, it clears the cache.
 
-   - Every **1 second**, the code checks:
-     - Is the tab **visible** (active)?
-     - Is the last data **older than 10 seconds**?
-   - If both are true, it fetches fresh data from the Worker and:
-     - Saves it to `localStorage`.
-     - Updates the UI (or asset list, if using `assetList`).
+---
 
-3. **Keeps Tabs in Sync**
-   - If another tab updates `localStorage`, this tab listens and auto-updates the data (via the `storage` event).
+### 2. 🌐 Fetches New Data Only When Needed
 
-## 🧠 Key Logic
+- A function `fetchIfNeeded()` runs every **1 second**.
+- It fetches new data **only if**:
+  - The page/tab is **visible** (`document.visibilityState === "visible"`).
+  - Last update was more than **10 seconds ago**.
+- If fetched:
+  - It updates `assetList` in memory.
+  - Saves new data to `localStorage` (`asset_data` and `asset_last_updated`).
+  - Useful for keeping your UI up-to-date.
 
-- `asset_last_updated`: Timestamp in `ms` of last successful fetch.
-- `asset_data`: Cached asset data (JSON stringified).
-- `document.visibilityState === "visible"`: Ensures background tabs don't trigger fetches.
-- `setInterval(fetchIfNeeded, 1000)`: Checks once per second.
+---
+
+### 3. 🔁 Keeps All Browser Tabs in Sync
+
+- When one tab updates the asset data in `localStorage`, all other tabs detect this using the `storage` event.
+- They then update their own `assetList` immediately.
+
+---
+
+### 4. ⏸ Auto-Stops on Inactivity (To Save Resources)
+
+- If the user is inactive for **5 minutes** (no mouse or keyboard):
+  - It **stops the auto-fetch interval** to reduce network load.
+- Once activity resumes:
+  - The interval **automatically restarts**.
+
+---
+
+## 🧠 Core Concepts & Variables
+
+| Key                                | Description                                                   |
+| ---------------------------------- | ------------------------------------------------------------- |
+| `asset_data`                       | JSON string of latest fetched coins, saved in `localStorage`. |
+| `asset_last_updated`               | Timestamp of last successful fetch (in milliseconds).         |
+| `assetList`                        | Main in-memory variable holding coin data.                    |
+| `document.visibilityState`         | Used to skip fetches when the tab is not active.              |
+| `setInterval(fetchIfNeeded, 1000)` | Checks for fresh data every second.                           |
+| `setTimeout()`                     | Used to track and handle inactivity.                          |
+
+---
 
 ## 📦 Benefits
 
-- Reduces unnecessary API calls.
-- Shares data between tabs.
-- Respects Cloudflare Worker request limits.
+- ⚡ Loads cached data instantly (no waiting on fetch).
+- 🧠 Avoids duplicate fetches across tabs.
+- 💾 Saves API calls using smart cache + visibility logic.
+- 🔒 Prevents wasting resources during user inactivity.
+- 🔁 Keeps all open tabs synced with the latest data.
 
-## ⚠️ Notes
+---
 
-- All tabs share one data cache.
-- Tabs still fetch if user leaves one tab open.
-- Ensure `updateUI()` or similar logic is defined to handle the data.
+## ⚠️ Things to Keep in Mind
+
+- Only **one fetch per browser session**, even with multiple tabs.
+- Fetch resumes **only if user is active** on the page.
+- Make sure your UI code (like `updateUI()`) is linked to `assetList` so new data shows up.
