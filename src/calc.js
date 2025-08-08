@@ -91,13 +91,6 @@ document.addEventListener("keydown", function (e) {
 const Newyear = new Date().getFullYear();
 document.getElementById("year").textContent = Newyear;
 
-/////////////////////////////////////////////////
-// code to get the last updated time
-const lastUpdated = new Date(getLastUpdated()).toLocaleString();
-const [date, time, suffix] = lastUpdated.split(" ");
-const output = `${date.replace(",", "")} at ${time} ${suffix}`;
-document.getElementById("last-updated").textContent = output;
-
 ///////////////////////////////////////////////////
 //seletive calculator tab switching function
 function switchTab(tabId) {

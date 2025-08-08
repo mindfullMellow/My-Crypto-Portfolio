@@ -1,5 +1,6 @@
 let assetList = [];
 let inactivityTimeout;
+let fetchingPromise = null; // ✅ Track fetch state
 
 // 🗂 Load cached data
 const cached = JSON.parse(localStorage.getItem("asset_data"));
@@ -16,22 +17,35 @@ if (now - lastUpdated > 30 * 60 * 1000) {
   console.log("✅ Loaded from cache:", assetList);
 }
 
-// Fetch fresh data if needed
+// ✅ MODIFIED: now returns a promise and sets global fetch state
 function fetchIfNeeded() {
   const lastUpdated = Number(localStorage.getItem("asset_last_updated")) || 0;
   const now = Date.now();
 
-  if (document.visibilityState === "visible" && now - lastUpdated > 10000) {
-    fetch("https://lucky-resonance-c4e1.samueldaniel4198.workers.dev")
+  if (
+    document.visibilityState === "visible" &&
+    now - lastUpdated > 10000 &&
+    !fetchingPromise // only fetch if not already fetching
+  ) {
+    fetchingPromise = fetch(
+      "https://lucky-resonance-c4e1.samueldaniel4198.workers.dev"
+    )
       .then((res) => res.json())
       .then((data) => {
         assetList = data.coins || [];
         localStorage.setItem("asset_data", JSON.stringify(data));
-        localStorage.setItem("asset_last_updated", now.toString());
+        localStorage.setItem("asset_last_updated", Date.now().toString());
         console.log("🌐 Fetched & updated:", assetList);
       })
-      .catch((err) => console.error("❌ Fetch error:", err));
+      .catch((err) => {
+        console.error("❌ Fetch error:", err);
+      })
+      .finally(() => {
+        fetchingPromise = null;
+      });
   }
+
+  return fetchingPromise || Promise.resolve(); // ✅ always return a Promise
 }
 
 // Auto-fetch every 5s
@@ -65,11 +79,15 @@ window.addEventListener("storage", (e) => {
   }
 });
 
-// Export for use in other files
-export function getAssetList() {
+// ✅ MODIFIED: now waits for fetch to finish before returning list
+export async function getAssetList() {
+  await fetchIfNeeded(); // make sure data is ready
   return assetList;
 }
 
 export function getLastUpdated() {
   return Number(localStorage.getItem("asset_last_updated") || Date.now());
 }
+
+// inttrodce the moda for thr calc output
+// create the maequee

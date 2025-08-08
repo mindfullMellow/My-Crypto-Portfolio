@@ -1,5 +1,5 @@
 "use strict";
-import { getAssetList } from "./ApiLogic.js";
+import { getAssetList, getLastUpdated } from "./ApiLogic.js";
 ////////////////////////////////////////////////////////////////////////////
 // ASSETS QUANTITY CALCULATOR LOGIC
 ////////////////////////////////////////////////////////////////////////////
@@ -31,8 +31,23 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 //GLOBAL VARIBLES
-let assetList = getAssetList();
-let lastUpdated = ""; // store timestamp
+let assetList = [];
+
+async function updateAssets() {
+  assetList = await getAssetList(); // get latest data
+  console.log(assetList); // update your UI here
+
+  /////////////////////////////////////////////////
+  // code to get the last updated time
+  const lastUpdated = new Date(getLastUpdated()).toLocaleString();
+  const [date, time, suffix] = lastUpdated.split(" ");
+  const output = `${date.replace(",", "")} at ${time} ${suffix}`;
+  document.getElementById("last-updated").textContent = output;
+}
+
+updateAssets(); // run once on load
+
+setInterval(updateAssets, 10000); // refresh every 10 secs
 
 let selectedSymbolName = ""; // only store the name
 const buyBtn = document.getElementById("ac-buy-btn");
