@@ -49,10 +49,6 @@ function updateDOM(hasError = false) {
       tbody.innerHTML = `
           <tr class="border-t border-t-tabel-top-border">
             <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
-            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
-            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
-            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
-            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
           </tr>
         `;
       // Apply animation to all placeholder <p> elements
