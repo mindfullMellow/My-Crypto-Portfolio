@@ -13,6 +13,7 @@ export default defineConfig({
         asset_quantity_calc: "./src/asset_quantity_calc.js",
         percentagecalc: "./src/percentagecalc.js",
         ApiLogic: "./src/ApiLogic.js",
+        fecth_vps_data: "./src/fecth_vps_data.js",
       },
     },
   },
