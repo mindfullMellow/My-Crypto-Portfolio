@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- FONTS LINK -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <title>Wallet Manager</title>
+</head>
+
+<body class="bg-background">
+
+  <!-- header for width > 800px -->
+  <header
+    class="flex items-center justify-between px-5 py-3 border-b border-solid border-b-border-color max-[800px]:hidden">
+    <!-- brand logo -->
+    <a href="../index.html">
+      <div class="flex items-center gap-2 text-white">
+        <div class="size-4">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z"
+              fill="currentColor"></path>
+          </svg>
+        </div>
+        <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">CoinTracker</h2>
+      </div>
+    </a>
+
+    <!-- Navigations -->
+    <div class="flex items-center gap-8 text-white font-Noto ">
+      <nav class="flex gap-9">
+        <a href="../index.html"
+          class="pb-1 text-sm font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">Home</a>
+        <a href="calculator.html"
+          class="pb-1 text-sm font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">Calculator</a>
+        <a href="wallet_manager.html"
+          class="pb-1 text-sm font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">Wallet
+          Manager</a>
+
+        <a href="#"
+          class="pb-1 text-sm font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">Market
+          Overview</a>
+      </nav>
+      <button
+        class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-border-color text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-[#0a7121]">
+        <div class="text-white" data-icon="Bell" data-size="20px" data-weight="regular">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+            <path
+              d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z">
+            </path>
+          </svg>
+        </div>
+      </button>
+
+
+      <!-- profile pic -->
+      <div class="relative">
+        <!-- Profile Button -->
+        <button class="profile-btn">
+          <img class="bg-center bg-no-repeat bg-cover rounded-full aspect-square size-10"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPYbOz2IVAmgb22kWMCZujloyhgSuWx-lK1MX4sFSvVbrp42SCzvhEv0TlRkNliUrreYDhEfVcmgXWCiI8eyK28tMJmXe97vdrbFwNSxsn7EyXpCpXopAWn9GkND-VB2szDTWkm8K8c9ler7txjfQ_8-lDPZuPhW3eEs3kXaKFJhYztrc9pjskkJOyo3t9HP6IHspermrKlPEPLxt3nc3oSFkVeQJ2JgiUUWmwtScU4arTUqmiNgTTM0-w__vWCzD2Ta-Kk4XBhFD-"
+            alt="Profile pic">
+        </button>
+
+        <!-- Modal -->
+        <div class="flex-col items-start justify-center hidden gap-4 text-white profile-modal font-Noto">
+
+          <button class="flex items-center justify-center gap-2 group">
+            <div
+              class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] min-w-0 px-2.5 pb-1 transition duration-200 ease-in group-hover:bg-[#0a7121] bg-border-color"
+              data-icon="Logout" data-size="20px" data-weight="regular">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                viewBox="0 0 256 256">
+                <path
+                  d="M104 32 H64 C46.32 32 32 46.32 32 64 V192 C32 209.68 46.32 224 64 224 H104 C112.84 224 120 216.84 120 208 C120 199.16 112.84 192 104 192 H72 C63.16 192 56 184.84 56 176 V80 C56 71.16 63.16 64 72 64 H104 C112.84 64 120 56.84 120 48 C120 39.16 112.84 32 104 32 Z M176 96 C183.16 88.84 192 88.84 199.16 96 L223.16 120 C230.32 127.16 230.32 136 223.16 143.16 L199.16 167.16 C192 174.32 183.16 174.32 176 167.16 C168.84 160 168.84 151.16 176 144 L184 136 H120 C111.16 136 104 128.84 104 120 C104 111.16 111.16 104 120 104 H184 L176 96 C168.84 88.84 168.84 80 176 96 Z" />
+              </svg>
+            </div>
+
+            <a href="#"
+              class="inline-block pb-1 text-sm font-medium leading-normal transition duration-200 ease-in border-b-2 border-transparent group-hover:border-transparent hover:opacity-85">
+              Log Out</a>
+
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+
+  </header>
+
+  <!-- header for width < 800px -->
+  <header
+    class="min-[800px]:hidden flex px-5 py-3 border-b border-solid border-b-border-color items-center justify-between  relative header-sm ">
+
+
+    <!-- Menu button -->
+    <button class="z-50 btn-mobile-nav">
+      <div class="text-white size-5">
+        <!-- open meun icon -->
+        <svg class="icon-mobile-nav open-menu" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M8 12 H40 C42.2091 12 44 10.2091 44 8 C44 5.79086 42.2091 4 40 4 H8 C5.79086 4 4 5.79086 4 8 C4 10.2091 5.79086 12 8 12 Z M8 28 H40 C42.2091 28 44 26.2091 44 24 C44 21.7909 42.2091 20 40 20 H8 C5.79086 20 4 21.7909 4 24 C4 26.2091 5.79086 28 8 28 Z M8 44 H40 C42.2091 44 44 42.2091 44 40 C44 37.7909 42.2091 36 40 36 H8 C5.79086 36 4 37.7909 4 40 C4 42.2091 5.79086 44 8 44 Z"
+            fill="currentColor" />
+        </svg>
+
+        <!-- close menu icon -->
+        <svg class="icon-mobile-nav close-menu" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M36.5 14.5 C37.8807 13.1193 39.5 13.1193 40.8807 14.5 C42.2614 15.8807 42.2614 17.5 40.8807 18.8807 L29.3807 30.3807 C28 31.7614 28 33.3807 29.3807 34.7614 L40.8807 46.2614 C42.2614 47.6421 42.2614 49.2614 40.8807 50.6421 C39.5 52.0228 37.8807 52.0228 36.5 50.6421 L25 39.1414 C23.6193 37.7607 22 37.7607 20.6193 39.1414 L9.11929 50.6421 C7.73858 52.0228 6.11929 52.0228 4.73858 50.6421 C3.35786 49.2614 3.35786 47.6421 4.73858 46.2614 L16.2386 34.7614 C17.6193 33.3807 17.6193 31.7614 16.2386 30.3807 L4.73858 18.8807 C3.35786 17.5 3.35786 15.8807 4.73858 14.5 C6.11929 13.1193 7.73858 13.1193 9.11929 14.5 L20.6193 26 C22 27.3807 23.6193 27.3807 25 26 L36.5 14.5 Z"
+            fill="currentColor" />
+        </svg>
+      </div>
+
+    </button>
+
+    <nav class="z-10 flex text-white gap-9 main-nav ">
+      <a href="../index.html"
+        class="pb-1 text-xl font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">Home</a>
+      <a href="calculator.html"
+        class="pb-1 text-xl font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">Calculator</a>
+      <a href="wallet_manager.html"
+        class="pb-1 text-xl font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">Wallet
+        Manager</a>
+
+      <a href="#"
+        class="pb-1 text-xl font-medium leading-normal transition duration-300 ease-in border-b-2 border-transparent hover:border-hover hover:opacity-85">Market
+        Overview</a>
+    </nav>
+
+
+    <!-- brand logo -->
+    <a href="index.html">
+      <div class="flex items-center gap-2 text-white">
+        <div class="size-4">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z"
+              fill="currentColor"></path>
+          </svg>
+        </div>
+        <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">CoinTracker</h2>
+      </div>
+    </a>
+
+
+    <!-- profile pic -->
+    <div class="relative" id="mobile-profile">
+      <!-- Profile Button -->
+      <button class="profile-btn ">
+        <img class="bg-center bg-no-repeat bg-cover rounded-full aspect-square size-10"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPYbOz2IVAmgb22kWMCZujloyhgSuWx-lK1MX4sFSvVbrp42SCzvhEv0TlRkNliUrreYDhEfVcmgXWCiI8eyK28tMJmXe97vdrbFwNSxsn7EyXpCpXopAWn9GkND-VB2szDTWkm8K8c9ler7txjfQ_8-lDPZuPhW3eEs3kXaKFJhYztrc9pjskkJOyo3t9HP6IHspermrKlPEPLxt3nc3oSFkVeQJ2JgiUUWmwtScU4arTUqmiNgTTM0-w__vWCzD2Ta-Kk4XBhFD-"
+          alt="Profile pic">
+      </button>
+
+      <!-- Modal -->
+      <div class="flex-col items-start justify-center hidden gap-4 text-white profile-modal font-Noto">
+        <button class="flex items-center justify-end gap-2 group">
+          <div class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] pb-1 min-w-0 px-2.5 group-hover:bg-[#0a7121] transition duration-200 ease-in 
+                  bg-border-color" data-icon="Bell" data-size="20px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z">
+              </path>
+            </svg>
+          </div>
+          <a href="#"
+            class="tracking-[0.07em] inline-block text-sm font-medium leading-normal transition duration-200 ease-in border-b-2 border-transparent  group-hover:border-transparent hover:opacity-85">
+            Notifications</a>
+        </button>
+
+        <button class="flex items-center justify-center gap-2 group">
+          <div
+            class="flex items-center justify-center h-10 text-white rounded-lg leading-normal tracking-[0.015em] min-w-0 px-2.5 pb-1 transition duration-200 ease-in group-hover:bg-[#0a7121] bg-border-color"
+            data-icon="Logout" data-size="20px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M104 32 H64 C46.32 32 32 46.32 32 64 V192 C32 209.68 46.32 224 64 224 H104 C112.84 224 120 216.84 120 208 C120 199.16 112.84 192 104 192 H72 C63.16 192 56 184.84 56 176 V80 C56 71.16 63.16 64 72 64 H104 C112.84 64 120 56.84 120 48 C120 39.16 112.84 32 104 32 Z M176 96 C183.16 88.84 192 88.84 199.16 96 L223.16 120 C230.32 127.16 230.32 136 223.16 143.16 L199.16 167.16 C192 174.32 183.16 174.32 176 167.16 C168.84 160 168.84 151.16 176 144 L184 136 H120 C111.16 136 104 128.84 104 120 C104 111.16 111.16 104 120 104 H184 L176 96 C168.84 88.84 168.84 80 176 96 Z" />
+            </svg>
+          </div>
+
+          <a href="#"
+            class="inline-block pb-1 text-sm font-medium leading-normal transition duration-200 ease-in border-b-2 border-transparent group-hover:border-transparent hover:opacity-85">
+            Log Out</a>
+
+        </button>
+      </div>
+    </div>
+
+
+  </header>
+
+
+  <!-- darkoverlay -->
+  <div class="hidden overlay"></div>
+</body>
+
+<script type="module" src="../src/wallet_manager.js"></script>
+
+</html>
