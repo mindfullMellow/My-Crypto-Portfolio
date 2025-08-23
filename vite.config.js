@@ -9,7 +9,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: "index.html",
-        calculator: "calculator.html",
+        calculator: "./html/calculator.html",
+        wallet_manager: "./html/wallet_manager.html",
         asset_quantity_calc: "./src/asset_quantity_calc.js",
         percentagecalc: "./src/percentagecalc.js",
         ApiLogic: "./src/ApiLogic.js",
