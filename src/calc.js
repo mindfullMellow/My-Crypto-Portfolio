@@ -1,7 +1,7 @@
 "use strict";
 
 import "./main.css";
-import { getLastUpdated } from "./ApiLogic.js";
+import { getLastUpdated } from "./APIs/ApiLogic";
 
 ///////////////////////////////////////////////////////////////////////
 // code to dynamically implement the mobile nav logic
