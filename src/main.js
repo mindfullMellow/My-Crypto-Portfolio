@@ -2,7 +2,7 @@
 
 import "./main.css";
 // Function to apply animation to an element
-function applyAnimation(element) {
+export function applyAnimation(element) {
   element.innerHTML = element.textContent
     .split("")
     .map(

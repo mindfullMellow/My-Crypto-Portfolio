@@ -1,5 +1,6 @@
 "use strict";
 import "./main.css";
+// import { applyAnimation } from "./main";
 ///////////////////////////////////////////////////////////////////////
 // code to dynamically implement the mobile nav logic
 
