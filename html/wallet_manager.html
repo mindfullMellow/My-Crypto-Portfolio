@@ -49,7 +49,7 @@
           Overview</a>
       </nav>
       <button
-        class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-border-color text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-[#0a7121]">
+        class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-border-color text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-hover transition-all duration-300">
         <div class="text-white" data-icon="Bell" data-size="20px" data-weight="regular">
           <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
             <path
@@ -205,7 +205,8 @@
 
       <h1 class="text-[30px] font-bold leading-tight text-text-color-1 tracking-light">No Wallet Found</h1>
 
-      <button class="p-3 bg-hover rounded-xl">
+      <button
+        class="p-3 transition-all duration-300 ease-in border border-transparent bg-hover rounded-xl hover:bg-border-color hover:border-table-color hover:scale-y-100">
         <div class="flex items-center gap-4">
           <div class="text-white size-4">
             <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
