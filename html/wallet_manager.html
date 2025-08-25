@@ -239,7 +239,7 @@
       <!-- modal content -->
       <div>
         <!-- add wallet box -->
-        <div class="flex items-start gap-8 p-6 border border-table-color rounded-xl">
+        <div class="flex items-start gap-6 p-6 border border-table-color rounded-xl">
           <!-- wallet icon -->
           <div
             class="inline-flex items-center justify-center flex-none text-yellow-300 size-12 rounded-2xl bg-border-color">
@@ -251,8 +251,21 @@
             </svg>
           </div>
           <!-- text -->
-          <div class="flex-none">
-            <p class="text-lg font-semibold text-white text-start">Connect Your Cold Wallet</p>
+          <div class="flex flex-col justify-start flex-1 min-w-0 gap-3 whitespace-normal">
+            <p class="text-lg font-semibold text-white">Connect Your Cold Wallet</p>
+            <p class="text-base text-text-color-1 font-Noto">Enter your wallet address <span
+                class="font-medium text-input-bg">(no
+                signatures or private
+                keys
+                required)</span>. It will be
+              synced automatically.</p>
+            <div class="flex items-center gap-2 text-yellow-300">
+              <p class="">Supported Networks</p>
+              <div class="font-bold size-4">
+                <ion-icon name="chevron-down-outline"></ion-icon>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -271,6 +284,8 @@
 </body>
 
 <script type="module" src="../src/wallet_manager.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 </html>
 
