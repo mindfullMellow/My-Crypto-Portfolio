@@ -259,11 +259,37 @@
                 keys
                 required)</span>. It will be
               synced automatically.</p>
-            <div class="flex items-center gap-2 text-yellow-300">
+            <!-- supported compo -->
+            <div class="flex items-center gap-2 text-yellow-300" id="support-main-btn">
               <p class="">Supported Networks</p>
-              <div class="font-bold size-4">
-                <ion-icon name="chevron-down-outline"></ion-icon>
+              <ion-icon name="chevron-down-outline" id="support-icon" class="font-bold size-4"></ion-icon>
+            </div>
+
+            <!-- supported networks -->
+            <div
+              class="items-center hidden gap-4 transition-all duration-300 ease-in origin-top scale-y-0 opacity-0 font-Noto text-text-color-1"
+              id="networks">
+              <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
+                <img src="https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
+                  alt="Bitcoin logo" class="w-4 h-4">
+                <p class="text-xs">BTC</p>
               </div>
+              <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
+                <img src="https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756"
+                  alt="Solana logo" class="w-4 h-4">
+                <p class="text-xs">SOL</p>
+              </div>
+              <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
+                <img src="https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628"
+                  alt="Ethereum logo" class="w-4 h-4">
+                <p class="text-xs">ETH</p>
+              </div>
+              <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
+                <img src="https://coin-images.coingecko.com/coins/images/26375/large/sui-ocean-square.png?1727791290"
+                  alt="SUI logo" class="w-4 h-4">
+                <p class="text-xs">SUI</p>
+              </div>
+
             </div>
 
           </div>

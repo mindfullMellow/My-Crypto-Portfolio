@@ -86,5 +86,36 @@ document.addEventListener("keydown", function (e) {
 
 /////////////////////////////////////////////////
 // code to get current year
-const Newyear = new Date().getFullYear();
-document.getElementById("year").textContent = Newyear;
+// const Newyear = new Date().getFullYear();
+// document.getElementById("year").textContent = Newyear;
+
+//////////////////////////////////////////////////////
+// Logic to show the suppoerted networks on the create wallet modal
+
+const iconEl = document.getElementById("support-icon");
+const networks = document.getElementById("networks");
+const supportBtn = document.getElementById("support-main-btn");
+
+supportBtn.addEventListener("click", () => {
+  iconEl.classList.toggle("rotate-180");
+
+  if (networks.classList.contains("hidden")) {
+    // show with animation
+    networks.classList.remove("hidden");
+    networks.classList.add("flex");
+    setTimeout(() => {
+      networks.classList.add("opacity-100", "scale-y-100");
+      networks.classList.remove("opacity-0", "scale-y-0");
+    }, 10);
+  } else {
+    // hide with animation
+    networks.classList.add("opacity-0", "scale-y-0");
+    networks.classList.remove("opacity-100", "scale-y-100");
+    networks.classList.add("hidden");
+    networks.classList.remove("flex");
+    // wait until animation ends then hide
+    // setTimeout(() => {
+
+    // }, 00); // match duration-300
+  }
+});
