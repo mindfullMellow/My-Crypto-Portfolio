@@ -97,25 +97,9 @@ const networks = document.getElementById("networks");
 const supportBtn = document.getElementById("support-main-btn");
 
 supportBtn.addEventListener("click", () => {
+  // Toggle the icon rotation
   iconEl.classList.toggle("rotate-180");
 
-  if (networks.classList.contains("hidden")) {
-    // show with animation
-    networks.classList.remove("hidden");
-    networks.classList.add("flex");
-    setTimeout(() => {
-      networks.classList.add("opacity-100", "scale-y-100");
-      networks.classList.remove("opacity-0", "scale-y-0");
-    }, 10);
-  } else {
-    // hide with animation
-    networks.classList.add("opacity-0", "scale-y-0");
-    networks.classList.remove("opacity-100", "scale-y-100");
-    networks.classList.add("hidden");
-    networks.classList.remove("flex");
-    // wait until animation ends then hide
-    // setTimeout(() => {
-
-    // }, 00); // match duration-300
-  }
+  // Toggle the networks visibility with smooth animation
+  networks.classList.toggle("show");
 });

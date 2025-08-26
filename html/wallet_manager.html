@@ -220,12 +220,12 @@
     </div>
   </section>
 
-  <div class="step-1-modal">
+  <div class="w-full max-w-lg step-1-modal">
     <div class="flex flex-col gap-8">
-      <!-- dummy header wth the cancel button -->
+      <!-- dummy header with the cancel button -->
       <div class="flex items-center justify-between text-input-bg">
         <p class="text-lg font-bold">Add Wallet</p>
-        <button>
+        <button class="transition-opacity hover:opacity-70">
           <div class="text-white size-5 opacity-85">
             <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -239,7 +239,8 @@
       <!-- modal content -->
       <div>
         <!-- add wallet box -->
-        <div class="flex items-start gap-6 p-6 border border-table-color rounded-xl">
+        <div
+          class="flex items-start gap-6 p-6 border border-table-color rounded-xl bg-dark hover:bg-hover hover:bg-opacity-5">
           <!-- wallet icon -->
           <div
             class="inline-flex items-center justify-center flex-none text-yellow-300 size-12 rounded-2xl bg-border-color">
@@ -253,54 +254,47 @@
           <!-- text -->
           <div class="flex flex-col justify-start flex-1 min-w-0 gap-3 whitespace-normal">
             <p class="text-lg font-semibold text-white">Connect Your Cold Wallet</p>
-            <p class="text-base text-text-color-1 font-Noto">Enter your wallet address <span
-                class="font-medium text-input-bg">(no
-                signatures or private
-                keys
-                required)</span>. It will be
-              synced automatically.</p>
-            <!-- supported compo -->
-            <div class="flex items-center gap-2 text-yellow-300" id="support-main-btn">
-              <p class="">Supported Networks</p>
+            <p class="text-base text-text-color-1">
+              Enter your wallet address
+              <span class="font-medium text-input-bg">(no signatures or private keys required)</span>.
+              It will be synced automatically.
+            </p>
+
+            <!-- supported button -->
+            <div class="flex items-center gap-2 text-yellow-300 transition-colors cursor-pointer hover:text-yellow-400"
+              id="support-main-btn">
+              <p>Supported Networks</p>
               <ion-icon name="chevron-down-outline" id="support-icon" class="font-bold size-4"></ion-icon>
             </div>
 
-            <!-- supported networks -->
-            <div
-              class="items-center hidden gap-4 transition-all duration-300 ease-in origin-top scale-y-0 opacity-0 font-Noto text-text-color-1"
-              id="networks">
-              <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
-                <img src="https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
-                  alt="Bitcoin logo" class="w-4 h-4">
-                <p class="text-xs">BTC</p>
+            <!-- supported networks with animation -->
+            <div class="networks-container" id="networks">
+              <div class="flex items-center gap-4 pt-2">
+                <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
+                  <img src="https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
+                    alt="Bitcoin logo" class="w-4 h-4">
+                  <p class="text-xs text-text-color-1">BTC</p>
+                </div>
+                <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
+                  <img src="https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756"
+                    alt="Solana logo" class="w-4 h-4">
+                  <p class="text-xs text-text-color-1">SOL</p>
+                </div>
+                <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
+                  <img src="https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628"
+                    alt="Ethereum logo" class="w-4 h-4">
+                  <p class="text-xs text-text-color-1">ETH</p>
+                </div>
+                <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
+                  <img src="https://coin-images.coingecko.com/coins/images/26375/large/sui-ocean-square.png?1727791290"
+                    alt="SUI logo" class="w-4 h-4">
+                  <p class="text-xs text-text-color-1">SUI</p>
+                </div>
               </div>
-              <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
-                <img src="https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756"
-                  alt="Solana logo" class="w-4 h-4">
-                <p class="text-xs">SOL</p>
-              </div>
-              <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
-                <img src="https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628"
-                  alt="Ethereum logo" class="w-4 h-4">
-                <p class="text-xs">ETH</p>
-              </div>
-              <div class="flex items-center gap-2 p-2 rounded-3xl bg-border-color">
-                <img src="https://coin-images.coingecko.com/coins/images/26375/large/sui-ocean-square.png?1727791290"
-                  alt="SUI logo" class="w-4 h-4">
-                <p class="text-xs">SUI</p>
-              </div>
-
             </div>
-
           </div>
         </div>
-
-
-
-        <!-- enter transanction manually -->
-
       </div>
-
     </div>
   </div>
 

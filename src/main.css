@@ -279,3 +279,24 @@ MODAL FOR THE WALLET MANAGER
   padding: 24px;
   /* padding-inline: 12px; */
 }
+
+.networks-container {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.networks-container.show {
+  max-height: 100px;
+  /* Adjust based on content height */
+  opacity: 1;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+#support-icon {
+  transition: transform 0.3s ease-in-out;
+}
