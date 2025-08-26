@@ -90,16 +90,31 @@ document.addEventListener("keydown", function (e) {
 // document.getElementById("year").textContent = Newyear;
 
 //////////////////////////////////////////////////////
-// Logic to show the suppoerted networks on the create wallet modal
 
+const addWallet = document.getElementById("add-wallet-btn");
+const modalOverlay = document.getElementById("modal-overlay");
+const closeBtn = document.getElementById("modal-close-1");
 const iconEl = document.getElementById("support-icon");
 const networks = document.getElementById("networks");
 const supportBtn = document.getElementById("support-main-btn");
 
-supportBtn.addEventListener("click", () => {
-  // Toggle the icon rotation
-  iconEl.classList.toggle("rotate-180");
+//Logic to show step-1 modal
 
-  // Toggle the networks visibility with smooth animation
+addWallet.addEventListener("click", () => {
+  setTimeout(() => {
+    modalOverlay.classList.replace("hidden", "flex");
+  }, 50);
+});
+
+//Logic to close step-1 modal
+closeBtn.addEventListener("click", () => {
+  setTimeout(() => {
+    modalOverlay.classList.replace("flex", "hidden");
+  }, 50);
+});
+
+// Logic to show the suppoerted networks on the create wallet modal
+supportBtn.addEventListener("click", () => {
+  iconEl.classList.toggle("rotate-180");
   networks.classList.toggle("show");
 });

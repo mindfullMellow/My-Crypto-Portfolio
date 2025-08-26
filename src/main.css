@@ -6,6 +6,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* IE and Edge (old) */
+}
+
+/* For Webkit (Chrome, Safari, Opera) */
+*::-webkit-scrollbar {
+  display: none;
 }
 
 html,
@@ -264,11 +272,9 @@ MODAL FOR THE WALLET MANAGER
   transform: translate(-50%, -50%);
   width: 500px;
   max-width: 90vw;
-  /* height: 70vh; */
   max-height: 70vh;
   overflow-y: auto;
   background: white;
-  padding: 2rem;
   z-index: 1000;
   border-radius: 16px;
   background: #2d372a99;
