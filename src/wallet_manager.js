@@ -93,28 +93,78 @@ document.addEventListener("keydown", function (e) {
 
 const addWallet = document.getElementById("add-wallet-btn");
 const modalOverlay = document.getElementById("modal-overlay");
-const closeBtn = document.getElementById("modal-close-1");
+const closeBtn = document.querySelectorAll(".modal-close");
 const iconEl = document.getElementById("support-icon");
 const networks = document.getElementById("networks");
 const supportBtn = document.getElementById("support-main-btn");
+// Step modal2 vaibales
+const addWalletBox = document.getElementById("add-wallet-box");
+const modalOverlay2 = document.getElementById("modal-overlay-2");
+const return_to_step_1Btn = document.getElementById("return-to-step-1-btn");
+const wallet_name_input = document.getElementById("wallet-name");
+const wallet_name_counter = document.getElementById("wallet-counter");
+
+// Logic to show the suppoerted networks on the create wallet modal
+supportBtn.addEventListener("click", (event) => {
+  iconEl.classList.toggle("rotate-180");
+  networks.classList.toggle("show");
+  event.stopPropagation();
+});
 
 //Logic to show step-1 modal
-
 addWallet.addEventListener("click", () => {
   setTimeout(() => {
     modalOverlay.classList.replace("hidden", "flex");
   }, 50);
 });
 
-//Logic to close step-1 modal
-closeBtn.addEventListener("click", () => {
+closeBtn.forEach(function (btn) {
+  btn.addEventListener("click", () => {
+    setTimeout(() => {
+      modalOverlay.classList.replace("flex", "hidden");
+      modalOverlay2.classList.replace("flex", "hidden");
+    }, 50);
+  });
+});
+
+// Logic to show step-2 modal
+addWalletBox.addEventListener("click", () => {
   setTimeout(() => {
     modalOverlay.classList.replace("flex", "hidden");
+    modalOverlay2.classList.replace("hidden", "flex");
   }, 50);
 });
 
-// Logic to show the suppoerted networks on the create wallet modal
-supportBtn.addEventListener("click", () => {
-  iconEl.classList.toggle("rotate-180");
-  networks.classList.toggle("show");
+//Logic to go back to step-1 modal while on step-2 modal
+return_to_step_1Btn.addEventListener("click", () => {
+  setTimeout(() => {
+    modalOverlay.classList.replace("hidden", "flex");
+    modalOverlay2.classList.replace("flex", "hidden");
+  }, 50);
+});
+
+//Counting the cahracters for the wallet the input
+wallet_name_input.addEventListener("input", () => {
+  let text = wallet_name_input.value;
+
+  if (text.length > 24) {
+    wallet_name_input.value = text.slice(0, 24);
+    text = wallet_name_input.value;
+
+    // change immediately
+    wallet_name_input.classList.replace(
+      "focus:ring-hover",
+      "focus:ring-change-red"
+    );
+
+    // switch back after 2s
+    setTimeout(() => {
+      wallet_name_input.classList.replace(
+        "focus:ring-change-red",
+        "focus:ring-hover"
+      );
+    }, 2000);
+  }
+
+  wallet_name_counter.textContent = `${text.length}/24 characters`;
 });

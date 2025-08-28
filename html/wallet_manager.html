@@ -221,115 +221,183 @@
       </div>
     </section>
 
+    <!-- Modal Step 1 -->
     <div id="modal-overlay" class="fixed inset-0 items-center justify-center hidden bg-black/30">
-      <div class="w-full max-w-lg step-1-modal font-manrope">
-        <div class="flex flex-col gap-8">
-          <!-- dummy header with the cancel button -->
-          <div class="flex items-center justify-between text-input-bg ">
-            <p class="text-lg font-bold">Add Wallet</p>
-            <button class="transition-opacity hover:opacity-70" id="modal-close-1">
-              <div class="text-white size-5 opacity-85">
-                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M36.5 14.5 C37.8807 13.1193 39.5 13.1193 40.8807 14.5 C42.2614 15.8807 42.2614 17.5 40.8807 18.8807 L29.3807 30.3807 C28 31.7614 28 33.3807 29.3807 34.7614 L40.8807 46.2614 C42.2614 47.6421 42.2614 49.2614 40.8807 50.6421 C39.5 52.0228 37.8807 52.0228 36.5 50.6421 L25 39.1414 C23.6193 37.7607 22 37.7607 20.6193 39.1414 L9.11929 50.6421 C7.73858 52.0228 6.11929 52.0228 4.73858 50.6421 C3.35786 49.2614 3.35786 47.6421 4.73858 46.2614 L16.2386 34.7614 C17.6193 33.3807 17.6193 31.7614 16.2386 30.3807 L4.73858 18.8807 C3.35786 17.5 3.35786 15.8807 4.73858 14.5 C6.11929 13.1193 7.73858 13.1193 9.11929 14.5 L20.6193 26 C22 27.3807 23.6193 27.3807 25 26 L36.5 14.5 Z"
-                    fill="currentColor" />
-                </svg>
-              </div>
-            </button>
-          </div>
+      <div class="flex flex-col w-full max-w-lg gap-8 p-4 lg:p-6 step-1-modal font-manrope">
 
-          <!-- modal content -->
-          <div class="flex flex-col items-center justify-center gap-6">
-            <!-- add wallet box -->
+        <!-- dummy header with the cancel button -->
+        <div class="flex items-center justify-between text-input-bg ">
+          <p class="text-lg font-bold">Add Wallet</p>
+          <button class="transition-opacity hover:opacity-70 modal-close" id="modal-close">
+            <div class="text-white size-5 opacity-85">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M36.5 14.5 C37.8807 13.1193 39.5 13.1193 40.8807 14.5 C42.2614 15.8807 42.2614 17.5 40.8807 18.8807 L29.3807 30.3807 C28 31.7614 28 33.3807 29.3807 34.7614 L40.8807 46.2614 C42.2614 47.6421 42.2614 49.2614 40.8807 50.6421 C39.5 52.0228 37.8807 52.0228 36.5 50.6421 L25 39.1414 C23.6193 37.7607 22 37.7607 20.6193 39.1414 L9.11929 50.6421 C7.73858 52.0228 6.11929 52.0228 4.73858 50.6421 C3.35786 49.2614 3.35786 47.6421 4.73858 46.2614 L16.2386 34.7614 C17.6193 33.3807 17.6193 31.7614 16.2386 30.3807 L4.73858 18.8807 C3.35786 17.5 3.35786 15.8807 4.73858 14.5 C6.11929 13.1193 7.73858 13.1193 9.11929 14.5 L20.6193 26 C22 27.3807 23.6193 27.3807 25 26 L36.5 14.5 Z"
+                  fill="currentColor" />
+              </svg>
+            </div>
+          </button>
+        </div>
+
+        <!-- modal content -->
+        <div class="flex flex-col items-center justify-center gap-6 cursor-pointer">
+          <!-- add wallet box -->
+          <div
+            class="flex items-start gap-6 p-3 pt-6 transition-all duration-200 ease-in border lg:p-6 lg:gap-6 border-table-color rounded-xl bg-dark hover:bg-hover hover:bg-opacity-5"
+            id="add-wallet-box">
+            <!-- wallet icon -->
             <div
-              class="flex items-start gap-6 p-3 pt-6 transition-all duration-200 ease-in border lg:p-6 lg:gap-6 border-table-color rounded-xl bg-dark hover:bg-hover hover:bg-opacity-5">
-              <!-- wallet icon -->
+              class="inline-flex items-center justify-center flex-none text-yellow-300 size-12 rounded-2xl bg-border-color">
+              <svg class="w-6 h-6" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M36 12H12C9.79086 12 8 13.7909 8 16V32C8 34.2091 9.79086 36 12 36H36C38.2091 36 40 34.2091 40 32V24C40 21.7909 38.2091 20 36 20H12C10.8954 20 10 19.1046 10 18C10 16.8954 10.8954 16 12 16H36C38.2091 16 40 14.2091 40 12C40 9.79086 38.2091 8 36 8H12C9.79086 8 8 9.79086 8 12"
+                  fill="currentColor" />
+                <circle cx="34" cy="28" r="2" fill="currentColor" />
+              </svg>
+            </div>
+            <!-- text -->
+            <div class="flex flex-col justify-start flex-1 min-w-0 gap-3 whitespace-normal">
+              <h3 class="text-lg font-semibold text-white">Connect Your Cold Wallet</h3>
+              <p class="text-base leading-normal text-text-color-1 font-Noto">
+                Enter your wallet address
+                <span class="font-medium text-input-bg opacity-85">(no signatures or private keys required)</span>.
+                It will be synced automatically.
+              </p>
+
+              <!-- supported button -->
               <div
-                class="inline-flex items-center justify-center flex-none text-yellow-300 size-12 rounded-2xl bg-border-color">
-                <svg class="w-6 h-6" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M36 12H12C9.79086 12 8 13.7909 8 16V32C8 34.2091 9.79086 36 12 36H36C38.2091 36 40 34.2091 40 32V24C40 21.7909 38.2091 20 36 20H12C10.8954 20 10 19.1046 10 18C10 16.8954 10.8954 16 12 16H36C38.2091 16 40 14.2091 40 12C40 9.79086 38.2091 8 36 8H12C9.79086 8 8 9.79086 8 12"
-                    fill="currentColor" />
-                  <circle cx="34" cy="28" r="2" fill="currentColor" />
-                </svg>
+                class="z-50 flex items-center gap-2 text-yellow-300 transition-colors duration-200 ease-in cursor-pointer hover:text-yellow-400 font-Noto"
+                id="support-main-btn">
+                <h4>Supported Networks</h4>
+                <ion-icon name="chevron-down-outline" id="support-icon" class="font-bold size-4"></ion-icon>
               </div>
-              <!-- text -->
-              <div class="flex flex-col justify-start flex-1 min-w-0 gap-3 whitespace-normal">
-                <h3 class="text-lg font-semibold text-white">Connect Your Cold Wallet</h3>
-                <p class="text-base leading-normal text-text-color-1 font-Noto">
-                  Enter your wallet address
-                  <span class="font-medium text-input-bg opacity-85">(no signatures or private keys required)</span>.
-                  It will be synced automatically.
-                </p>
 
-                <!-- supported button -->
-                <div
-                  class="flex items-center gap-2 text-yellow-300 transition-colors duration-200 ease-in cursor-pointer hover:text-yellow-400 font-Noto"
-                  id="support-main-btn">
-                  <h4>Supported Networks</h4>
-                  <ion-icon name="chevron-down-outline" id="support-icon" class="font-bold size-4"></ion-icon>
-                </div>
-
-                <!-- supported networks with animation -->
-                <div class="networks-container" id="networks">
-                  <div class="flex flex-wrap items-center gap-4 pt-2 overflow-x-auto">
-                    <div class="flex items-center flex-none gap-2 p-2 lg:flex-1 rounded-3xl bg-border-color">
-                      <img src="https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
-                        alt="Bitcoin logo" class="w-4 h-4">
-                      <p class="text-xs text-text-color-1">BTC</p>
-                    </div>
-                    <div class="flex items-center flex-none gap-2 p-2 lg:flex-1 rounded-3xl bg-border-color">
-                      <img src="https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756"
-                        alt="Solana logo" class="w-4 h-4">
-                      <p class="text-xs text-text-color-1">SOL</p>
-                    </div>
-                    <div class="flex items-center flex-none gap-2 p-2 lg:flex-1 rounded-3xl bg-border-color">
-                      <img src="https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628"
-                        alt="Ethereum logo" class="w-4 h-4">
-                      <p class="text-xs text-text-color-1">ETH</p>
-                    </div>
-                    <div class="flex items-center flex-none gap-2 p-2 lg:flex-1 rounded-3xl bg-border-color">
-                      <img
-                        src="https://coin-images.coingecko.com/coins/images/26375/large/sui-ocean-square.png?1727791290"
-                        alt="SUI logo" class="w-4 h-4">
-                      <p class="text-xs text-text-color-1">SUI</p>
-                    </div>
+              <!-- supported networks with animation -->
+              <div class="networks-container" id="networks">
+                <div class="flex flex-wrap items-center gap-4 pt-2 overflow-x-auto">
+                  <div class="flex items-center flex-none gap-2 p-2 lg:flex-1 rounded-3xl bg-border-color">
+                    <img src="https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
+                      alt="Bitcoin logo" class="w-4 h-4">
+                    <p class="text-xs text-text-color-1">BTC</p>
+                  </div>
+                  <div class="flex items-center flex-none gap-2 p-2 lg:flex-1 rounded-3xl bg-border-color">
+                    <img src="https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756"
+                      alt="Solana logo" class="w-4 h-4">
+                    <p class="text-xs text-text-color-1">SOL</p>
+                  </div>
+                  <div class="flex items-center flex-none gap-2 p-2 lg:flex-1 rounded-3xl bg-border-color">
+                    <img src="https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628"
+                      alt="Ethereum logo" class="w-4 h-4">
+                    <p class="text-xs text-text-color-1">ETH</p>
+                  </div>
+                  <div class="flex items-center flex-none gap-2 p-2 lg:flex-1 rounded-3xl bg-border-color">
+                    <img
+                      src="https://coin-images.coingecko.com/coins/images/26375/large/sui-ocean-square.png?1727791290"
+                      alt="SUI logo" class="w-4 h-4">
+                    <p class="text-xs text-text-color-1">SUI</p>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- Add Transcations mauualy  -->
+          <!-- Add Transcations mauualy  -->
+          <div
+            class="relative flex items-start gap-6 p-3 pt-6 transition-all duration-200 ease-in border lg:p-6 lg:gap-6 border-table-color rounded-xl bg-dark ">
+            <!-- wallet icon -->
             <div
-              class="relative flex items-start gap-6 p-3 pt-6 transition-all duration-200 ease-in border lg:p-6 lg:gap-6 border-table-color rounded-xl bg-dark ">
-              <!-- wallet icon -->
-              <div
-                class="inline-flex items-center justify-center flex-none text-blue-300 size-12 rounded-2xl bg-border-color opacity-40">
-                <svg class="w-6 h-6 icon-add-sign" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M24 4C25.1046 4 26 4.89543 26 6V22H42C43.1046 22 44 22.8954 44 24C44 25.1046 43.1046 26 42 26H26V42C26 43.1046 25.1046 44 24 44C22.8954 44 22 43.1046 22 42V26H6C4.89543 26 4 25.1046 4 24C4 22.8954 4.89543 22 6 22H22V6C22 4.89543 22.8954 4 24 4Z"
-                    fill="currentColor" />
-                </svg>
-                </svg>
-              </div>
-              <!-- text -->
-              <div class="flex flex-col justify-start flex-1 min-w-0 gap-3 whitespace-normal opacity-40">
-                <h3 class="text-lg font-semibold text-white font-manrope">Add Transcations Manually</h3>
-                <p class="text-base leading-normal text-text-color-1 font-Noto">
-                  Provide transaction details at your own pace to keep your portfolio up to date.
-                </p>
-              </div>
-
-              <p class="absolute p-2 text-sm text-white rounded-lg opacity-100 font-Noto -top-0 -right-0 bg-hover">
-                Coming Soon!!
+              class="inline-flex items-center justify-center flex-none text-blue-300 size-12 rounded-2xl bg-border-color opacity-40">
+              <svg class="w-6 h-6 icon-add-sign" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M24 4C25.1046 4 26 4.89543 26 6V22H42C43.1046 22 44 22.8954 44 24C44 25.1046 43.1046 26 42 26H26V42C26 43.1046 25.1046 44 24 44C22.8954 44 22 43.1046 22 42V26H6C4.89543 26 4 25.1046 4 24C4 22.8954 4.89543 22 6 22H22V6C22 4.89543 22.8954 4 24 4Z"
+                  fill="currentColor" />
+              </svg>
+              </svg>
+            </div>
+            <!-- text -->
+            <div class="flex flex-col justify-start flex-1 min-w-0 gap-3 whitespace-normal opacity-40">
+              <h3 class="text-lg font-semibold text-white font-manrope">Add Transcations Manually</h3>
+              <p class="text-base leading-normal text-text-color-1 font-Noto">
+                Provide transaction details at your own pace to keep your portfolio up to date.
               </p>
-
             </div>
 
+            <p class="absolute p-2 text-sm text-white rounded-lg opacity-100 font-Noto -top-1 -right-0 bg-hover">
+              Coming Soon!!
+            </p>
+
           </div>
+
         </div>
+
+
       </div>
     </div>
+
+    <!-- Modal Step 2 -->
+    <div class="fixed inset-0 items-center justify-center hidden bg-black/30" id="modal-overlay-2">
+      <div class="flex flex-col w-full max-w-lg gap-8 p-4 lg:p-6 step-2-modal font-manrope">
+
+        <!-- Header with cancel button -->
+        <div class="flex items-center justify-between text-input-bg ">
+          <!-- header and return button -->
+          <div class="flex items-center gap-6">
+            <h2 class="order-2 text-lg font-bold">New Connection</h2>
+
+            <button class="order-1 text-white transition-opacity opacity-85 hover:opacity-70" id="return-to-step-1-btn">
+              <svg class="w-6 h-6 icon-mobile-nav left-arrow" viewBox="0 0 48 48" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M28 36 L16 24 L28 12 M16 24 H40" stroke="currentColor" stroke-width="4" stroke-linecap="square"
+                  stroke-linejoin="miter" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- close btn -->
+          <button class="transition-opacity hover:opacity-70 modal-close" id="modal-close-2">
+            <div class="text-white size-5 opacity-85">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M36.5 14.5 C37.8807 13.1193 39.5 13.1193 40.8807 14.5 C42.2614 15.8807 42.2614 17.5 40.8807 18.8807 L29.3807 30.3807 C28 31.7614 28 33.3807 29.3807 34.7614 L40.8807 46.2614 C42.2614 47.6421 42.2614 49.2614 40.8807 50.6421 C39.5 52.0228 37.8807 52.0228 36.5 50.6421 L25 39.1414 C23.6193 37.7607 22 37.7607 20.6193 39.1414 L9.11929 50.6421 C7.73858 52.0228 6.11929 52.0228 4.73858 50.6421 C3.35786 49.2614 3.35786 47.6421 4.73858 46.2614 L16.2386 34.7614 C17.6193 33.3807 17.6193 31.7614 16.2386 30.3807 L4.73858 18.8807 C3.35786 17.5 3.35786 15.8807 4.73858 14.5 C6.11929 13.1193 7.73858 13.1193 9.11929 14.5 L20.6193 26 C22 27.3807 23.6193 27.3807 25 26 L36.5 14.5 Z"
+                  fill="currentColor" />
+              </svg>
+            </div>
+          </button>
+        </div>
+
+
+        <!-- Modal content -->
+        <div class="flex flex-col gap-10 font-Noto">
+          <!-- Wallet name -->
+          <div class="flex flex-col justify-start gap-3 ">
+            <label for="wallet-name" class="text-base leading-normal tracking-wider text-white font-manrope">Wallet
+              Name</label>
+            <input type="text" id="wallet-name" name="wallet-name" placeholder="Enter your wallet name"
+              class="w-full px-4 py-2 text-base font-medium leading-normal text-black border-none rounded-lg bg-text-color-1 placeholder:text-input-text placeholder:text-opacity-90 focus:outline-0 focus:ring-hover focus:ring-2 caret-hover">
+            <p class="text-sm leading-normal text-text-color-1" id="wallet-counter">0/24 characters</p>
+          </div>
+
+          <!-- wallet Adress -->
+          <div class="flex flex-col justify-start gap-3 ">
+            <label for="wallet-address" class="text-base leading-normal tracking-wide text-white font-manrope">Wallet
+              Address</label>
+            <input id="wallet-address" type="text" id="wallet-name" name="wallet-name"
+              placeholder="Enter a public address"
+              class="w-full px-4 py-2 text-base font-medium leading-normal text-black border-none rounded-lg bg-text-color-1 placeholder:text-input-text placeholder:text-opacity-90 focus:outline-0 focus:ring-hover focus:ring-2 caret-hover">
+            <p class="text-sm leading-normal text-text-color-1">We only request <strong
+                class="font-medium text-white">view
+                access.</strong> Your private keys and assets remain secure.</p>
+          </div>
+
+          <button
+            class="p-2 text-base font-bold leading-normal text-white opacity-95 rounded-xl bg-hover font-manrope">Create
+            Wallet</button>
+
+        </div>
+
+      </div>
+    </div>
+
   </main>
   <!-- darkoverlay -->
   <div class="hidden overlay"></div>
@@ -341,11 +409,3 @@
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 </html>
-
-
-<!--  <svg class="icon-wallet" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M36 12H12C9.79086 12 8 13.7909 8 16V32C8 34.2091 9.79086 36 12 36H36C38.2091 36 40 34.2091 40 32V24C40 21.7909 38.2091 20 36 20H12C10.8954 20 10 19.1046 10 18C10 16.8954 10.8954 16 12 16H36C38.2091 16 40 14.2091 40 12C40 9.79086 38.2091 8 36 8H12C9.79086 8 8 9.79086 8 12"
-          fill="currentColor" />
-        <circle cx="34" cy="28" r="2" fill="currentColor" />
-      </svg> -->
