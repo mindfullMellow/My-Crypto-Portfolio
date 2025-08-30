@@ -201,25 +201,40 @@
 
   <main>
     <section class="px-5 empty-wallet-section py-9 lg:px-10">
-      <div
-        class="container mx-auto max-w-[1200px] font-manrope flex justify-center items-center py-32 flex-col gap-6 text-white">
+      <div class="container mx-auto max-w-[1200px] ">
 
-        <p class="text-[30px] font-bold leading-tight text-text-color-1 tracking-light">No Wallet Found</p>
-
-        <button id="add-wallet-btn"
-          class="p-3 transition-all duration-200 ease-in border border-transparent bg-hover rounded-xl hover:bg-border-color hover:border-table-color hover:scale-y-100">
-          <div class="flex items-center gap-4">
-            <div class="text-white size-4">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 40 H40 M10 36 L14 32 L32 14 L34 16 L16 34 Z M34 16 L38 12 L36 10 L32 14 Z"
-                  stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-            <p class="text-base font-bold">Add Wallet</p>
+        <div>
+          <div>
+            <p id="walletname"></p>
+            <p id="wallet-addy"></p>
           </div>
-        </button>
+        </div>
+
+
+        <!-- container to show if the wallet list is empty  -->
+        <div class="flex flex-col items-center justify-center gap-6 text-white py-28 font-manrope"
+          id="init_upon_empty_wallet_list">
+          <p class="text-[30px] font-bold leading-tight text-text-color-1 tracking-light">No Wallet Found</p>
+
+          <button id="add-wallet-btn"
+            class="p-3 transition-all duration-200 ease-in border border-transparent bg-hover rounded-xl hover:bg-border-color hover:border-table-color hover:scale-y-100">
+            <div class="flex items-center gap-4">
+              <div class="text-white size-4">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 40 H40 M10 36 L14 32 L32 14 L34 16 L16 34 Z M34 16 L38 12 L36 10 L32 14 Z"
+                    stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <p class="text-base font-bold">Add Wallet</p>
+            </div>
+          </button>
+        </div>
       </div>
     </section>
+
+
+
+    <!-- //////////////////////////MODALS COMPONENT/////////////////////////////// -->
 
     <!-- Modal Step 1 -->
     <div id="modal-overlay" class="fixed inset-0 items-center justify-center hidden bg-black/30">
@@ -370,7 +385,7 @@
         <!-- Modal content -->
         <div class="flex flex-col gap-10 font-Noto">
           <!-- Wallet name -->
-          <div class="flex flex-col justify-start gap-3 ">
+          <div class="flex flex-col justify-start order-2 gap-3">
             <label for="wallet-name" class="text-base leading-normal tracking-wider text-white font-manrope">Wallet
               Name</label>
             <input type="text" id="wallet-name" name="wallet-name" placeholder="Enter your wallet name"
@@ -379,7 +394,7 @@
           </div>
 
           <!-- wallet Adress -->
-          <div class="flex flex-col justify-start gap-3 ">
+          <div class="flex flex-col justify-start order-1 gap-3">
             <label for="wallet-address" class="text-base leading-normal tracking-wide text-white font-manrope">Wallet
               Address</label>
             <input id="wallet-address" type="text" id="wallet-name" name="wallet-name"
@@ -390,10 +405,21 @@
                 access.</strong> Your private keys and assets remain secure.</p>
           </div>
 
-          <button
-            class="p-2 text-base font-bold leading-normal text-white opacity-95 rounded-xl bg-hover font-manrope">Create
-            Wallet</button>
+          <div class="flex flex-col order-3 gap-3">
 
+            <label for="checkbox" class="flex items-center justify-start gap-2">
+              <input type="checkbox" checked id="checkbox"
+                class="relative w-5 h-5 bg-white border-2 rounded appearance-none border-hover bg-opacity-85 peer checked:bg-hover " />
+              <span class="text-sm leading-normal text-text-color-1">
+                Add this wallet balance to my
+                <strong class="text-sm font-medium text-white">Total Portfolio</strong>
+              </span>
+            </label>
+
+            <button
+              class="p-2 text-base font-bold leading-normal text-white opacity-95 rounded-xl bg-hover font-manrope">Create
+              Wallet</button>
+          </div>
         </div>
 
       </div>

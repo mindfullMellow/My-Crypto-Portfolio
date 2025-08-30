@@ -273,7 +273,7 @@ MODAL FOR THE WALLET MANAGER
   transform: translate(-50%, -50%);
   width: 500px;
   max-width: 90vw;
-  max-height: 70vh;
+  max-height: 80vh;
   overflow-y: auto;
   background: white;
   z-index: 1000;
@@ -307,10 +307,24 @@ MODAL FOR THE WALLET MANAGER
   transition: transform 0.3s ease-in-out;
 }
 
-input {
+/* input {
   border: 2px solid transparent !important;
 }
 
 input:hover {
   border-color: #131712 !important;
+} */
+
+input[type="checkbox"].peer:checked::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  /* fills the checkbox */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* centers the tick */
+  font-size: 12px;
+  color: white;
+  pointer-events: none;
 }
