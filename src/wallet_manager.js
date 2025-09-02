@@ -91,7 +91,7 @@ document.addEventListener("keydown", function (e) {
 
 //////////////////////////////////////////////////////
 
-const addWallet = document.getElementById("add-wallet-btn");
+const addWallet = document.querySelectorAll(".add-wallet-btn");
 const modalOverlay = document.getElementById("modal-overlay");
 const closeBtn = document.querySelectorAll(".modal-close");
 const iconEl = document.getElementById("support-icon");
@@ -112,10 +112,12 @@ supportBtn.addEventListener("click", (event) => {
 });
 
 //Logic to show step-1 modal
-addWallet.addEventListener("click", () => {
-  setTimeout(() => {
-    modalOverlay.classList.replace("hidden", "flex");
-  }, 50);
+addWallet.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    setTimeout(() => {
+      modalOverlay.classList.replace("hidden", "flex");
+    }, 50);
+  });
 });
 
 closeBtn.forEach(function (btn) {
