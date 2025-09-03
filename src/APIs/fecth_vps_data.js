@@ -1,13 +1,9 @@
 "use strict";
-
-// Import the UniversalLoader
 import UniversalLoader from "../extras/universal_loader.js";
-
-export const VPSkey = import.meta.env.VITE_VPS_API_KEY;
 
 // Global variables
 export let finalPortfolioData = null;
-
+export const VPSkey = import.meta.env.VITE_VPS_API_KEY;
 const EXCHANGES = [
   { name: "Binance", route: "binance-data", key: "binanceAsset" },
   { name: "Bitget", route: "bitget-assets", key: "bitgetAsset" },
@@ -25,7 +21,7 @@ const EXCHANGE_NAMES = {
 // Basic fetch function
 export async function fetch_From_VPS(route) {
   try {
-    const res = await fetch(`http://176.123.2.135:5001/${route}`, {
+    const res = await fetch(`/api/${route}`, {
       headers: {
         "X-API-KEY": VPSkey,
       },
@@ -42,7 +38,7 @@ export async function fetch_From_VPS(route) {
 // Initialize loader with crypto theme
 function initializeLoader() {
   UniversalLoader.customize({
-    brandText: "CryptoTracker",
+    brandText: "CoinTracker",
     colors: ["#f7931a", "#00d4aa", "#3c90eb"],
   });
 }

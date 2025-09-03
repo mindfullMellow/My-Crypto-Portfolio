@@ -34,6 +34,11 @@ export default defineConfig({
         target: "http://176.123.2.135:5001",
         changeOrigin: true,
       },
+      "/api": {
+        target: "http://176.123.2.135:5001",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
     },
   },
 });

@@ -9,13 +9,13 @@ import {
 let portfolioData = {}; // Store fetched data
 const logoMap = {
   Binance:
-    "<img src='src/Assets/img/Binance-logo.svg' alt='Binance' class='w-8 h-8 mr-2'>",
+    "<img src='Assets/img/Binance-logo.svg' alt='Binance' class='w-8 h-8 mr-2'>",
   Bitget:
-    "<img src='src/Assets/img/bitget-logo.png' alt='Bitget' class='w-6 h-6 mr-2'>",
+    "<img src='Assets/img/bitget-logo.png' alt='Bitget' class='w-6 h-6 mr-2'>",
   "Gate.io":
-    "<img src='src/Assets/img/gate_io-logo.svg' alt='Gate' class='w-10 h-10 mr-2'>",
+    "<img src='Assets/img/gate_io-logo.svg' alt='Gate' class='w-10 h-10 mr-2'>",
   Bybit:
-    "<img src='src/Assets/img/bybit-logo.png' alt='Bybit' class='w-8 h-8 mr-2'>",
+    "<img src='Assets/img/bybit-logo.png' alt='Bybit' class='w-8 h-8 mr-2'>",
 };
 
 async function fetchPortfolio() {
