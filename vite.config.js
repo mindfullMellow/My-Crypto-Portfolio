@@ -2,8 +2,6 @@ import { defineConfig } from "vite";
 import dotenv from "dotenv";
 dotenv.config();
 
-console.log("VITE_DEV_HOST is:", process.env.VITE_DEV_HOST);
-
 export default defineConfig({
   build: {
     rollupOptions: {
