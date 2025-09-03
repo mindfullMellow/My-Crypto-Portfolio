@@ -90,21 +90,31 @@ function updateDOM(hasError = false) {
     );
 
     for (const [assetSymbol, assetInfo] of sortedAssets) {
+      console.log(assetInfo);
       // Skip assets with very low value
       if (parseFloat(assetInfo.totalValue) <= 1) continue;
 
-      // Calculate average price from total value and amount
-      const avgPrice =
-        parseFloat(assetInfo.totalAmount) > 0
-          ? (
-              parseFloat(assetInfo.totalValue) /
-              parseFloat(assetInfo.totalAmount)
-            ).toFixed(2)
-          : "0.00";
+      // Get price directly from merged asset (with fallback to calculated)
+      const assetPrice = assetInfo.price
+        ? parseFloat(assetInfo.price).toFixed(2)
+        : parseFloat(assetInfo.totalAmount) > 0
+        ? (
+            parseFloat(assetInfo.totalValue) / parseFloat(assetInfo.totalAmount)
+          ).toFixed(2)
+        : "0.00";
 
-      // Get price change (use from first exchange that has it)
-      const priceChange = assetInfo.currentPrice ? "N/A" : "N/A"; // Placeholder since we don't have 24h change in merged data
-      const changeClass = "text-gray-500"; // Neutral color since we don't have change data
+      // Get 24hr change from merged asset
+      const change24hr = assetInfo.change24hr || 0;
+      const changeClass =
+        change24hr > 0
+          ? "change-green"
+          : change24hr < 0
+          ? "change-red"
+          : "text-gray-500";
+      const changeDisplay =
+        change24hr !== 0
+          ? `${change24hr > 0 ? "+" : "-"}${change24hr.toFixed(2)}%`
+          : "0.00%";
 
       // Create exchange badges/logos
       const exchangeBadges = assetInfo.exchanges
@@ -120,17 +130,17 @@ function updateDOM(hasError = false) {
         .join("");
 
       const row = `<tr class="border-t border-t-tabel-top-border">
-        <td class="h-[72px] px-4 py-2 w-[400px]">${assetSymbol}</td>
-        <td class="h-[72px] px-4 py-2 w-[400px]">${avgPrice}</td>
-        <td class="h-[72px] px-4 py-2 w-[400px]">${parseFloat(
-          assetInfo.totalAmount
-        ).toFixed(8)}</td>
-        <td class="h-[72px] px-4 py-2 w-[400px]">${parseFloat(
-          assetInfo.totalValue
-        ).toFixed(2)}</td>
-        <td class="h-[72px] px-4 py-2 w-[400px] ${changeClass}">N/A</td>
-        <td class="h-[72px] px-4 py-2 w-[400px]"><span class="flex items-center">${exchangeBadges}</span></td>
-      </tr>`;
+  <td class="h-[72px] px-4 py-2 w-[400px]">${assetSymbol}</td>
+  <td class="h-[72px] px-4 py-2 w-[400px]">$${assetPrice}</td>
+  <td class="h-[72px] px-4 py-2 w-[400px]">${parseFloat(
+    assetInfo.totalAmount
+  ).toFixed(8)}</td>
+  <td class="h-[72px] px-4 py-2 w-[400px]">$${parseFloat(
+    assetInfo.totalValue
+  ).toFixed(2)}</td>
+  <td class="h-[72px] px-4 py-2 w-[400px] ${changeClass}">${changeDisplay}</td>
+  <td class="h-[72px] px-4 py-2 w-[400px]"><span class="flex items-center">${exchangeBadges}</span></td>
+</tr>`;
       tbody.innerHTML += row;
     }
   }
