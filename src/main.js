@@ -1,37 +1,38 @@
 "use strict";
-
 import "./main.css";
-// Function to apply animation to an element
-export function applyAnimation(element) {
-  element.innerHTML = element.textContent
-    .split("")
-    .map(
-      (char, index) =>
-        `<span style="animation-delay: ${
-          index * 0.1
-        }s" class="dot">${char}</span>`
-    )
-    .join("");
-}
 
-let coinData = {}; // Store fetched data
+import {
+  finalPortfolioData,
+  getCompletePortfolioData,
+} from "../src/APIs/fecth_vps_data";
 
-function fetchPortfolio() {
-  fetch(`http://${window.location.hostname}:5000/binance-calc`)
-    .then((res) => {
-      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-      return res.json();
-    })
-    .then((data) => {
-      coinData = data; // Store data
-      console.log("Fetched data:", data.total_usd_value, data.pnl);
-      updateDOM(); // Update UI
-      console.log(coinData);
-    })
-    .catch((error) => {
-      console.error("Fetch error:", error.message);
-      updateDOM(true); // Update UI with error
-    });
+let portfolioData = {}; // Store fetched data
+const logoMap = {
+  Binance:
+    "<img src='src/Assets/img/Binance-logo.svg' alt='Binance' class='w-8 h-8 mr-2'>",
+  Bitget:
+    "<img src='src/Assets/img/bitget-logo.png' alt='Bitget' class='w-6 h-6 mr-2'>",
+  "Gate.io":
+    "<img src='src/Assets/img/gate_io-logo.svg' alt='Gate' class='w-10 h-10 mr-2'>",
+  Bybit:
+    "<img src='src/Assets/img/bybit-logo.png' alt='Bybit' class='w-8 h-8 mr-2'>",
+};
+
+async function fetchPortfolio() {
+  try {
+    // Get fresh portfolio data
+    const data = await getCompletePortfolioData();
+    portfolioData = data;
+    console.log(
+      "Fetched portfolio data:",
+      data.summary.totalValue,
+      data.mergedAssets
+    );
+    updateDOM(); // Update UI
+  } catch (error) {
+    console.error("Fetch error:", error.message);
+    updateDOM(true); // Update UI with error
+  }
 }
 
 function updateDOM(hasError = false) {
@@ -40,83 +41,125 @@ function updateDOM(hasError = false) {
   const dailychangeEl = document.getElementById("24hr-change");
   const assetTableEl = document.getElementById("asset-table");
 
-  if (hasError || !coinData.total_usd_value) {
-    if (totalValueEl) applyAnimation(totalValueEl);
-    if (pnlValueEl) applyAnimation(pnlValueEl);
-    if (dailychangeEl) applyAnimation(dailychangeEl);
+  if (hasError || !portfolioData.summary) {
+    if (totalValueEl) totalValueEl.innerHTML = "Error loading data";
+    if (pnlValueEl) pnlValueEl.innerHTML = "...";
+    if (dailychangeEl) dailychangeEl.innerHTML = "...";
     if (assetTableEl) {
       const tbody = assetTableEl.querySelector("tbody");
       tbody.innerHTML = `
-          <tr class="border-t border-t-tabel-top-border">
-            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
-            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
-            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
-            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
-            <td class="h-[72px] px-4 py-2 w-[400px]"><p class="text-2xl font-bold">....</p></td>
-          </tr>
-        `;
-      // Apply animation to all placeholder <p> elements
-      tbody.querySelectorAll("p").forEach(applyAnimation);
+        <tr class="border-t border-t-tabel-top-border">
+          <td class="h-[72px] px-4 py-2 w-[400px]">Error loading assets</td>
+          <td class="h-[72px] px-4 py-2 w-[400px]">...</td>
+          <td class="h-[72px] px-4 py-2 w-[400px]">...</td>
+          <td class="h-[72px] px-4 py-2 w-[400px]">...</td>
+          <td class="h-[72px] px-4 py-2 w-[400px]">...</td>
+          <td class="h-[72px] px-4 py-2 w-[400px]">...</td>
+        </tr>
+      `;
     }
     return;
   }
 
-  // Portfolio value
-  if (totalValueEl)
-    totalValueEl.innerHTML = `$${coinData.total_usd_value.toFixed(2)}`;
+  // Portfolio total value
+  if (totalValueEl) {
+    totalValueEl.innerHTML = `$${parseFloat(
+      portfolioData.summary.totalValue
+    ).toFixed(2)}`;
+  }
 
-  // 24 hr PNL
+  // PNL - We don't have PNL in merged data, so show placeholder or calculate if needed
   if (pnlValueEl) {
-    pnlValueEl.innerHTML = `${coinData.pnl.value.toFixed(2)}`;
+    pnlValueEl.innerHTML = "N/A"; // Or calculate based on your needs
   }
 
-  // 24hr change
+  // 24hr change - We don't have overall 24hr change, so show placeholder
   if (dailychangeEl) {
-    const dayChange =
-      coinData.pnl["24hr_change"].toFixed(2) < 0 ? "#da0b35" : "#0bda35";
-    dailychangeEl.innerHTML = `${coinData.pnl["24hr_change"].toFixed(2)}%`;
-    dailychangeEl.style.color = dayChange;
+    dailychangeEl.innerHTML = "N/A"; // Or calculate average change
+    dailychangeEl.style.color = "#666";
   }
 
+  // Asset table with merged data
   if (assetTableEl) {
     const tbody = assetTableEl.querySelector("tbody");
     tbody.innerHTML = "";
-    const sortedAssets = Object.entries(coinData.assets).sort(
-      ([, a], [, b]) => b.usd_value - a.usd_value
+
+    // Sort merged assets by total value
+    const sortedAssets = Object.entries(portfolioData.mergedAssets).sort(
+      ([, a], [, b]) => parseFloat(b.totalValue) - parseFloat(a.totalValue)
     );
-    for (const [asset, info] of sortedAssets) {
-      if (info.usd_value <= 1) continue;
-      const price =
-        info.amount > 0 ? (info.usd_value / info.amount).toFixed(2) : 0;
-      const changeClass =
-        info.price_change_24h < 0 ? "text-change-red" : "text-change-green";
-      const row = `<tr class="border-t border-t-tabel-top-border">
-          <td class="h-[72px] px-4 py-2 w-[400px]">${asset}<span class="ml-2">(${asset})</span></td>
-          <td class="h-[72px] px-4 py-2 w-[400px]">$${price}</td>
-          <td class="h-[72px] px-4 py-2 w-[400px]">${info.amount.toFixed(
+
+    for (const [assetSymbol, assetInfo] of sortedAssets) {
+      // Skip assets with very low value
+      if (parseFloat(assetInfo.totalValue) <= 1) continue;
+
+      // Calculate average price from total value and amount
+      const avgPrice =
+        parseFloat(assetInfo.totalAmount) > 0
+          ? (
+              parseFloat(assetInfo.totalValue) /
+              parseFloat(assetInfo.totalAmount)
+            ).toFixed(2)
+          : "0.00";
+
+      // Get price change (use from first exchange that has it)
+      const priceChange = assetInfo.currentPrice ? "N/A" : "N/A"; // Placeholder since we don't have 24h change in merged data
+      const changeClass = "text-gray-500"; // Neutral color since we don't have change data
+
+      // Create exchange badges/logos
+      const exchangeBadges = assetInfo.exchanges
+        .map((ex) => {
+          const exchangeName = ex.exchange;
+          // You can replace these with actual logo images later
+          return `<span title="${exchangeName}: ${parseFloat(ex.amount).toFixed(
             8
-          )}</td>
-          <td class="h-[72px] px-4 py-2 w-[400px]">$${info.usd_value.toFixed(
-            2
-          )}</td>
-          <td class="h-[72px] px-4 py-2 w-[400px] ${changeClass}">${info.price_change_24h.toFixed(
-        2
-      )}%</td>
-        </tr>`;
+          )}" class="inline-block mr-1">${
+            logoMap[exchangeName] || "⚪"
+          }</span>`;
+        })
+        .join("");
+
+      const row = `<tr class="border-t border-t-tabel-top-border">
+        <td class="h-[72px] px-4 py-2 w-[400px]">${assetSymbol}</td>
+        <td class="h-[72px] px-4 py-2 w-[400px]">${avgPrice}</td>
+        <td class="h-[72px] px-4 py-2 w-[400px]">${parseFloat(
+          assetInfo.totalAmount
+        ).toFixed(8)}</td>
+        <td class="h-[72px] px-4 py-2 w-[400px]">${parseFloat(
+          assetInfo.totalValue
+        ).toFixed(2)}</td>
+        <td class="h-[72px] px-4 py-2 w-[400px] ${changeClass}">N/A</td>
+        <td class="h-[72px] px-4 py-2 w-[400px]"><span class="flex items-center">${exchangeBadges}</span></td>
+      </tr>`;
       tbody.innerHTML += row;
     }
   }
 }
 
-// Initial fetch and apply animation to all loading states
-const elements = [
-  document.getElementById("total-value"),
-  document.getElementById("pnl-value"),
-  document.getElementById("24hr-change"),
-];
-elements.forEach(applyAnimation);
-fetchPortfolio(); // Initial fetch
-setInterval(fetchPortfolio, 10000); // Poll every 10 seconds
+// Initialize portfolio display
+async function initializePortfolio() {
+  try {
+    // Check if data is already loaded
+    if (finalPortfolioData) {
+      portfolioData = finalPortfolioData;
+      updateDOM();
+    } else {
+      // Load data for first time
+      const data = await getCompletePortfolioData();
+      portfolioData = data;
+      updateDOM();
+    }
+  } catch (error) {
+    console.error("Error initializing portfolio:", error);
+    updateDOM(true);
+  }
+}
+
+// Initial load
+initializePortfolio();
+
+// Refresh every 30 seconds (reduced frequency since we're hitting multiple APIs)
+// setInterval(fetchPortfolio, 30000);
 
 ///////////////////////////////////////////////////////////////////////
 // code to dynamically implement the mobile nav logic

@@ -1,6 +1,7 @@
 "use strict";
 import "./main.css";
 import UniversalLoader from "./extras/universal_loader";
+import { fetch_From_VPS, VPSkey } from "./APIs/fecth_vps_data";
 
 ///////////////////////////////////////////////////////////////////////
 // show loader right away
@@ -9,6 +10,11 @@ UniversalLoader.show("Loading page...");
 // fake loadData function for demo (2s delay)
 async function loadData() {
   await new Promise((resolve) => setTimeout(resolve, 2000));
+}
+
+async function setupUI() {
+  // const binance = await fetch_From_VPS("binance-data");
+  // console.log("Binance:", binance.assets);
 }
 
 async function init() {

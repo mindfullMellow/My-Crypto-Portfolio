@@ -1,11 +1,5 @@
 "use strict";
 
-import { fecth_vps_data } from "../APIs/fecth_vps_data";
-
-fecth_vps_data().then((data) => {
-  console.log("From other file:", data);
-});
-
 // Reuseable functions
 //function to show error message
 function openErrEl(errMessageEl) {

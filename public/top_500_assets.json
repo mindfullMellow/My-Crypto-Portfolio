@@ -1,0 +1,3821 @@
+{
+  "last_updated": "Wednesday, 03 September 2025, 12:23 AM",
+  "assets": [
+    {
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "price": 111077,
+      "market_cap": 2214240238397,
+      "change_24h": 2.23928,
+      "image": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
+    },
+    {
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "price": 4322.73,
+      "market_cap": 522818887720,
+      "change_24h": 0.74496,
+      "image": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628"
+    },
+    {
+      "name": "XRP",
+      "symbol": "XRP",
+      "price": 2.86,
+      "market_cap": 169969087843,
+      "change_24h": 4.0694,
+      "image": "https://coin-images.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png?1696501442"
+    },
+    {
+      "name": "Tether",
+      "symbol": "USDT",
+      "price": 1.0,
+      "market_cap": 168045584856,
+      "change_24h": -0.0017,
+      "image": "https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661"
+    },
+    {
+      "name": "BNB",
+      "symbol": "BNB",
+      "price": 852.03,
+      "market_cap": 118652086693,
+      "change_24h": 0.8229,
+      "image": "https://coin-images.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1696501970"
+    },
+    {
+      "name": "Solana",
+      "symbol": "SOL",
+      "price": 208.94,
+      "market_cap": 113104860965,
+      "change_24h": 6.5918,
+      "image": "https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756"
+    },
+    {
+      "name": "USDC",
+      "symbol": "USDC",
+      "price": 0.999807,
+      "market_cap": 72165049323,
+      "change_24h": -0.00105,
+      "image": "https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694"
+    },
+    {
+      "name": "Lido Staked Ether",
+      "symbol": "STETH",
+      "price": 4314.99,
+      "market_cap": 37566618275,
+      "change_24h": 0.75152,
+      "image": "https://coin-images.coingecko.com/coins/images/13442/large/steth_logo.png?1696513206"
+    },
+    {
+      "name": "Dogecoin",
+      "symbol": "DOGE",
+      "price": 0.214891,
+      "market_cap": 32439387866,
+      "change_24h": 3.04108,
+      "image": "https://coin-images.coingecko.com/coins/images/5/large/dogecoin.png?1696501409"
+    },
+    {
+      "name": "TRON",
+      "symbol": "TRX",
+      "price": 0.338019,
+      "market_cap": 32004907636,
+      "change_24h": 0.37512,
+      "image": "https://coin-images.coingecko.com/coins/images/1094/large/tron-logo.png?1696502193"
+    },
+    {
+      "name": "Cardano",
+      "symbol": "ADA",
+      "price": 0.833112,
+      "market_cap": 30448808662,
+      "change_24h": 4.89822,
+      "image": "https://coin-images.coingecko.com/coins/images/975/large/cardano.png?1696502090"
+    },
+    {
+      "name": "Wrapped stETH",
+      "symbol": "WSTETH",
+      "price": 5235.05,
+      "market_cap": 16586420182,
+      "change_24h": 0.96077,
+      "image": "https://coin-images.coingecko.com/coins/images/18834/large/wstETH.png?1696518295"
+    },
+    {
+      "name": "Chainlink",
+      "symbol": "LINK",
+      "price": 23.53,
+      "market_cap": 15979803323,
+      "change_24h": 5.06914,
+      "image": "https://coin-images.coingecko.com/coins/images/877/large/chainlink-new-logo.png?1696502009"
+    },
+    {
+      "name": "Wrapped Beacon ETH",
+      "symbol": "WBETH",
+      "price": 4657.56,
+      "market_cap": 14291687238,
+      "change_24h": 0.74735,
+      "image": "https://coin-images.coingecko.com/coins/images/30061/large/wbeth-icon.png?1696528983"
+    },
+    {
+      "name": "Wrapped Bitcoin",
+      "symbol": "WBTC",
+      "price": 111100,
+      "market_cap": 14151994584,
+      "change_24h": 2.35393,
+      "image": "https://coin-images.coingecko.com/coins/images/7598/large/wrapped_bitcoin_wbtc.png?1696507857"
+    },
+    {
+      "name": "Ethena USDe",
+      "symbol": "USDE",
+      "price": 1.001,
+      "market_cap": 12471248783,
+      "change_24h": 0.0103,
+      "image": "https://coin-images.coingecko.com/coins/images/33613/large/usde.png?1733810059"
+    },
+    {
+      "name": "Figure Heloc",
+      "symbol": "FIGR_HELOC",
+      "price": 1.007,
+      "market_cap": 12256109808,
+      "change_24h": 1.8982,
+      "image": "https://coin-images.coingecko.com/coins/images/68480/large/figure.png?1755863954"
+    },
+    {
+      "name": "Hyperliquid",
+      "symbol": "HYPE",
+      "price": 44.78,
+      "market_cap": 12130392567,
+      "change_24h": 4.67473,
+      "image": "https://coin-images.coingecko.com/coins/images/50882/large/hyperliquid.jpg?1729431300"
+    },
+    {
+      "name": "Sui",
+      "symbol": "SUI",
+      "price": 3.31,
+      "market_cap": 11840318264,
+      "change_24h": 4.55961,
+      "image": "https://coin-images.coingecko.com/coins/images/26375/large/sui-ocean-square.png?1727791290"
+    },
+    {
+      "name": "Wrapped eETH",
+      "symbol": "WEETH",
+      "price": 4634.76,
+      "market_cap": 11688774219,
+      "change_24h": 0.87228,
+      "image": "https://coin-images.coingecko.com/coins/images/33033/large/weETH.png?1701438396"
+    },
+    {
+      "name": "Stellar",
+      "symbol": "XLM",
+      "price": 0.365853,
+      "market_cap": 11611821463,
+      "change_24h": 3.61111,
+      "image": "https://coin-images.coingecko.com/coins/images/100/large/fmpFRHHQ_400x400.jpg?1735231350"
+    },
+    {
+      "name": "Bitcoin Cash",
+      "symbol": "BCH",
+      "price": 583.79,
+      "market_cap": 11609105191,
+      "change_24h": 7.84981,
+      "image": "https://coin-images.coingecko.com/coins/images/780/large/bitcoin-cash-circle.png?1696501932"
+    },
+    {
+      "name": "Avalanche",
+      "symbol": "AVAX",
+      "price": 24.45,
+      "market_cap": 10328300670,
+      "change_24h": 6.44075,
+      "image": "https://coin-images.coingecko.com/coins/images/12559/large/Avalanche_Circle_RedWhite_Trans.png?1696512369"
+    },
+    {
+      "name": "WETH",
+      "symbol": "WETH",
+      "price": 4324.34,
+      "market_cap": 9575032645,
+      "change_24h": 0.73015,
+      "image": "https://coin-images.coingecko.com/coins/images/2518/large/weth.png?1696503332"
+    },
+    {
+      "name": "Hedera",
+      "symbol": "HBAR",
+      "price": 0.220238,
+      "market_cap": 9347706586,
+      "change_24h": 3.0332,
+      "image": "https://coin-images.coingecko.com/coins/images/3688/large/hbar.png?1696504364"
+    },
+    {
+      "name": "Cronos",
+      "symbol": "CRO",
+      "price": 0.2649,
+      "market_cap": 8910424294,
+      "change_24h": -1.60478,
+      "image": "https://coin-images.coingecko.com/coins/images/7310/large/cro_token_logo.png?1696507599"
+    },
+    {
+      "name": "LEO Token",
+      "symbol": "LEO",
+      "price": 9.57,
+      "market_cap": 8829417296,
+      "change_24h": 0.24167,
+      "image": "https://coin-images.coingecko.com/coins/images/8418/large/leo-token.png?1696508607"
+    },
+    {
+      "name": "Litecoin",
+      "symbol": "LTC",
+      "price": 111.62,
+      "market_cap": 8518196442,
+      "change_24h": 3.35987,
+      "image": "https://coin-images.coingecko.com/coins/images/2/large/litecoin.png?1696501400"
+    },
+    {
+      "name": "Toncoin",
+      "symbol": "TON",
+      "price": 3.17,
+      "market_cap": 8139664349,
+      "change_24h": 2.18665,
+      "image": "https://coin-images.coingecko.com/coins/images/17980/large/photo_2024-09-10_17.09.00.jpeg?1725963446"
+    },
+    {
+      "name": "USDS",
+      "symbol": "USDS",
+      "price": 0.999495,
+      "market_cap": 8121129966,
+      "change_24h": -0.01363,
+      "image": "https://coin-images.coingecko.com/coins/images/39926/large/usds.webp?1726666683"
+    },
+    {
+      "name": "Shiba Inu",
+      "symbol": "SHIB",
+      "price": 1.244e-05,
+      "market_cap": 7334583411,
+      "change_24h": 3.5333,
+      "image": "https://coin-images.coingecko.com/coins/images/11939/large/shiba.png?1696511800"
+    },
+    {
+      "name": "Binance Bridged USDT (BNB Smart Chain)",
+      "symbol": "BSC-USD",
+      "price": 1.0,
+      "market_cap": 6785539765,
+      "change_24h": -0.00353,
+      "image": "https://coin-images.coingecko.com/coins/images/35021/large/USDT.png?1707233575"
+    },
+    {
+      "name": "World Liberty Financial",
+      "symbol": "WLFI",
+      "price": 0.229423,
+      "market_cap": 6277452447,
+      "change_24h": -2.43193,
+      "image": "https://coin-images.coingecko.com/coins/images/50767/large/wlfi.png?1756438915"
+    },
+    {
+      "name": "Coinbase Wrapped BTC",
+      "symbol": "CBBTC",
+      "price": 111107,
+      "market_cap": 6188877320,
+      "change_24h": 2.18707,
+      "image": "https://coin-images.coingecko.com/coins/images/40143/large/cbbtc.webp?1726136727"
+    },
+    {
+      "name": "WhiteBIT Coin",
+      "symbol": "WBT",
+      "price": 42.74,
+      "market_cap": 6160963411,
+      "change_24h": 1.35365,
+      "image": "https://coin-images.coingecko.com/coins/images/27045/large/wbt_token.png?1696526096"
+    },
+    {
+      "name": "Bitget Token",
+      "symbol": "BGB",
+      "price": 5.1,
+      "market_cap": 5819611748,
+      "change_24h": 9.80182,
+      "image": "https://coin-images.coingecko.com/coins/images/11610/large/Bitget_logo.png?1736925727"
+    },
+    {
+      "name": "Polkadot",
+      "symbol": "DOT",
+      "price": 3.82,
+      "market_cap": 5808895302,
+      "change_24h": 3.96122,
+      "image": "https://coin-images.coingecko.com/coins/images/12171/large/polkadot.png?1696512008"
+    },
+    {
+      "name": "Uniswap",
+      "symbol": "UNI",
+      "price": 9.61,
+      "market_cap": 5769658233,
+      "change_24h": 3.90369,
+      "image": "https://coin-images.coingecko.com/coins/images/12504/large/uniswap-logo.png?1720676669"
+    },
+    {
+      "name": "Ethena Staked USDe",
+      "symbol": "SUSDE",
+      "price": 1.19,
+      "market_cap": 5645554710,
+      "change_24h": -0.0014,
+      "image": "https://coin-images.coingecko.com/coins/images/33669/large/sUSDe-Symbol-Color.png?1716307680"
+    },
+    {
+      "name": "Monero",
+      "symbol": "XMR",
+      "price": 269.5,
+      "market_cap": 4975413078,
+      "change_24h": 3.48641,
+      "image": "https://coin-images.coingecko.com/coins/images/69/large/monero_logo.png?1696501460"
+    },
+    {
+      "name": "Aave",
+      "symbol": "AAVE",
+      "price": 316.26,
+      "market_cap": 4816551182,
+      "change_24h": 4.47774,
+      "image": "https://coin-images.coingecko.com/coins/images/12645/large/aave-token-round.png?1720472354"
+    },
+    {
+      "name": "Dai",
+      "symbol": "DAI",
+      "price": 0.998818,
+      "market_cap": 4621381381,
+      "change_24h": -0.09988,
+      "image": "https://coin-images.coingecko.com/coins/images/9956/large/Badge_Dai.png?1696509996"
+    },
+    {
+      "name": "Ethena",
+      "symbol": "ENA",
+      "price": 0.689426,
+      "market_cap": 4565741418,
+      "change_24h": 11.44446,
+      "image": "https://coin-images.coingecko.com/coins/images/36530/large/ethena.png?1711701436"
+    },
+    {
+      "name": "Pepe",
+      "symbol": "PEPE",
+      "price": 9.78e-06,
+      "market_cap": 4120582947,
+      "change_24h": 4.86451,
+      "image": "https://coin-images.coingecko.com/coins/images/29850/large/pepe-token.jpeg?1696528776"
+    },
+    {
+      "name": "Mantle",
+      "symbol": "MNT",
+      "price": 1.12,
+      "market_cap": 3652110813,
+      "change_24h": 0.20984,
+      "image": "https://coin-images.coingecko.com/coins/images/30980/large/Mantle-Logo-mark.png?1739213200"
+    },
+    {
+      "name": "OKB",
+      "symbol": "OKB",
+      "price": 165.62,
+      "market_cap": 3480071924,
+      "change_24h": -0.49655,
+      "image": "https://coin-images.coingecko.com/coins/images/4463/large/WeChat_Image_20220118095654.png?1696505053"
+    },
+    {
+      "name": "Ethereum Classic",
+      "symbol": "ETC",
+      "price": 20.82,
+      "market_cap": 3193977901,
+      "change_24h": 2.28606,
+      "image": "https://coin-images.coingecko.com/coins/images/453/large/ethereum-classic-logo.png?1696501717"
+    },
+    {
+      "name": "Jito Staked SOL",
+      "symbol": "JITOSOL",
+      "price": 255.69,
+      "market_cap": 3107793276,
+      "change_24h": 6.22631,
+      "image": "https://coin-images.coingecko.com/coins/images/28046/large/JitoSOL-200.png?1696527060"
+    },
+    {
+      "name": "Bittensor",
+      "symbol": "TAO",
+      "price": 321.94,
+      "market_cap": 3093928260,
+      "change_24h": 4.53869,
+      "image": "https://coin-images.coingecko.com/coins/images/28452/large/ARUsPeNQ_400x400.jpeg?1696527447"
+    },
+    {
+      "name": "POL (ex-MATIC)",
+      "symbol": "POL",
+      "price": 0.290062,
+      "market_cap": 3046182949,
+      "change_24h": 7.38649,
+      "image": "https://coin-images.coingecko.com/coins/images/32440/large/polygon.png?1698233684"
+    },
+    {
+      "name": "NEAR Protocol",
+      "symbol": "NEAR",
+      "price": 2.43,
+      "market_cap": 3039562320,
+      "change_24h": 4.94373,
+      "image": "https://coin-images.coingecko.com/coins/images/10365/large/near.jpg?1696510367"
+    },
+    {
+      "name": "Ondo",
+      "symbol": "ONDO",
+      "price": 0.94254,
+      "market_cap": 2985860048,
+      "change_24h": 7.83161,
+      "image": "https://coin-images.coingecko.com/coins/images/26580/large/ONDO.png?1696525656"
+    },
+    {
+      "name": "Aptos",
+      "symbol": "APT",
+      "price": 4.34,
+      "market_cap": 2984596769,
+      "change_24h": 3.84617,
+      "image": "https://coin-images.coingecko.com/coins/images/26455/large/aptos_round.png?1696525528"
+    },
+    {
+      "name": "USDT0",
+      "symbol": "USDT0",
+      "price": 1.001,
+      "market_cap": 2803617358,
+      "change_24h": 0.05079,
+      "image": "https://coin-images.coingecko.com/coins/images/53705/large/usdt0.jpg?1737086183"
+    },
+    {
+      "name": "Pi Network",
+      "symbol": "PI",
+      "price": 0.345655,
+      "market_cap": 2762040119,
+      "change_24h": 1.61482,
+      "image": "https://coin-images.coingecko.com/coins/images/54342/large/pi_network.jpg?1739347576"
+    },
+    {
+      "name": "Arbitrum",
+      "symbol": "ARB",
+      "price": 0.503664,
+      "market_cap": 2667970468,
+      "change_24h": 6.34913,
+      "image": "https://coin-images.coingecko.com/coins/images/16547/large/arb.jpg?1721358242"
+    },
+    {
+      "name": "USD1",
+      "symbol": "USD1",
+      "price": 0.999404,
+      "market_cap": 2648082790,
+      "change_24h": 0.04892,
+      "image": "https://coin-images.coingecko.com/coins/images/54977/large/USD1_1000x1000_transparent.png?1749297002"
+    },
+    {
+      "name": "Internet Computer",
+      "symbol": "ICP",
+      "price": 4.86,
+      "market_cap": 2614790670,
+      "change_24h": 4.32434,
+      "image": "https://coin-images.coingecko.com/coins/images/14495/large/Internet_Computer_logo.png?1696514180"
+    },
+    {
+      "name": "Story",
+      "symbol": "IP",
+      "price": 7.75,
+      "market_cap": 2359524428,
+      "change_24h": 1.75252,
+      "image": "https://coin-images.coingecko.com/coins/images/54035/large/Transparent_bg.png?1738075331"
+    },
+    {
+      "name": "Binance Staked SOL",
+      "symbol": "BNSOL",
+      "price": 223.66,
+      "market_cap": 2351627758,
+      "change_24h": 6.57336,
+      "image": "https://coin-images.coingecko.com/coins/images/40132/large/bnsol.png?1725968367"
+    },
+    {
+      "name": "BlackRock USD Institutional Digital Liquidity Fund",
+      "symbol": "BUIDL",
+      "price": 1.0,
+      "market_cap": 2348578474,
+      "change_24h": 0.0,
+      "image": "https://coin-images.coingecko.com/coins/images/36291/large/blackrock.png?1711013223"
+    },
+    {
+      "name": "Kaspa",
+      "symbol": "KAS",
+      "price": 0.084311,
+      "market_cap": 2223093300,
+      "change_24h": 2.78983,
+      "image": "https://coin-images.coingecko.com/coins/images/25751/large/kaspa-icon-exchanges.png?1696524837"
+    },
+    {
+      "name": "Cosmos Hub",
+      "symbol": "ATOM",
+      "price": 4.43,
+      "market_cap": 2068165665,
+      "change_24h": 1.44088,
+      "image": "https://coin-images.coingecko.com/coins/images/1481/large/cosmos_hub.png?1696502525"
+    },
+    {
+      "name": "VeChain",
+      "symbol": "VET",
+      "price": 0.02389644,
+      "market_cap": 2056135363,
+      "change_24h": 2.20523,
+      "image": "https://coin-images.coingecko.com/coins/images/1167/large/VET.png?1742383283"
+    },
+    {
+      "name": "Algorand",
+      "symbol": "ALGO",
+      "price": 0.233008,
+      "market_cap": 2034876445,
+      "change_24h": 3.54797,
+      "image": "https://coin-images.coingecko.com/coins/images/4380/large/download.png?1696504978"
+    },
+    {
+      "name": "Gate",
+      "symbol": "GT",
+      "price": 16.77,
+      "market_cap": 2002283337,
+      "change_24h": 1.12348,
+      "image": "https://coin-images.coingecko.com/coins/images/8183/large/200X200.png?1735246724"
+    },
+    {
+      "name": "sUSDS",
+      "symbol": "SUSDS",
+      "price": 1.066,
+      "market_cap": 2000593006,
+      "change_24h": 0.00355,
+      "image": "https://coin-images.coingecko.com/coins/images/52721/large/sUSDS_Coin.png?1734086971"
+    },
+    {
+      "name": "Jupiter Perpetuals Liquidity Provider Token",
+      "symbol": "JLP",
+      "price": 5.48,
+      "market_cap": 1985116641,
+      "change_24h": 2.71639,
+      "image": "https://coin-images.coingecko.com/coins/images/33094/large/jlp.png?1700631386"
+    },
+    {
+      "name": "Rocket Pool ETH",
+      "symbol": "RETH",
+      "price": 4929.42,
+      "market_cap": 1983989078,
+      "change_24h": 0.81758,
+      "image": "https://coin-images.coingecko.com/coins/images/20764/large/reth.png?1696520159"
+    },
+    {
+      "name": "Fasttoken",
+      "symbol": "FTN",
+      "price": 4.52,
+      "market_cap": 1947685177,
+      "change_24h": 0.27488,
+      "image": "https://coin-images.coingecko.com/coins/images/28478/large/lightenicon_200x200.png?1696527472"
+    },
+    {
+      "name": "Pudgy Penguins",
+      "symbol": "PENGU",
+      "price": 0.03050137,
+      "market_cap": 1918402250,
+      "change_24h": 7.37528,
+      "image": "https://coin-images.coingecko.com/coins/images/52622/large/PUDGY_PENGUINS_PENGU_PFP.png?1733809110"
+    },
+    {
+      "name": "KuCoin",
+      "symbol": "KCS",
+      "price": 14.98,
+      "market_cap": 1908848882,
+      "change_24h": 2.53632,
+      "image": "https://coin-images.coingecko.com/coins/images/1047/large/sa9z79.png?1696502152"
+    },
+    {
+      "name": "Kelp DAO Restaked ETH",
+      "symbol": "RSETH",
+      "price": 4544.95,
+      "market_cap": 1819958232,
+      "change_24h": 0.50861,
+      "image": "https://coin-images.coingecko.com/coins/images/33800/large/Icon___Dark.png?1702991855"
+    },
+    {
+      "name": "Render",
+      "symbol": "RENDER",
+      "price": 3.46,
+      "market_cap": 1799107000,
+      "change_24h": 5.03833,
+      "image": "https://coin-images.coingecko.com/coins/images/11636/large/rndr.png?1696511529"
+    },
+    {
+      "name": "Worldcoin",
+      "symbol": "WLD",
+      "price": 0.888521,
+      "market_cap": 1772144041,
+      "change_24h": 4.68105,
+      "image": "https://coin-images.coingecko.com/coins/images/31069/large/worldcoin.jpeg?1696529903"
+    },
+    {
+      "name": "Sei",
+      "symbol": "SEI",
+      "price": 0.286838,
+      "market_cap": 1724871266,
+      "change_24h": 4.95325,
+      "image": "https://coin-images.coingecko.com/coins/images/28205/large/Sei_Logo_-_Transparent.png?1696527207"
+    },
+    {
+      "name": "Sky",
+      "symbol": "SKY",
+      "price": 0.07305,
+      "market_cap": 1714112852,
+      "change_24h": 11.99384,
+      "image": "https://coin-images.coingecko.com/coins/images/39925/large/sky.jpg?1724827980"
+    },
+    {
+      "name": "BFUSD",
+      "symbol": "BFUSD",
+      "price": 0.999296,
+      "market_cap": 1698803032,
+      "change_24h": 0.00361,
+      "image": "https://coin-images.coingecko.com/coins/images/68227/large/bfusd.png?1755132827"
+    },
+    {
+      "name": "Official Trump",
+      "symbol": "TRUMP",
+      "price": 8.4,
+      "market_cap": 1680831939,
+      "change_24h": 1.17608,
+      "image": "https://coin-images.coingecko.com/coins/images/53746/large/trump.png?1737171561"
+    },
+    {
+      "name": "Kinetiq Staked HYPE",
+      "symbol": "KHYPE",
+      "price": 44.84,
+      "market_cap": 1647037829,
+      "change_24h": 4.58502,
+      "image": "https://coin-images.coingecko.com/coins/images/67388/large/khype.png?1752632397"
+    },
+    {
+      "name": "StakeWise Staked ETH",
+      "symbol": "OSETH",
+      "price": 4549.87,
+      "market_cap": 1634893171,
+      "change_24h": 0.4441,
+      "image": "https://coin-images.coingecko.com/coins/images/33117/large/Frame_27513839.png?1700732599"
+    },
+    {
+      "name": "Artificial Superintelligence Alliance",
+      "symbol": "FET",
+      "price": 0.614972,
+      "market_cap": 1602535070,
+      "change_24h": 4.68188,
+      "image": "https://coin-images.coingecko.com/coins/images/5681/large/ASI.png?1719827289"
+    },
+    {
+      "name": "Bonk",
+      "symbol": "BONK",
+      "price": 2.053e-05,
+      "market_cap": 1592563767,
+      "change_24h": 2.32655,
+      "image": "https://coin-images.coingecko.com/coins/images/28600/large/bonk.jpg?1696527587"
+    },
+    {
+      "name": "Liquid Staked ETH",
+      "symbol": "LSETH",
+      "price": 4672.17,
+      "market_cap": 1561145849,
+      "change_24h": 0.81306,
+      "image": "https://coin-images.coingecko.com/coins/images/28848/large/LsETH-receipt-token-circle.png?1696527824"
+    },
+    {
+      "name": "Jupiter",
+      "symbol": "JUP",
+      "price": 0.500038,
+      "market_cap": 1557864789,
+      "change_24h": 5.9017,
+      "image": "https://coin-images.coingecko.com/coins/images/34188/large/jup.png?1704266489"
+    },
+    {
+      "name": "Filecoin",
+      "symbol": "FIL",
+      "price": 2.27,
+      "market_cap": 1556819138,
+      "change_24h": -0.19276,
+      "image": "https://coin-images.coingecko.com/coins/images/12817/large/filecoin.png?1696512609"
+    },
+    {
+      "name": "Lombard Staked BTC",
+      "symbol": "LBTC",
+      "price": 111116,
+      "market_cap": 1534094960,
+      "change_24h": 2.46342,
+      "image": "https://coin-images.coingecko.com/coins/images/39969/large/LBTC_Logo.png?1724959872"
+    },
+    {
+      "name": "USDtb",
+      "symbol": "USDTB",
+      "price": 0.99904,
+      "market_cap": 1532921899,
+      "change_24h": -0.09982,
+      "image": "https://coin-images.coingecko.com/coins/images/52804/large/USDtbSmall.png?1734344946"
+    },
+    {
+      "name": "Flare",
+      "symbol": "FLR",
+      "price": 0.02068367,
+      "market_cap": 1501995200,
+      "change_24h": -2.35467,
+      "image": "https://coin-images.coingecko.com/coins/images/28624/large/FLR-icon200x200.png?1696527609"
+    },
+    {
+      "name": "Quant",
+      "symbol": "QNT",
+      "price": 100.76,
+      "market_cap": 1465614755,
+      "change_24h": 1.33791,
+      "image": "https://coin-images.coingecko.com/coins/images/3370/large/5ZOu7brX_400x400.jpg?1696504070"
+    },
+    {
+      "name": "XDC Network",
+      "symbol": "XDC",
+      "price": 0.079083,
+      "market_cap": 1404601708,
+      "change_24h": 3.4963,
+      "image": "https://coin-images.coingecko.com/coins/images/2912/large/xdc-icon.png?1696503661"
+    },
+    {
+      "name": "Pump.fun",
+      "symbol": "PUMP",
+      "price": 0.00387982,
+      "market_cap": 1373877142,
+      "change_24h": 16.53018,
+      "image": "https://coin-images.coingecko.com/coins/images/67164/large/pump.jpg?1751949376"
+    },
+    {
+      "name": "MemeCore",
+      "symbol": "M",
+      "price": 0.8103,
+      "market_cap": 1359017465,
+      "change_24h": -3.75748,
+      "image": "https://coin-images.coingecko.com/coins/images/53247/large/square-bg-transparent.png?1752637478"
+    },
+    {
+      "name": "Falcon USD",
+      "symbol": "USDF",
+      "price": 0.999483,
+      "market_cap": 1348378440,
+      "change_24h": 0.00704,
+      "image": "https://coin-images.coingecko.com/coins/images/54558/large/ff_200_X_200.png?1740741076"
+    },
+    {
+      "name": "Tether Gold",
+      "symbol": "XAUT",
+      "price": 3527.3,
+      "market_cap": 1330980463,
+      "change_24h": 1.49658,
+      "image": "https://coin-images.coingecko.com/coins/images/10481/large/Tether_Gold.png?1696510471"
+    },
+    {
+      "name": "Renzo Restaked ETH",
+      "symbol": "EZETH",
+      "price": 4571.03,
+      "market_cap": 1314234931,
+      "change_24h": 0.78384,
+      "image": "https://coin-images.coingecko.com/coins/images/34753/large/Ezeth_logo_circle.png?1713496404"
+    },
+    {
+      "name": "Mantle Staked Ether",
+      "symbol": "METH",
+      "price": 4635.91,
+      "market_cap": 1273289383,
+      "change_24h": 0.44405,
+      "image": "https://coin-images.coingecko.com/coins/images/33345/large/symbol_transparent_bg.png?1701697066"
+    },
+    {
+      "name": "Provenance Blockchain",
+      "symbol": "HASH",
+      "price": 0.02618253,
+      "market_cap": 1272223621,
+      "change_24h": 6.3983,
+      "image": "https://coin-images.coingecko.com/coins/images/66154/large/Hastra_Icon.png?1748497203"
+    },
+    {
+      "name": "Injective",
+      "symbol": "INJ",
+      "price": 12.99,
+      "market_cap": 1269526482,
+      "change_24h": 5.24357,
+      "image": "https://coin-images.coingecko.com/coins/images/12882/large/Other_200x200.png?1738782212"
+    },
+    {
+      "name": "Four",
+      "symbol": "FORM",
+      "price": 3.32,
+      "market_cap": 1267265498,
+      "change_24h": 4.29461,
+      "image": "https://coin-images.coingecko.com/coins/images/54912/large/four.jpg?1742461445"
+    },
+    {
+      "name": "Optimism",
+      "symbol": "OP",
+      "price": 0.709041,
+      "market_cap": 1261207514,
+      "change_24h": 6.39371,
+      "image": "https://coin-images.coingecko.com/coins/images/25244/large/Optimism.png?1696524385"
+    },
+    {
+      "name": "NEXO",
+      "symbol": "NEXO",
+      "price": 1.25,
+      "market_cap": 1253947249,
+      "change_24h": 2.90324,
+      "image": "https://coin-images.coingecko.com/coins/images/3695/large/CG-nexo-token-200x200_2x.png?1730414360"
+    },
+    {
+      "name": "Celestia",
+      "symbol": "TIA",
+      "price": 1.61,
+      "market_cap": 1234239241,
+      "change_24h": 4.76919,
+      "image": "https://coin-images.coingecko.com/coins/images/31967/large/tia.jpg?1696530772"
+    },
+    {
+      "name": "Jupiter Staked SOL",
+      "symbol": "JUPSOL",
+      "price": 237.33,
+      "market_cap": 1218912184,
+      "change_24h": 6.60562,
+      "image": "https://coin-images.coingecko.com/coins/images/37482/large/jupsol.png?1714473916"
+    },
+    {
+      "name": "PayPal USD",
+      "symbol": "PYUSD",
+      "price": 1.0,
+      "market_cap": 1174281346,
+      "change_24h": 0.04521,
+      "image": "https://coin-images.coingecko.com/coins/images/31212/large/PYUSD_Logo_%282%29.png?1696530039"
+    },
+    {
+      "name": "Wrapped BNB",
+      "symbol": "WBNB",
+      "price": 852.11,
+      "market_cap": 1163375500,
+      "change_24h": 0.7222,
+      "image": "https://coin-images.coingecko.com/coins/images/12591/large/binance-coin-logo.png?1696512401"
+    },
+    {
+      "name": "First Digital USD",
+      "symbol": "FDUSD",
+      "price": 0.998173,
+      "market_cap": 1152851116,
+      "change_24h": 0.12467,
+      "image": "https://coin-images.coingecko.com/coins/images/31079/large/FDUSD_icon_black.png?1731097953"
+    },
+    {
+      "name": "Stacks",
+      "symbol": "STX",
+      "price": 0.626806,
+      "market_cap": 1125782278,
+      "change_24h": 3.93618,
+      "image": "https://coin-images.coingecko.com/coins/images/2069/large/Stacks_Logo_png.png?1709979332"
+    },
+    {
+      "name": "Lido DAO",
+      "symbol": "LDO",
+      "price": 1.2,
+      "market_cap": 1074967526,
+      "change_24h": 4.4075,
+      "image": "https://coin-images.coingecko.com/coins/images/13573/large/Lido_DAO.png?1696513326"
+    },
+    {
+      "name": "Curve DAO",
+      "symbol": "CRV",
+      "price": 0.767125,
+      "market_cap": 1071658485,
+      "change_24h": 3.71663,
+      "image": "https://coin-images.coingecko.com/coins/images/12124/large/Curve.png?1696511967"
+    },
+    {
+      "name": "Solv Protocol BTC",
+      "symbol": "SOLVBTC",
+      "price": 110771,
+      "market_cap": 1044921565,
+      "change_24h": 1.78052,
+      "image": "https://coin-images.coingecko.com/coins/images/36800/large/solvBTC.png?1719810684"
+    },
+    {
+      "name": "SPX6900",
+      "symbol": "SPX",
+      "price": 1.11,
+      "market_cap": 1038525184,
+      "change_24h": 4.67044,
+      "image": "https://coin-images.coingecko.com/coins/images/31401/large/centeredcoin_%281%29.png?1737048493"
+    },
+    {
+      "name": "Aerodrome Finance",
+      "symbol": "AERO",
+      "price": 1.13,
+      "market_cap": 1002716572,
+      "change_24h": 4.96994,
+      "image": "https://coin-images.coingecko.com/coins/images/31745/large/token.png?1696530564"
+    },
+    {
+      "name": "PAX Gold",
+      "symbol": "PAXG",
+      "price": 3545.18,
+      "market_cap": 1001946619,
+      "change_24h": 1.43932,
+      "image": "https://coin-images.coingecko.com/coins/images/9519/large/paxgold.png?1696509604"
+    },
+    {
+      "name": "Immutable",
+      "symbol": "IMX",
+      "price": 0.522831,
+      "market_cap": 1001685633,
+      "change_24h": 5.88154,
+      "image": "https://coin-images.coingecko.com/coins/images/17233/large/immutableX-symbol-BLK-RGB.png?1696516787"
+    },
+    {
+      "name": "Sonic",
+      "symbol": "S",
+      "price": 0.309234,
+      "market_cap": 998097910,
+      "change_24h": 4.19421,
+      "image": "https://coin-images.coingecko.com/coins/images/38108/large/200x200_Sonic_Logo.png?1734679256"
+    },
+    {
+      "name": "SyrupUSDC",
+      "symbol": "SYRUPUSDC",
+      "price": 1.12,
+      "market_cap": 971257436,
+      "change_24h": -0.03371,
+      "image": "https://coin-images.coingecko.com/coins/images/54658/large/SyrupUSDCO.png?1748850129"
+    },
+    {
+      "name": "Super OETH",
+      "symbol": "SUPEROETH",
+      "price": 4328.37,
+      "market_cap": 969490988,
+      "change_24h": 0.86578,
+      "image": "https://coin-images.coingecko.com/coins/images/39828/large/Super_OETH.png?1724208268"
+    },
+    {
+      "name": "Marinade Staked SOL",
+      "symbol": "MSOL",
+      "price": 276.0,
+      "market_cap": 958796714,
+      "change_24h": 6.70755,
+      "image": "https://coin-images.coingecko.com/coins/images/17752/large/mSOL.png?1696517278"
+    },
+    {
+      "name": "Saros",
+      "symbol": "SAROS",
+      "price": 0.360728,
+      "market_cap": 946790269,
+      "change_24h": 2.34988,
+      "image": "https://coin-images.coingecko.com/coins/images/34594/large/_SAROS_-Mark.Purple_-_Token_logo.png?1755658309"
+    },
+    {
+      "name": "Pyth Network",
+      "symbol": "PYTH",
+      "price": 0.162291,
+      "market_cap": 934584219,
+      "change_24h": -0.2245,
+      "image": "https://coin-images.coingecko.com/coins/images/31924/large/pyth.png?1701245725"
+    },
+    {
+      "name": "The Graph",
+      "symbol": "GRT",
+      "price": 0.088988,
+      "market_cap": 931712448,
+      "change_24h": 2.71133,
+      "image": "https://coin-images.coingecko.com/coins/images/13397/large/Graph_Token.png?1696513159"
+    },
+    {
+      "name": "Raydium",
+      "symbol": "RAY",
+      "price": 3.46,
+      "market_cap": 928108435,
+      "change_24h": 6.28422,
+      "image": "https://coin-images.coingecko.com/coins/images/13928/large/PSigc4ie_400x400.jpg?1696513668"
+    },
+    {
+      "name": "Conflux",
+      "symbol": "CFX",
+      "price": 0.175023,
+      "market_cap": 898280135,
+      "change_24h": 0.23809,
+      "image": "https://coin-images.coingecko.com/coins/images/13079/large/3vuYMbjN.png?1696512867"
+    },
+    {
+      "name": "FLOKI",
+      "symbol": "FLOKI",
+      "price": 9.173e-05,
+      "market_cap": 886647968,
+      "change_24h": 4.64737,
+      "image": "https://coin-images.coingecko.com/coins/images/16746/large/PNG_image.png?1696516318"
+    },
+    {
+      "name": "Kaia",
+      "symbol": "KAIA",
+      "price": 0.147666,
+      "market_cap": 865187075,
+      "change_24h": 2.00296,
+      "image": "https://coin-images.coingecko.com/coins/images/39901/large/KAIA.png?1724734368"
+    },
+    {
+      "name": "clBTC",
+      "symbol": "CLBTC",
+      "price": 111733,
+      "market_cap": 862941745,
+      "change_24h": 2.31748,
+      "image": "https://coin-images.coingecko.com/coins/images/54164/large/clBTC.png?1738482999"
+    },
+    {
+      "name": "ether.fi Staked ETH",
+      "symbol": "EETH",
+      "price": 4307.22,
+      "market_cap": 856605352,
+      "change_24h": 0.72013,
+      "image": "https://coin-images.coingecko.com/coins/images/33049/large/ether.fi_eETH.png?1700473063"
+    },
+    {
+      "name": "PancakeSwap",
+      "symbol": "CAKE",
+      "price": 2.4,
+      "market_cap": 830914594,
+      "change_24h": 1.31325,
+      "image": "https://coin-images.coingecko.com/coins/images/12632/large/pancakeswap-cake-logo_%281%29.png?1696512440"
+    },
+    {
+      "name": "cgETH Hashkey Cloud",
+      "symbol": "CGETH.HASHKEY",
+      "price": 4149.73,
+      "market_cap": 829651515,
+      "change_24h": 0.47252,
+      "image": "https://coin-images.coingecko.com/coins/images/54162/large/Cgeth_Hashkey.png?1738482570"
+    },
+    {
+      "name": "dogwifhat",
+      "symbol": "WIF",
+      "price": 0.819312,
+      "market_cap": 818960348,
+      "change_24h": 9.27381,
+      "image": "https://coin-images.coingecko.com/coins/images/33566/large/dogwifhat.jpg?1702499428"
+    },
+    {
+      "name": "Fartcoin",
+      "symbol": "FARTCOIN",
+      "price": 0.79078,
+      "market_cap": 791675984,
+      "change_24h": 12.52614,
+      "image": "https://coin-images.coingecko.com/coins/images/50891/large/fart.jpg?1729503972"
+    },
+    {
+      "name": "Theta Network",
+      "symbol": "THETA",
+      "price": 0.788679,
+      "market_cap": 788875518,
+      "change_24h": 4.68469,
+      "image": "https://coin-images.coingecko.com/coins/images/2538/large/theta-token-logo.png?1696503349"
+    },
+    {
+      "name": "Vaulta",
+      "symbol": "A",
+      "price": 0.486604,
+      "market_cap": 773287338,
+      "change_24h": 2.33943,
+      "image": "https://coin-images.coingecko.com/coins/images/55616/large/Vaulta_CEX_Icon_Circle_-_cmc.png?1746859132"
+    },
+    {
+      "name": "Pendle",
+      "symbol": "PENDLE",
+      "price": 4.56,
+      "market_cap": 770371057,
+      "change_24h": 2.23959,
+      "image": "https://coin-images.coingecko.com/coins/images/15069/large/Pendle_Logo_Normal-03.png?1696514728"
+    },
+    {
+      "name": "Tezos",
+      "symbol": "XTZ",
+      "price": 0.726093,
+      "market_cap": 768360223,
+      "change_24h": 3.70674,
+      "image": "https://coin-images.coingecko.com/coins/images/976/large/Tezos-logo.png?1696502091"
+    },
+    {
+      "name": "IOTA",
+      "symbol": "IOTA",
+      "price": 0.187422,
+      "market_cap": 748660340,
+      "change_24h": 2.52357,
+      "image": "https://coin-images.coingecko.com/coins/images/692/large/IOTA_Thumbnail_%281%29.png?1743772896"
+    },
+    {
+      "name": "Ethereum Name Service",
+      "symbol": "ENS",
+      "price": 22.55,
+      "market_cap": 748141911,
+      "change_24h": 3.17073,
+      "image": "https://coin-images.coingecko.com/coins/images/19785/large/ENS.jpg?1727872989"
+    },
+    {
+      "name": "GALA",
+      "symbol": "GALA",
+      "price": 0.016152,
+      "market_cap": 740666199,
+      "change_24h": 4.36157,
+      "image": "https://coin-images.coingecko.com/coins/images/12493/large/GALA_token_image_-_200PNG.png?1709725869"
+    },
+    {
+      "name": "OUSG",
+      "symbol": "OUSG",
+      "price": 112.42,
+      "market_cap": 727831845,
+      "change_24h": 0.02255,
+      "image": "https://coin-images.coingecko.com/coins/images/29023/large/OUSG.png?1696527993"
+    },
+    {
+      "name": "Ripple USD",
+      "symbol": "RLUSD",
+      "price": 0.999606,
+      "market_cap": 711775015,
+      "change_24h": 0.03408,
+      "image": "https://coin-images.coingecko.com/coins/images/39651/large/RLUSD_200x200_%281%29.png?1727376633"
+    },
+    {
+      "name": "Jito",
+      "symbol": "JTO",
+      "price": 1.91,
+      "market_cap": 710814392,
+      "change_24h": 4.65811,
+      "image": "https://coin-images.coingecko.com/coins/images/33228/large/jto.png?1701137022"
+    },
+    {
+      "name": "JasmyCoin",
+      "symbol": "JASMY",
+      "price": 0.01452318,
+      "market_cap": 703732160,
+      "change_24h": 3.94058,
+      "image": "https://coin-images.coingecko.com/coins/images/13876/large/JASMY200x200.jpg?1696513620"
+    },
+    {
+      "name": "Virtuals Protocol",
+      "symbol": "VIRTUAL",
+      "price": 1.059,
+      "market_cap": 694545217,
+      "change_24h": 3.84222,
+      "image": "https://coin-images.coingecko.com/coins/images/34057/large/LOGOMARK.png?1708356054"
+    },
+    {
+      "name": "Stables Labs USDX",
+      "symbol": "USDX",
+      "price": 0.997016,
+      "market_cap": 678951883,
+      "change_24h": -0.1054,
+      "image": "https://coin-images.coingecko.com/coins/images/50360/large/USDX200px.png?1731906044"
+    },
+    {
+      "name": "The Sandbox",
+      "symbol": "SAND",
+      "price": 0.276853,
+      "market_cap": 677443150,
+      "change_24h": 3.76046,
+      "image": "https://coin-images.coingecko.com/coins/images/12129/large/sandbox_logo.jpg?1696511971"
+    },
+    {
+      "name": "Zcash",
+      "symbol": "ZEC",
+      "price": 41.53,
+      "market_cap": 676126246,
+      "change_24h": 2.76477,
+      "image": "https://coin-images.coingecko.com/coins/images/486/large/circle-zcash-color.png?1696501740"
+    },
+    {
+      "name": "Ondo US Dollar Yield",
+      "symbol": "USDY",
+      "price": 1.075,
+      "market_cap": 673570750,
+      "change_24h": 0.65409,
+      "image": "https://coin-images.coingecko.com/coins/images/31700/large/usdy_%281%29.png?1696530524"
+    },
+    {
+      "name": "AB",
+      "symbol": "AB",
+      "price": 0.00886485,
+      "market_cap": 668729709,
+      "change_24h": 0.59902,
+      "image": "https://coin-images.coingecko.com/coins/images/4376/large/400%E6%96%B9.png?1740377493"
+    },
+    {
+      "name": "BUILDon",
+      "symbol": "B",
+      "price": 0.66479,
+      "market_cap": 665131655,
+      "change_24h": -1.55334,
+      "image": "https://coin-images.coingecko.com/coins/images/55974/large/T7asvmCb_400x400.jpg?1747902862"
+    },
+    {
+      "name": "Stader ETHx",
+      "symbol": "ETHX",
+      "price": 4613.55,
+      "market_cap": 661205919,
+      "change_24h": 1.50475,
+      "image": "https://coin-images.coingecko.com/coins/images/30870/large/staderx.png?1696529717"
+    },
+    {
+      "name": "tBTC",
+      "symbol": "TBTC",
+      "price": 110857,
+      "market_cap": 655121107,
+      "change_24h": 2.20985,
+      "image": "https://coin-images.coingecko.com/coins/images/11224/large/0x18084fba666a33d37592fa2633fd49a74dd93a88.png?1696511155"
+    },
+    {
+      "name": "Flow",
+      "symbol": "FLOW",
+      "price": 0.404236,
+      "market_cap": 649197044,
+      "change_24h": 1.86754,
+      "image": "https://coin-images.coingecko.com/coins/images/13446/large/5f6294c0c7a8cda55cb1c936_Flow_Wordmark.png?1696513210"
+    },
+    {
+      "name": "Mantle Restaked ETH",
+      "symbol": "CMETH",
+      "price": 4640.55,
+      "market_cap": 643217402,
+      "change_24h": 0.68258,
+      "image": "https://coin-images.coingecko.com/coins/images/51114/large/symbol.png?1730117724"
+    },
+    {
+      "name": "BitTorrent",
+      "symbol": "BTT",
+      "price": 6.50217e-07,
+      "market_cap": 641208370,
+      "change_24h": 0.89194,
+      "image": "https://coin-images.coingecko.com/coins/images/22457/large/btt_logo.png?1696521780"
+    },
+    {
+      "name": "Morpho",
+      "symbol": "MORPHO",
+      "price": 1.93,
+      "market_cap": 640876010,
+      "change_24h": 7.6058,
+      "image": "https://coin-images.coingecko.com/coins/images/29837/large/Morpho-token-icon.png?1726771230"
+    },
+    {
+      "name": "Loaded Lions",
+      "symbol": "LION",
+      "price": 0.02059155,
+      "market_cap": 629451134,
+      "change_24h": 0.11631,
+      "image": "https://coin-images.coingecko.com/coins/images/54686/large/_LION_Token_Artwork.png?1741015702"
+    },
+    {
+      "name": "Coinbase Wrapped Staked ETH",
+      "symbol": "CBETH",
+      "price": 4759.79,
+      "market_cap": 604759267,
+      "change_24h": 0.92799,
+      "image": "https://coin-images.coingecko.com/coins/images/27008/large/cbeth.png?1709186989"
+    },
+    {
+      "name": "Walrus",
+      "symbol": "WAL",
+      "price": 0.41055,
+      "market_cap": 594336707,
+      "change_24h": 9.83344,
+      "image": "https://coin-images.coingecko.com/coins/images/54914/large/WAL_logo.png?1742494301"
+    },
+    {
+      "name": "Decentraland",
+      "symbol": "MANA",
+      "price": 0.300189,
+      "market_cap": 577031392,
+      "change_24h": 5.42707,
+      "image": "https://coin-images.coingecko.com/coins/images/878/large/decentraland-mana.png?1696502010"
+    },
+    {
+      "name": "Usual USD",
+      "symbol": "USD0",
+      "price": 0.997907,
+      "market_cap": 573407536,
+      "change_24h": -0.02681,
+      "image": "https://coin-images.coingecko.com/coins/images/38272/large/USD0LOGO.png?1716962811"
+    },
+    {
+      "name": "Swell Ethereum",
+      "symbol": "SWETH",
+      "price": 4733.35,
+      "market_cap": 572910341,
+      "change_24h": 0.52799,
+      "image": "https://coin-images.coingecko.com/coins/images/30326/large/_lB7zEtS_400x400.jpg?1696529227"
+    },
+    {
+      "name": "Global Dollar",
+      "symbol": "USDG",
+      "price": 0.999626,
+      "market_cap": 549920537,
+      "change_24h": -0.01713,
+      "image": "https://coin-images.coingecko.com/coins/images/51281/large/GDN_USDG_Token_200x200.png?1730484111"
+    },
+    {
+      "name": "Avalanche Bridged BTC (Avalanche)",
+      "symbol": "BTC.B",
+      "price": 111239,
+      "market_cap": 546673218,
+      "change_24h": 2.3811,
+      "image": "https://coin-images.coingecko.com/coins/images/26115/large/btcb.png?1696525205"
+    },
+    {
+      "name": "Beldex",
+      "symbol": "BDX",
+      "price": 0.074298,
+      "market_cap": 545763137,
+      "change_24h": 0.29874,
+      "image": "https://coin-images.coingecko.com/coins/images/5111/large/Beldex.png?1696505631"
+    },
+    {
+      "name": "Vision",
+      "symbol": "VSN",
+      "price": 0.162507,
+      "market_cap": 526656271,
+      "change_24h": 2.68995,
+      "image": "https://coin-images.coingecko.com/coins/images/67399/large/Logo-Vision-Symbol-BG-Green.png?1752676915"
+    },
+    {
+      "name": "Ether.fi",
+      "symbol": "ETHFI",
+      "price": 1.11,
+      "market_cap": 518254547,
+      "change_24h": 9.40317,
+      "image": "https://coin-images.coingecko.com/coins/images/35958/large/etherfi.jpeg?1710254562"
+    },
+    {
+      "name": "Bitcoin SV",
+      "symbol": "BSV",
+      "price": 25.9,
+      "market_cap": 515638200,
+      "change_24h": 2.34703,
+      "image": "https://coin-images.coingecko.com/coins/images/6799/large/BSV.png?1696507128"
+    },
+    {
+      "name": "Maple Finance",
+      "symbol": "SYRUP",
+      "price": 0.459656,
+      "market_cap": 514665044,
+      "change_24h": 2.62789,
+      "image": "https://coin-images.coingecko.com/coins/images/51232/large/_syrup_token_logo.png?1747292046"
+    },
+    {
+      "name": "Starknet",
+      "symbol": "STRK",
+      "price": 0.123791,
+      "market_cap": 505231954,
+      "change_24h": 2.44943,
+      "image": "https://coin-images.coingecko.com/coins/images/26433/large/starknet.png?1696525507"
+    },
+    {
+      "name": "TrueUSD",
+      "symbol": "TUSD",
+      "price": 0.998555,
+      "market_cap": 492701295,
+      "change_24h": 0.05688,
+      "image": "https://coin-images.coingecko.com/coins/images/3449/large/tusd.png?1696504140"
+    },
+    {
+      "name": "Frax Ether",
+      "symbol": "FRXETH",
+      "price": 4294.79,
+      "market_cap": 485748377,
+      "change_24h": 0.63963,
+      "image": "https://coin-images.coingecko.com/coins/images/28284/large/frxETH_icon.png?1696527284"
+    },
+    {
+      "name": "Helium",
+      "symbol": "HNT",
+      "price": 2.58,
+      "market_cap": 479561401,
+      "change_24h": 5.25778,
+      "image": "https://coin-images.coingecko.com/coins/images/4284/large/helium_logo_use.png?1748092589"
+    },
+    {
+      "name": "Solv Protocol Staked BTC",
+      "symbol": "XSOLVBTC",
+      "price": 109716,
+      "market_cap": 478399542,
+      "change_24h": 2.26345,
+      "image": "https://coin-images.coingecko.com/coins/images/39384/large/xSolvBTC.png?1744170824"
+    },
+    {
+      "name": "dYdX",
+      "symbol": "DYDX",
+      "price": 0.59982,
+      "market_cap": 466322884,
+      "change_24h": 4.18566,
+      "image": "https://coin-images.coingecko.com/coins/images/32594/large/dydx.png?1698673495"
+    },
+    {
+      "name": "NEO",
+      "symbol": "NEO",
+      "price": 6.56,
+      "market_cap": 462974324,
+      "change_24h": 2.56286,
+      "image": "https://coin-images.coingecko.com/coins/images/480/large/NEO_512_512.png?1696501735"
+    },
+    {
+      "name": "Reserve Rights",
+      "symbol": "RSR",
+      "price": 0.00770393,
+      "market_cap": 458541161,
+      "change_24h": 9.07126,
+      "image": "https://coin-images.coingecko.com/coins/images/8365/large/RSR_Blue_Circle_1000.png?1721777856"
+    },
+    {
+      "name": "ApeCoin",
+      "symbol": "APE",
+      "price": 0.573363,
+      "market_cap": 458436199,
+      "change_24h": 5.02321,
+      "image": "https://coin-images.coingecko.com/coins/images/24383/large/APECOIN.png?1756551529"
+    },
+    {
+      "name": "Brett",
+      "symbol": "BRETT",
+      "price": 0.04595734,
+      "market_cap": 455786456,
+      "change_24h": 5.45682,
+      "image": "https://coin-images.coingecko.com/coins/images/35529/large/1000050750.png?1709031995"
+    },
+    {
+      "name": "Bybit Staked SOL",
+      "symbol": "BBSOL",
+      "price": 230.32,
+      "market_cap": 454436599,
+      "change_24h": 6.49435,
+      "image": "https://coin-images.coingecko.com/coins/images/40095/large/400x400.png?1725628094"
+    },
+    {
+      "name": "APENFT",
+      "symbol": "NFT",
+      "price": 4.55293e-07,
+      "market_cap": 450780096,
+      "change_24h": -0.02906,
+      "image": "https://coin-images.coingecko.com/coins/images/15687/large/apenft.jpg?1696515316"
+    },
+    {
+      "name": "USDD",
+      "symbol": "USDD",
+      "price": 0.999832,
+      "market_cap": 443237828,
+      "change_24h": 0.01447,
+      "image": "https://coin-images.coingecko.com/coins/images/25380/large/UUSD.jpg?1696524513"
+    },
+    {
+      "name": "Core",
+      "symbol": "CORE",
+      "price": 0.430624,
+      "market_cap": 435507790,
+      "change_24h": 3.38584,
+      "image": "https://coin-images.coingecko.com/coins/images/28938/large/file_589.jpg?1701868471"
+    },
+    {
+      "name": "Fluid",
+      "symbol": "FLUID",
+      "price": 6.39,
+      "market_cap": 431877391,
+      "change_24h": 8.277,
+      "image": "https://coin-images.coingecko.com/coins/images/14688/large/Logo_1_%28brighter%29.png?1734430693"
+    },
+    {
+      "name": "Savings Dai",
+      "symbol": "SDAI",
+      "price": 1.16,
+      "market_cap": 428850921,
+      "change_24h": -0.01927,
+      "image": "https://coin-images.coingecko.com/coins/images/32254/large/sdai.png?1697015278"
+    },
+    {
+      "name": "Sun Token",
+      "symbol": "SUN",
+      "price": 0.02223952,
+      "market_cap": 426200501,
+      "change_24h": 0.60099,
+      "image": "https://coin-images.coingecko.com/coins/images/12424/large/RSFOmQ.png?1696512245"
+    },
+    {
+      "name": "BENQI Liquid Staked AVAX",
+      "symbol": "SAVAX",
+      "price": 29.94,
+      "market_cap": 425457622,
+      "change_24h": 6.55249,
+      "image": "https://coin-images.coingecko.com/coins/images/23657/large/savax_blue.png?1696522860"
+    },
+    {
+      "name": "Bridged USDC (Polygon PoS Bridge)",
+      "symbol": "USDC.E",
+      "price": 0.999806,
+      "market_cap": 424049166,
+      "change_24h": 0.00035,
+      "image": "https://coin-images.coingecko.com/coins/images/33000/large/usdc.png?1700119918"
+    },
+    {
+      "name": "Telcoin",
+      "symbol": "TEL",
+      "price": 0.00457727,
+      "market_cap": 423843574,
+      "change_24h": 3.22432,
+      "image": "https://coin-images.coingecko.com/coins/images/1899/large/tel.png?1696502892"
+    },
+    {
+      "name": "THORChain",
+      "symbol": "RUNE",
+      "price": 1.2,
+      "market_cap": 422605656,
+      "change_24h": 6.14914,
+      "image": "https://coin-images.coingecko.com/coins/images/6595/large/Rune200x200.png?1696506946"
+    },
+    {
+      "name": "DeXe",
+      "symbol": "DEXE",
+      "price": 7.32,
+      "market_cap": 418239992,
+      "change_24h": -1.47656,
+      "image": "https://coin-images.coingecko.com/coins/images/12713/large/DEXE_token_logo.png?1696512514"
+    },
+    {
+      "name": "Superstate Short Duration U.S. Government Securities Fund (USTB)",
+      "symbol": "USTB",
+      "price": 10.8,
+      "market_cap": 414845592,
+      "change_24h": 0.01008,
+      "image": "https://coin-images.coingecko.com/coins/images/35012/large/ustb.jpeg?1707102680"
+    },
+    {
+      "name": "Circle USYC",
+      "symbol": "USYC",
+      "price": 1.098,
+      "market_cap": 412400688,
+      "change_24h": null,
+      "image": "https://coin-images.coingecko.com/coins/images/51054/large/Hashnote_SDYC_200x200.png?1730370965"
+    },
+    {
+      "name": "ZKsync",
+      "symbol": "ZK",
+      "price": 0.056597,
+      "market_cap": 409999030,
+      "change_24h": 3.60635,
+      "image": "https://coin-images.coingecko.com/coins/images/38043/large/ZKTokenBlack.png?1718614502"
+    },
+    {
+      "name": "Compound",
+      "symbol": "COMP",
+      "price": 43.3,
+      "market_cap": 409606624,
+      "change_24h": 3.16797,
+      "image": "https://coin-images.coingecko.com/coins/images/10775/large/COMP.png?1696510737"
+    },
+    {
+      "name": "Arweave",
+      "symbol": "AR",
+      "price": 6.25,
+      "market_cap": 409471335,
+      "change_24h": 3.75172,
+      "image": "https://coin-images.coingecko.com/coins/images/4343/large/oRt6SiEN_400x400.jpg?1696504946"
+    },
+    {
+      "name": "Steakhouse USDC Morpho Vault",
+      "symbol": "STEAKUSDC",
+      "price": 1.098,
+      "market_cap": 409061431,
+      "change_24h": 0.00429,
+      "image": "https://coin-images.coingecko.com/coins/images/51473/large/steakUSDC.png?1731396462"
+    },
+    {
+      "name": "MultiversX",
+      "symbol": "EGLD",
+      "price": 14.25,
+      "market_cap": 407607187,
+      "change_24h": 3.35775,
+      "image": "https://coin-images.coingecko.com/coins/images/12335/large/egld-token-logo.png?1696512162"
+    },
+    {
+      "name": "USDB",
+      "symbol": "USDB",
+      "price": 0.999275,
+      "market_cap": 405951157,
+      "change_24h": -0.84398,
+      "image": "https://coin-images.coingecko.com/coins/images/35595/large/65c67f0ebf2f6a1bd0feb13c_usdb-icon-yellow.png?1709255427"
+    },
+    {
+      "name": "Treehouse ETH",
+      "symbol": "TETH",
+      "price": 5247.68,
+      "market_cap": 402274837,
+      "change_24h": 0.82518,
+      "image": "https://coin-images.coingecko.com/coins/images/40155/large/tETH_Logo_%28Color__No_Background%29.png?1748368386"
+    },
+    {
+      "name": "Kava",
+      "symbol": "KAVA",
+      "price": 0.370777,
+      "market_cap": 401509540,
+      "change_24h": -0.25445,
+      "image": "https://coin-images.coingecko.com/coins/images/9761/large/kava.png?1696509822"
+    },
+    {
+      "name": "EigenCloud (prev. EigenLayer)",
+      "symbol": "EIGEN",
+      "price": 1.21,
+      "market_cap": 397065121,
+      "change_24h": 7.14916,
+      "image": "https://coin-images.coingecko.com/coins/images/37441/large/eigencloud.jpg?1751003565"
+    },
+    {
+      "name": "Tokenize Xchange",
+      "symbol": "TKX",
+      "price": 4.92,
+      "market_cap": 393268695,
+      "change_24h": -5.29065,
+      "image": "https://coin-images.coingecko.com/coins/images/4984/large/TKX_-_Logo_-_RGB-15.png?1696505519"
+    },
+    {
+      "name": "Axie Infinity",
+      "symbol": "AXS",
+      "price": 2.36,
+      "market_cap": 393123007,
+      "change_24h": 1.66453,
+      "image": "https://coin-images.coingecko.com/coins/images/13029/large/axie_infinity_logo.png?1696512817"
+    },
+    {
+      "name": "eCash",
+      "symbol": "XEC",
+      "price": 1.971e-05,
+      "market_cap": 392795642,
+      "change_24h": 2.23361,
+      "image": "https://coin-images.coingecko.com/coins/images/16646/large/Logo_final-22.png?1696516207"
+    },
+    {
+      "name": "Chiliz",
+      "symbol": "CHZ",
+      "price": 0.03929346,
+      "market_cap": 385697713,
+      "change_24h": 1.97661,
+      "image": "https://coin-images.coingecko.com/coins/images/8834/large/CHZ_Token_updated.png?1696508986"
+    },
+    {
+      "name": "Wrapped AVAX",
+      "symbol": "WAVAX",
+      "price": 24.45,
+      "market_cap": 379915728,
+      "change_24h": 6.37494,
+      "image": "https://coin-images.coingecko.com/coins/images/15075/large/wrapped-avax.png?1696514734"
+    },
+    {
+      "name": "Beam",
+      "symbol": "BEAM",
+      "price": 0.00737837,
+      "market_cap": 379113643,
+      "change_24h": 8.99137,
+      "image": "https://coin-images.coingecko.com/coins/images/32417/large/cgicon.png?1747892021"
+    },
+    {
+      "name": "Olympus",
+      "symbol": "OHM",
+      "price": 22.78,
+      "market_cap": 373419115,
+      "change_24h": 0.38578,
+      "image": "https://coin-images.coingecko.com/coins/images/14483/large/token_OHM_%281%29.png?1696514169"
+    },
+    {
+      "name": "Onyxcoin",
+      "symbol": "XCN",
+      "price": 0.0106281,
+      "market_cap": 372670268,
+      "change_24h": 2.69902,
+      "image": "https://coin-images.coingecko.com/coins/images/24210/large/onyxlogo.jpg?1696523397"
+    },
+    {
+      "name": "Wormhole",
+      "symbol": "W",
+      "price": 0.078049,
+      "market_cap": 370346692,
+      "change_24h": 1.01624,
+      "image": "https://coin-images.coingecko.com/coins/images/35087/large/womrhole_logo_full_color_rgb_2000px_72ppi_fb766ac85a.png?1708688954"
+    },
+    {
+      "name": "AIOZ Network",
+      "symbol": "AIOZ",
+      "price": 0.310779,
+      "market_cap": 369083414,
+      "change_24h": 3.18891,
+      "image": "https://coin-images.coingecko.com/coins/images/14631/large/aioz-logo-200.png?1696514309"
+    },
+    {
+      "name": "Unit Bitcoin",
+      "symbol": "UBTC",
+      "price": 111208,
+      "market_cap": 364002530,
+      "change_24h": 2.34327,
+      "image": "https://coin-images.coingecko.com/coins/images/55066/large/ubtc.jpg?1743580113"
+    },
+    {
+      "name": "Wrapped HYPE",
+      "symbol": "WHYPE",
+      "price": 44.75,
+      "market_cap": 358725290,
+      "change_24h": 4.77593,
+      "image": "https://coin-images.coingecko.com/coins/images/54469/large/_UP3jBsi_400x400.jpg?1739905920"
+    },
+    {
+      "name": "Aethir",
+      "symbol": "ATH",
+      "price": 0.03083006,
+      "market_cap": 351849610,
+      "change_24h": 2.29935,
+      "image": "https://coin-images.coingecko.com/coins/images/36179/large/logogram_circle_dark_green_vb_green_%281%29.png?1718232706"
+    },
+    {
+      "name": "GHO",
+      "symbol": "GHO",
+      "price": 0.999324,
+      "market_cap": 350315742,
+      "change_24h": -0.0221,
+      "image": "https://coin-images.coingecko.com/coins/images/30663/large/gho-token-logo.png?1720517092"
+    },
+    {
+      "name": "SuperVerse",
+      "symbol": "SUPER",
+      "price": 0.564518,
+      "market_cap": 349585271,
+      "change_24h": 2.93895,
+      "image": "https://coin-images.coingecko.com/coins/images/14040/large/SV-Logo-200x200.png?1706880312"
+    },
+    {
+      "name": "JUST",
+      "symbol": "JST",
+      "price": 0.03505336,
+      "market_cap": 346797632,
+      "change_24h": 0.18441,
+      "image": "https://coin-images.coingecko.com/coins/images/11095/large/JUST.jpg?1696511035"
+    },
+    {
+      "name": "Zebec Network",
+      "symbol": "ZBCN",
+      "price": 0.00401729,
+      "market_cap": 346751373,
+      "change_24h": 12.46222,
+      "image": "https://coin-images.coingecko.com/coins/images/37052/large/zbcn.jpeg?1713168241"
+    },
+    {
+      "name": "Ronin",
+      "symbol": "RON",
+      "price": 0.496654,
+      "market_cap": 344079203,
+      "change_24h": 1.97547,
+      "image": "https://coin-images.coingecko.com/coins/images/20009/large/photo_2024-04-06_22-52-24.jpg?1712415367"
+    },
+    {
+      "name": "ETHPlus",
+      "symbol": "ETH+",
+      "price": 4548.4,
+      "market_cap": 343774380,
+      "change_24h": 0.30783,
+      "image": "https://coin-images.coingecko.com/coins/images/38061/large/ETH__Logo.png?1716440789"
+    },
+    {
+      "name": "1inch",
+      "symbol": "1INCH",
+      "price": 0.245222,
+      "market_cap": 342463619,
+      "change_24h": 4.37448,
+      "image": "https://coin-images.coingecko.com/coins/images/13469/large/1inch-token.png?1696513230"
+    },
+    {
+      "name": "EverValue Coin",
+      "symbol": "EVA",
+      "price": 21.93,
+      "market_cap": 340650118,
+      "change_24h": -0.39248,
+      "image": "https://coin-images.coingecko.com/coins/images/50997/large/EVA_Logo_-_with_dark_background_-_200x200.png?1729720258"
+    },
+    {
+      "name": "Gnosis",
+      "symbol": "GNO",
+      "price": 127.8,
+      "market_cap": 337378727,
+      "change_24h": 1.60148,
+      "image": "https://coin-images.coingecko.com/coins/images/662/large/logo_square_simple_300px.png?1696501854"
+    },
+    {
+      "name": "Staked Frax Ether",
+      "symbol": "SFRXETH",
+      "price": 4873.38,
+      "market_cap": 336065018,
+      "change_24h": 0.82435,
+      "image": "https://coin-images.coingecko.com/coins/images/28285/large/sfrxETH_icon.png?1696527285"
+    },
+    {
+      "name": "Spiko EU T-Bills Money Market Fund",
+      "symbol": "EUTBL",
+      "price": 1.21,
+      "market_cap": 333089262,
+      "change_24h": -0.66406,
+      "image": "https://coin-images.coingecko.com/coins/images/39657/large/EUTBL.png?1723517425"
+    },
+    {
+      "name": "WEMIX",
+      "symbol": "WEMIX",
+      "price": 0.726229,
+      "market_cap": 330594180,
+      "change_24h": 0.11975,
+      "image": "https://coin-images.coingecko.com/coins/images/12998/large/wemixcoin_color_200.png?1696512788"
+    },
+    {
+      "name": "Venom",
+      "symbol": "VENOM",
+      "price": 0.156765,
+      "market_cap": 329281172,
+      "change_24h": 1.61694,
+      "image": "https://coin-images.coingecko.com/coins/images/28660/large/Venom_Icon.png?1696527645"
+    },
+    {
+      "name": "Mog Coin",
+      "symbol": "MOG",
+      "price": 8.40901e-07,
+      "market_cap": 329206321,
+      "change_24h": 3.95402,
+      "image": "https://coin-images.coingecko.com/coins/images/31059/large/MOG_LOGO_200x200.png?1696529893"
+    },
+    {
+      "name": "Drift Staked SOL",
+      "symbol": "DSOL",
+      "price": 238.25,
+      "market_cap": 328937777,
+      "change_24h": 6.70866,
+      "image": "https://coin-images.coingecko.com/coins/images/37479/large/solana.png?1714471411"
+    },
+    {
+      "name": "Keeta",
+      "symbol": "KTA",
+      "price": 0.806907,
+      "market_cap": 328728791,
+      "change_24h": 7.24557,
+      "image": "https://coin-images.coingecko.com/coins/images/54723/large/2025-03-05_22.53.06.jpg?1741234207"
+    },
+    {
+      "name": "DeepBook",
+      "symbol": "DEEP",
+      "price": 0.13065,
+      "market_cap": 326731369,
+      "change_24h": 4.14927,
+      "image": "https://coin-images.coingecko.com/coins/images/50648/large/DEEP_Logo_256x256_px_%282%29.png?1728612340"
+    },
+    {
+      "name": "Terra Luna Classic",
+      "symbol": "LUNC",
+      "price": 5.921e-05,
+      "market_cap": 325924077,
+      "change_24h": 2.76595,
+      "image": "https://coin-images.coingecko.com/coins/images/8284/large/01_LunaClassic_color.png?1696508486"
+    },
+    {
+      "name": "EOS",
+      "symbol": "EOS",
+      "price": 0.486655,
+      "market_cap": 324615538,
+      "change_24h": 2.45163,
+      "image": "https://coin-images.coingecko.com/coins/images/738/large/CG_EOS_Icon.png?1731705232"
+    },
+    {
+      "name": "Resolv USR",
+      "symbol": "USR",
+      "price": 0.999735,
+      "market_cap": 323938994,
+      "change_24h": -0.01993,
+      "image": "https://coin-images.coingecko.com/coins/images/40008/large/USR_LOGO.png?1725222638"
+    },
+    {
+      "name": "Movement",
+      "symbol": "MOVE",
+      "price": 0.118874,
+      "market_cap": 321158082,
+      "change_24h": 2.56074,
+      "image": "https://coin-images.coingecko.com/coins/images/39345/large/movement-testnet-token.png?1721878759"
+    },
+    {
+      "name": "Binance-Peg BUSD",
+      "symbol": "BUSD",
+      "price": 1.001,
+      "market_cap": 312893334,
+      "change_24h": 0.13607,
+      "image": "https://coin-images.coingecko.com/coins/images/31273/large/new_binance-peg-busd.png?1696530096"
+    },
+    {
+      "name": "Axelar",
+      "symbol": "AXL",
+      "price": 0.300055,
+      "market_cap": 309168414,
+      "change_24h": 3.17469,
+      "image": "https://coin-images.coingecko.com/coins/images/27277/large/V-65_xQ1_400x400.jpeg?1696526329"
+    },
+    {
+      "name": "Akash Network",
+      "symbol": "AKT",
+      "price": 1.11,
+      "market_cap": 308122021,
+      "change_24h": 2.17723,
+      "image": "https://coin-images.coingecko.com/coins/images/12785/large/akash-logo.png?1696512580"
+    },
+    {
+      "name": "Trust Wallet",
+      "symbol": "TWT",
+      "price": 0.73366,
+      "market_cap": 305715552,
+      "change_24h": 1.23093,
+      "image": "https://coin-images.coingecko.com/coins/images/11085/large/Trust.png?1696511026"
+    },
+    {
+      "name": "Rekt",
+      "symbol": "REKT",
+      "price": 7.26158e-07,
+      "market_cap": 305698807,
+      "change_24h": 2.98891,
+      "image": "https://coin-images.coingecko.com/coins/images/51727/large/rektcion_trans_200px.png?1731910587"
+    },
+    {
+      "name": "Legacy Frax Dollar",
+      "symbol": "FRAX",
+      "price": 0.997829,
+      "market_cap": 296428704,
+      "change_24h": -0.02347,
+      "image": "https://coin-images.coingecko.com/coins/images/13422/large/LFRAX.png?1751911193"
+    },
+    {
+      "name": "Bio Protocol",
+      "symbol": "BIO",
+      "price": 0.143861,
+      "market_cap": 295271699,
+      "change_24h": 2.79113,
+      "image": "https://coin-images.coingecko.com/coins/images/53022/large/bio.jpg?1735011002"
+    },
+    {
+      "name": "Livepeer",
+      "symbol": "LPT",
+      "price": 6.7,
+      "market_cap": 295110062,
+      "change_24h": 2.17017,
+      "image": "https://coin-images.coingecko.com/coins/images/7137/large/badge-logo-circuit-green.png?1719357686"
+    },
+    {
+      "name": "Berachain",
+      "symbol": "BERA",
+      "price": 2.32,
+      "market_cap": 290278967,
+      "change_24h": -1.04572,
+      "image": "https://coin-images.coingecko.com/coins/images/25235/large/BERA.png?1738822008"
+    },
+    {
+      "name": "Convex Finance",
+      "symbol": "CVX",
+      "price": 3.53,
+      "market_cap": 289765390,
+      "change_24h": 5.3437,
+      "image": "https://coin-images.coingecko.com/coins/images/15585/large/convex.png?1696515221"
+    },
+    {
+      "name": "Creditcoin",
+      "symbol": "CTC",
+      "price": 0.600673,
+      "market_cap": 289216789,
+      "change_24h": 2.36705,
+      "image": "https://coin-images.coingecko.com/coins/images/10569/large/Creditcoin_Symbol_dark56.png?1737796066"
+    },
+    {
+      "name": "Dash",
+      "symbol": "DASH",
+      "price": 23.27,
+      "market_cap": 288503507,
+      "change_24h": 3.05531,
+      "image": "https://coin-images.coingecko.com/coins/images/19/large/dash-logo.png?1696501423"
+    },
+    {
+      "name": "OpenEden OpenDollar",
+      "symbol": "USDO",
+      "price": 0.998052,
+      "market_cap": 285470423,
+      "change_24h": -0.06438,
+      "image": "https://coin-images.coingecko.com/coins/images/53750/large/USDO_LOGO-white.png?1737181887"
+    },
+    {
+      "name": "Qubic",
+      "symbol": "QUBIC",
+      "price": 2.28e-06,
+      "market_cap": 284711366,
+      "change_24h": 2.96414,
+      "image": "https://coin-images.coingecko.com/coins/images/32949/large/qubic_logo_new.png?1755496837"
+    },
+    {
+      "name": "Snek",
+      "symbol": "SNEK",
+      "price": 0.00378273,
+      "market_cap": 282870250,
+      "change_24h": 6.94593,
+      "image": "https://coin-images.coingecko.com/coins/images/30496/large/snek_icon_200_v2.png?1737994261"
+    },
+    {
+      "name": "AgentFun.AI",
+      "symbol": "AGENTFUN",
+      "price": 2.81,
+      "market_cap": 280938687,
+      "change_24h": -1.04857,
+      "image": "https://coin-images.coingecko.com/coins/images/52133/large/AIFUN_%282%29.png?1732639482"
+    },
+    {
+      "name": "Amp",
+      "symbol": "AMP",
+      "price": 0.00332702,
+      "market_cap": 280417355,
+      "change_24h": 4.37768,
+      "image": "https://coin-images.coingecko.com/coins/images/12409/large/amp-200x200.png?1696512231"
+    },
+    {
+      "name": "Tribe",
+      "symbol": "TRIBE",
+      "price": 0.615467,
+      "market_cap": 280073873,
+      "change_24h": -1.02104,
+      "image": "https://coin-images.coingecko.com/coins/images/14575/large/tribe.PNG?1696514256"
+    },
+    {
+      "name": "Decred",
+      "symbol": "DCR",
+      "price": 16.4,
+      "market_cap": 278983679,
+      "change_24h": 4.29466,
+      "image": "https://coin-images.coingecko.com/coins/images/329/large/decred.png?1696501665"
+    },
+    {
+      "name": "Qtum",
+      "symbol": "QTUM",
+      "price": 2.62,
+      "market_cap": 276962891,
+      "change_24h": 2.10694,
+      "image": "https://coin-images.coingecko.com/coins/images/684/large/Qtum_Logo_blue_CG.png?1696501874"
+    },
+    {
+      "name": "Compounding OpenDollar",
+      "symbol": "CUSDO",
+      "price": 1.022,
+      "market_cap": 272954551,
+      "change_24h": -0.04944,
+      "image": "https://coin-images.coingecko.com/coins/images/53751/large/cUSDO_logo_white.png?1737182014"
+    },
+    {
+      "name": "SwissBorg",
+      "symbol": "BORG",
+      "price": 0.277385,
+      "market_cap": 272551540,
+      "change_24h": 9.22041,
+      "image": "https://coin-images.coingecko.com/coins/images/2117/large/YJUrRy7r_400x400.png?1696503083"
+    },
+    {
+      "name": "Ultima",
+      "symbol": "ULTIMA",
+      "price": 6916.61,
+      "market_cap": 272362101,
+      "change_24h": -2.46032,
+      "image": "https://coin-images.coingecko.com/coins/images/31844/large/ULTIMA.jpg?1696530658"
+    },
+    {
+      "name": "Satoshi Stablecoin",
+      "symbol": "SATUSD",
+      "price": 0.996286,
+      "market_cap": 271295368,
+      "change_24h": 0.01124,
+      "image": "https://coin-images.coingecko.com/coins/images/37760/large/Instagram_post_-_25.png?1715475306"
+    },
+    {
+      "name": "Safe",
+      "symbol": "SAFE",
+      "price": 0.42588,
+      "market_cap": 270126280,
+      "change_24h": 3.24374,
+      "image": "https://coin-images.coingecko.com/coins/images/27032/large/Artboard_1_copy_8circle-1.png?1696526084"
+    },
+    {
+      "name": "Turbo",
+      "symbol": "TURBO",
+      "price": 0.0038028,
+      "market_cap": 262838223,
+      "change_24h": 5.86973,
+      "image": "https://coin-images.coingecko.com/coins/images/30117/large/TurboMark-QL_200.png?1708079597"
+    },
+    {
+      "name": "Ether.fi Staked BTC",
+      "symbol": "EBTC",
+      "price": 111040,
+      "market_cap": 262772865,
+      "change_24h": 1.96863,
+      "image": "https://coin-images.coingecko.com/coins/images/50411/large/eBTC.png?1727664788"
+    },
+    {
+      "name": "IoTeX",
+      "symbol": "IOTX",
+      "price": 0.02780027,
+      "market_cap": 262471921,
+      "change_24h": 0.86737,
+      "image": "https://coin-images.coingecko.com/coins/images/3334/large/20250731-171811.png?1754021073"
+    },
+    {
+      "name": "Stables Labs Staked USDX",
+      "symbol": "SUSDX",
+      "price": 1.097,
+      "market_cap": 257639816,
+      "change_24h": -0.35001,
+      "image": "https://coin-images.coingecko.com/coins/images/50836/large/sUSDX200px.png?1731906119"
+    },
+    {
+      "name": "Kusama",
+      "symbol": "KSM",
+      "price": 15.11,
+      "market_cap": 256810322,
+      "change_24h": 3.45167,
+      "image": "https://coin-images.coingecko.com/coins/images/9568/large/m4zRhP5e_400x400.jpg?1696509648"
+    },
+    {
+      "name": "VVS Finance",
+      "symbol": "VVS",
+      "price": 5.48e-06,
+      "market_cap": 255297317,
+      "change_24h": -1.36162,
+      "image": "https://coin-images.coingecko.com/coins/images/20210/large/8glAYOTM_400x400.jpg?1696519620"
+    },
+    {
+      "name": "cWBTC",
+      "symbol": "CWBTC",
+      "price": 2232.26,
+      "market_cap": 254591534,
+      "change_24h": 2.33153,
+      "image": "https://coin-images.coingecko.com/coins/images/10823/large/cwbtc.png?1696510780"
+    },
+    {
+      "name": "KAITO",
+      "symbol": "KAITO",
+      "price": 1.049,
+      "market_cap": 253293911,
+      "change_24h": 5.34144,
+      "image": "https://coin-images.coingecko.com/coins/images/54411/large/Qm4DW488_400x400.jpg?1739552780"
+    },
+    {
+      "name": "Resolv RLP",
+      "symbol": "RLP",
+      "price": 1.23,
+      "market_cap": 251150842,
+      "change_24h": -0.02201,
+      "image": "https://coin-images.coingecko.com/coins/images/40017/large/orangeLogo..png?1725344586"
+    },
+    {
+      "name": "Popcat",
+      "symbol": "POPCAT",
+      "price": 0.255106,
+      "market_cap": 250247561,
+      "change_24h": 9.70882,
+      "image": "https://coin-images.coingecko.com/coins/images/33760/large/image.jpg?1702964227"
+    },
+    {
+      "name": "BTSE Token",
+      "symbol": "BTSE",
+      "price": 1.53,
+      "market_cap": 247788984,
+      "change_24h": 1.47888,
+      "image": "https://coin-images.coingecko.com/coins/images/10807/large/BTSE_logo_Square.jpeg?1696510765"
+    },
+    {
+      "name": "Zora",
+      "symbol": "ZORA",
+      "price": 0.075915,
+      "market_cap": 247387105,
+      "change_24h": 8.60399,
+      "image": "https://coin-images.coingecko.com/coins/images/54693/large/zora.jpg?1741094751"
+    },
+    {
+      "name": "cat in a dogs world",
+      "symbol": "MEW",
+      "price": 0.00278041,
+      "market_cap": 247279934,
+      "change_24h": 4.48182,
+      "image": "https://coin-images.coingecko.com/coins/images/36440/large/MEW.png?1711442286"
+    },
+    {
+      "name": "MX",
+      "symbol": "MX",
+      "price": 2.64,
+      "market_cap": 246922210,
+      "change_24h": 3.13536,
+      "image": "https://coin-images.coingecko.com/coins/images/8545/large/mexc.jpg?1747142259"
+    },
+    {
+      "name": "Toshi",
+      "symbol": "TOSHI",
+      "price": 0.00058047,
+      "market_cap": 244552601,
+      "change_24h": 3.17358,
+      "image": "https://coin-images.coingecko.com/coins/images/31126/large/Toshi_Logo_-_Circular.png?1721677476"
+    },
+    {
+      "name": "Aster Staked BNB",
+      "symbol": "ASBNB",
+      "price": 897.08,
+      "market_cap": 243281005,
+      "change_24h": 0.90202,
+      "image": "https://coin-images.coingecko.com/coins/images/54129/large/asBNB.png?1744789305"
+    },
+    {
+      "name": "Resolv wstUSR",
+      "symbol": "WSTUSR",
+      "price": 1.11,
+      "market_cap": 243134023,
+      "change_24h": -0.02824,
+      "image": "https://coin-images.coingecko.com/coins/images/51880/large/USR_LOGO.png?1732098841"
+    },
+    {
+      "name": "Theta Fuel",
+      "symbol": "TFUEL",
+      "price": 0.03427443,
+      "market_cap": 241906669,
+      "change_24h": 2.75445,
+      "image": "https://coin-images.coingecko.com/coins/images/8029/large/1_0YusgngOrriVg4ZYx4wOFQ.png?1696508251"
+    },
+    {
+      "name": "EURC",
+      "symbol": "EURC",
+      "price": 1.16,
+      "market_cap": 241165016,
+      "change_24h": -0.52768,
+      "image": "https://coin-images.coingecko.com/coins/images/26045/large/euro.png?1696525125"
+    },
+    {
+      "name": "Moca Network",
+      "symbol": "MOCA",
+      "price": 0.065985,
+      "market_cap": 239486777,
+      "change_24h": 1.8261,
+      "image": "https://coin-images.coingecko.com/coins/images/37812/large/moca.jpg?1720693068"
+    },
+    {
+      "name": "Plume",
+      "symbol": "PLUME",
+      "price": 0.081046,
+      "market_cap": 237737332,
+      "change_24h": 4.6675,
+      "image": "https://coin-images.coingecko.com/coins/images/53623/large/plume-token.png?1736896935"
+    },
+    {
+      "name": "Blockchain Capital",
+      "symbol": "BCAP",
+      "price": 26.04,
+      "market_cap": 237272965,
+      "change_24h": 0.0,
+      "image": "https://coin-images.coingecko.com/coins/images/56040/large/bcap_logo_200.png?1748088291"
+    },
+    {
+      "name": "Origin Ether",
+      "symbol": "OETH",
+      "price": 4322.34,
+      "market_cap": 236687439,
+      "change_24h": 0.72722,
+      "image": "https://coin-images.coingecko.com/coins/images/29733/large/OETH.png?1696528663"
+    },
+    {
+      "name": "Dog (Bitcoin)",
+      "symbol": "DOG",
+      "price": 0.00235596,
+      "market_cap": 235872039,
+      "change_24h": 0.74833,
+      "image": "https://coin-images.coingecko.com/coins/images/37352/large/DOGGOTOTHEMOON.png?1714096969"
+    },
+    {
+      "name": "Golem",
+      "symbol": "GLM",
+      "price": 0.234507,
+      "market_cap": 234508820,
+      "change_24h": 2.93498,
+      "image": "https://coin-images.coingecko.com/coins/images/542/large/Golem_Submark_Positive_RGB.png?1696501761"
+    },
+    {
+      "name": "Basic Attention",
+      "symbol": "BAT",
+      "price": 0.156672,
+      "market_cap": 234393719,
+      "change_24h": 4.11223,
+      "image": "https://coin-images.coingecko.com/coins/images/677/large/basic-attention-token.png?1696501867"
+    },
+    {
+      "name": "Zano",
+      "symbol": "ZANO",
+      "price": 15.67,
+      "market_cap": 233810924,
+      "change_24h": 0.66116,
+      "image": "https://coin-images.coingecko.com/coins/images/8370/large/zano_200_200.png?1752409555"
+    },
+    {
+      "name": "Velo",
+      "symbol": "VELO",
+      "price": 0.01330509,
+      "market_cap": 233584039,
+      "change_24h": 2.96242,
+      "image": "https://coin-images.coingecko.com/coins/images/12538/large/Logo_200x_200.png?1696512350"
+    },
+    {
+      "name": "SafePal",
+      "symbol": "SFP",
+      "price": 0.466966,
+      "market_cap": 233572733,
+      "change_24h": 2.79511,
+      "image": "https://coin-images.coingecko.com/coins/images/13905/large/sfp.png?1696513647"
+    },
+    {
+      "name": "Synthetix Network",
+      "symbol": "SNX",
+      "price": 0.679966,
+      "market_cap": 233453088,
+      "change_24h": 4.14138,
+      "image": "https://coin-images.coingecko.com/coins/images/3406/large/SNX.png?1696504103"
+    },
+    {
+      "name": "Arkham",
+      "symbol": "ARKM",
+      "price": 0.480987,
+      "market_cap": 230225560,
+      "change_24h": 5.4632,
+      "image": "https://coin-images.coingecko.com/coins/images/30929/large/Arkham_Logo_CG.png?1696529771"
+    },
+    {
+      "name": "Nervos Network",
+      "symbol": "CKB",
+      "price": 0.00487166,
+      "market_cap": 229884255,
+      "change_24h": 6.61839,
+      "image": "https://coin-images.coingecko.com/coins/images/9566/large/Nervos_White.png?1696509646"
+    },
+    {
+      "name": "Universal BTC",
+      "symbol": "UNIBTC",
+      "price": 110718,
+      "market_cap": 226358379,
+      "change_24h": 2.18068,
+      "image": "https://coin-images.coingecko.com/coins/images/39599/large/uniBTC_200px.png?1723064455"
+    },
+    {
+      "name": "Cheems Token",
+      "symbol": "CHEEMS",
+      "price": 1.11e-06,
+      "market_cap": 226303094,
+      "change_24h": -0.09551,
+      "image": "https://coin-images.coingecko.com/coins/images/30376/large/Hg4_Lhbg_400x400.jpg?1696529270"
+    },
+    {
+      "name": "USDa",
+      "symbol": "USDA",
+      "price": 0.993828,
+      "market_cap": 224969566,
+      "change_24h": 0.00812,
+      "image": "https://coin-images.coingecko.com/coins/images/51599/large/SUSDA.png?1731604761"
+    },
+    {
+      "name": "Mina Protocol",
+      "symbol": "MINA",
+      "price": 0.179073,
+      "market_cap": 224141447,
+      "change_24h": 3.70242,
+      "image": "https://coin-images.coingecko.com/coins/images/15628/large/JM4_vQ34_400x400.png?1696515261"
+    },
+    {
+      "name": "Nexus Mutual",
+      "symbol": "NXM",
+      "price": 101.16,
+      "market_cap": 222640672,
+      "change_24h": 1.27163,
+      "image": "https://coin-images.coingecko.com/coins/images/11810/large/NXMmain.png?1696511684"
+    },
+    {
+      "name": "0x Protocol",
+      "symbol": "ZRX",
+      "price": 0.26213,
+      "market_cap": 222409981,
+      "change_24h": 3.53451,
+      "image": "https://coin-images.coingecko.com/coins/images/863/large/0x.png?1696501996"
+    },
+    {
+      "name": "Grass",
+      "symbol": "GRASS",
+      "price": 0.717449,
+      "market_cap": 220630675,
+      "change_24h": 1.2385,
+      "image": "https://coin-images.coingecko.com/coins/images/40094/large/Grass.jpg?1725697048"
+    },
+    {
+      "name": "MANTRA",
+      "symbol": "OM",
+      "price": 0.20643,
+      "market_cap": 218636287,
+      "change_24h": 3.4579,
+      "image": "https://coin-images.coingecko.com/coins/images/12151/large/OM_Token.png?1696511991"
+    },
+    {
+      "name": "GoMining Token",
+      "symbol": "GOMINING",
+      "price": 0.522815,
+      "market_cap": 212915972,
+      "change_24h": -1.75986,
+      "image": "https://coin-images.coingecko.com/coins/images/15662/large/GoMining_Logo.png?1714757256"
+    },
+    {
+      "name": "Zilliqa",
+      "symbol": "ZIL",
+      "price": 0.01134394,
+      "market_cap": 212878047,
+      "change_24h": 3.32067,
+      "image": "https://coin-images.coingecko.com/coins/images/2687/large/Zilliqa-logo.png?1696503475"
+    },
+    {
+      "name": "Restaking Vault ETH",
+      "symbol": "RSTETH",
+      "price": 5225.06,
+      "market_cap": 212847591,
+      "change_24h": 0.76941,
+      "image": "https://coin-images.coingecko.com/coins/images/68156/large/rsteth.png?1754969714"
+    },
+    {
+      "name": "Gas",
+      "symbol": "GAS",
+      "price": 3.25,
+      "market_cap": 211477359,
+      "change_24h": 1.98249,
+      "image": "https://coin-images.coingecko.com/coins/images/858/large/GAS_512_512.png?1696501992"
+    },
+    {
+      "name": "Mitosis Matrix USDT (Lista)",
+      "symbol": "MAUSDT_LISTA",
+      "price": 0.998322,
+      "market_cap": 209232492,
+      "change_24h": -0.01518,
+      "image": "https://coin-images.coingecko.com/coins/images/68425/large/maUSDT_Lista.png?1755714625"
+    },
+    {
+      "name": "LayerZero",
+      "symbol": "ZRO",
+      "price": 1.87,
+      "market_cap": 208474889,
+      "change_24h": 4.10497,
+      "image": "https://coin-images.coingecko.com/coins/images/28206/large/ftxG9_TJ_400x400.jpeg?1696527208"
+    },
+    {
+      "name": "Peanut the Squirrel",
+      "symbol": "PNUT",
+      "price": 0.207465,
+      "market_cap": 207689255,
+      "change_24h": 7.91195,
+      "image": "https://coin-images.coingecko.com/coins/images/51301/large/Peanut_the_Squirrel.png?1734941241"
+    },
+    {
+      "name": "AUSD",
+      "symbol": "AUSD",
+      "price": 0.999871,
+      "market_cap": 206603026,
+      "change_24h": 0.01938,
+      "image": "https://coin-images.coingecko.com/coins/images/39284/large/Circle_Agora_White_on_Olive_1080px.png?1722961274"
+    },
+    {
+      "name": "Drift Protocol",
+      "symbol": "DRIFT",
+      "price": 0.567351,
+      "market_cap": 205596550,
+      "change_24h": 2.05318,
+      "image": "https://coin-images.coingecko.com/coins/images/37509/large/DRIFT.png?1715842607"
+    },
+    {
+      "name": "Centrifuge",
+      "symbol": "CFG",
+      "price": 0.36273,
+      "market_cap": 205125200,
+      "change_24h": 8.72788,
+      "image": "https://coin-images.coingecko.com/coins/images/55913/large/centrifuge.jpg?1747707741"
+    },
+    {
+      "name": "Ravencoin",
+      "symbol": "RVN",
+      "price": 0.01308606,
+      "market_cap": 203438044,
+      "change_24h": 1.87707,
+      "image": "https://coin-images.coingecko.com/coins/images/3412/large/ravencoin.png?1696504108"
+    },
+    {
+      "name": "Sahara AI",
+      "symbol": "SAHARA",
+      "price": 0.090843,
+      "market_cap": 200791681,
+      "change_24h": 1.53631,
+      "image": "https://coin-images.coingecko.com/coins/images/66681/large/Token_Logo_3x.png?1750362133"
+    },
+    {
+      "name": "Baby Doge Coin",
+      "symbol": "BABYDOGE",
+      "price": 1.171e-09,
+      "market_cap": 199421621,
+      "change_24h": 3.95567,
+      "image": "https://coin-images.coingecko.com/coins/images/16125/large/babydoge.jpg?1696515731"
+    },
+    {
+      "name": "MimboGameGroup",
+      "symbol": "MGG",
+      "price": 0.00170317,
+      "market_cap": 195183510,
+      "change_24h": 13.22804,
+      "image": "https://coin-images.coingecko.com/coins/images/66393/large/mimbo.jpg?1749367847"
+    },
+    {
+      "name": "Legacy Token",
+      "symbol": "LGCT",
+      "price": 1.93,
+      "market_cap": 192538738,
+      "change_24h": 1.92761,
+      "image": "https://coin-images.coingecko.com/coins/images/50673/large/token2d.jpg?1728682508"
+    },
+    {
+      "name": "Astar",
+      "symbol": "ASTR",
+      "price": 0.02335572,
+      "market_cap": 190602407,
+      "change_24h": 3.1305,
+      "image": "https://coin-images.coingecko.com/coins/images/22617/large/astr.png?1696521933"
+    },
+    {
+      "name": "Blur",
+      "symbol": "BLUR",
+      "price": 0.076007,
+      "market_cap": 189738359,
+      "change_24h": 3.92085,
+      "image": "https://coin-images.coingecko.com/coins/images/28453/large/blur.png?1696527448"
+    },
+    {
+      "name": "Tradable NA Rent Financing Platform SSTN",
+      "symbol": "PC0000031",
+      "price": 1.0,
+      "market_cap": 189500000,
+      "change_24h": 0.0,
+      "image": "https://coin-images.coingecko.com/coins/images/66150/large/tradable.jpg?1748488921"
+    },
+    {
+      "name": "Infrared Bera",
+      "symbol": "IBERA",
+      "price": 2.37,
+      "market_cap": 188153549,
+      "change_24h": -1.00241,
+      "image": "https://coin-images.coingecko.com/coins/images/54671/large/ibera.jpg?1740966414"
+    },
+    {
+      "name": "ZetaChain",
+      "symbol": "ZETA",
+      "price": 0.182143,
+      "market_cap": 186573492,
+      "change_24h": 2.45358,
+      "image": "https://coin-images.coingecko.com/coins/images/26718/large/Twitter_icon.png?1696525788"
+    },
+    {
+      "name": "Ribbita by Virtuals",
+      "symbol": "TIBBIR",
+      "price": 0.18434,
+      "market_cap": 184838544,
+      "change_24h": 21.39879,
+      "image": "https://coin-images.coingecko.com/coins/images/54970/large/Untitled_design.png?1742941268"
+    },
+    {
+      "name": "Wrapped Aave Ethereum WETH",
+      "symbol": "WAETHWETH",
+      "price": 4546.11,
+      "market_cap": 184711636,
+      "change_24h": 0.57813,
+      "image": "https://coin-images.coingecko.com/coins/images/68155/large/waEthweth_64.png?1754969478"
+    },
+    {
+      "name": "ORDI",
+      "symbol": "ORDI",
+      "price": 8.63,
+      "market_cap": 181473190,
+      "change_24h": 5.86532,
+      "image": "https://coin-images.coingecko.com/coins/images/30162/large/ordi.png?1696529082"
+    },
+    {
+      "name": "OriginTrail",
+      "symbol": "TRAC",
+      "price": 0.363104,
+      "market_cap": 181408356,
+      "change_24h": 8.04007,
+      "image": "https://coin-images.coingecko.com/coins/images/1877/large/TRAC.jpg?1696502873"
+    },
+    {
+      "name": "OKT Chain",
+      "symbol": "OKT",
+      "price": 10.1,
+      "market_cap": 180284381,
+      "change_24h": null,
+      "image": "https://coin-images.coingecko.com/coins/images/13708/large/WeChat_Image_20220118095654.png?1696513453"
+    },
+    {
+      "name": "Notcoin",
+      "symbol": "NOT",
+      "price": 0.00180244,
+      "market_cap": 179517049,
+      "change_24h": 5.19054,
+      "image": "https://coin-images.coingecko.com/coins/images/33453/large/rFmThDiD_400x400.jpg?1701876350"
+    },
+    {
+      "name": "yearn.finance",
+      "symbol": "YFI",
+      "price": 5293.07,
+      "market_cap": 179143984,
+      "change_24h": 2.57956,
+      "image": "https://coin-images.coingecko.com/coins/images/11849/large/yearn.jpg?1696511720"
+    },
+    {
+      "name": "Oasis",
+      "symbol": "ROSE",
+      "price": 0.0240723,
+      "market_cap": 178364140,
+      "change_24h": 2.92602,
+      "image": "https://coin-images.coingecko.com/coins/images/13162/large/200x200_%28Rounded%29.png?1743579893"
+    },
+    {
+      "name": "MBG By Multibank Group",
+      "symbol": "$MBG",
+      "price": 1.51,
+      "market_cap": 178091461,
+      "change_24h": -12.01944,
+      "image": "https://coin-images.coingecko.com/coins/images/67462/large/X_icon.png?1752867089"
+    },
+    {
+      "name": "Useless Coin",
+      "symbol": "USELESS",
+      "price": 0.177411,
+      "market_cap": 177894888,
+      "change_24h": 5.2622,
+      "image": "https://coin-images.coingecko.com/coins/images/55684/large/coingeckoupdate.png?1755203747"
+    },
+    {
+      "name": "Celo",
+      "symbol": "CELO",
+      "price": 0.302157,
+      "market_cap": 175877402,
+      "change_24h": 1.57611,
+      "image": "https://coin-images.coingecko.com/coins/images/11090/large/InjXBNx9_400x400.jpg?1696511031"
+    },
+    {
+      "name": "Euler",
+      "symbol": "EUL",
+      "price": 9.3,
+      "market_cap": 173792614,
+      "change_24h": -1.21837,
+      "image": "https://coin-images.coingecko.com/coins/images/26149/large/Coingecko_logo_%281%29.png?1706026067"
+    },
+    {
+      "name": "RealLink",
+      "symbol": "REAL",
+      "price": 0.059994,
+      "market_cap": 173433299,
+      "change_24h": 6.58215,
+      "image": "https://coin-images.coingecko.com/coins/images/20665/large/TGBfBt6Y2Dm3RHdNpZAdqywBsvfdysf834.jpeg?1749135788"
+    },
+    {
+      "name": "VeThor",
+      "symbol": "VTHO",
+      "price": 0.0018512,
+      "market_cap": 173146229,
+      "change_24h": 3.5544,
+      "image": "https://coin-images.coingecko.com/coins/images/5230/large/VTHO_Circle_Crop__Reference_.png?1751980206"
+    },
+    {
+      "name": "DORA",
+      "symbol": "DORA",
+      "price": 0.172782,
+      "market_cap": 172781605,
+      "change_24h": -3.78383,
+      "image": "https://coin-images.coingecko.com/coins/images/67443/large/IMG_2582.jpeg?1752812755"
+    },
+    {
+      "name": "SKALE",
+      "symbol": "SKL",
+      "price": 0.02987712,
+      "market_cap": 172681727,
+      "change_24h": 1.0659,
+      "image": "https://coin-images.coingecko.com/coins/images/13245/large/SKALE_token_300x300.png?1696513021"
+    },
+    {
+      "name": "TROLL",
+      "symbol": "TROLL",
+      "price": 0.173332,
+      "market_cap": 172416827,
+      "change_24h": 31.177,
+      "image": "https://coin-images.coingecko.com/coins/images/55282/large/trolllogo.png?1745215015"
+    },
+    {
+      "name": "EthereumPoW",
+      "symbol": "ETHW",
+      "price": 1.59,
+      "market_cap": 172165829,
+      "change_24h": 1.9917,
+      "image": "https://coin-images.coingecko.com/coins/images/26997/large/logo-clear.png?1696526049"
+    },
+    {
+      "name": "Mitosis EOL BNB",
+      "symbol": "MIBNB",
+      "price": 845.75,
+      "market_cap": 171866698,
+      "change_24h": 0.71402,
+      "image": "https://coin-images.coingecko.com/coins/images/68424/large/miBNB.png?1755714549"
+    },
+    {
+      "name": "Metaplex",
+      "symbol": "MPLX",
+      "price": 0.204846,
+      "market_cap": 171849329,
+      "change_24h": 4.619,
+      "image": "https://coin-images.coingecko.com/coins/images/27344/large/mplx.png?1696526391"
+    },
+    {
+      "name": "CoW Protocol",
+      "symbol": "COW",
+      "price": 0.333385,
+      "market_cap": 169723496,
+      "change_24h": 3.32593,
+      "image": "https://coin-images.coingecko.com/coins/images/24384/large/CoW-token_logo.png?1719524382"
+    },
+    {
+      "name": "Siacoin",
+      "symbol": "SC",
+      "price": 0.00302187,
+      "market_cap": 169343589,
+      "change_24h": 2.27341,
+      "image": "https://coin-images.coingecko.com/coins/images/289/large/shard_transparent_200.png?1752867579"
+    },
+    {
+      "name": "Slash Vision Labs",
+      "symbol": "SVL",
+      "price": 0.03420119,
+      "market_cap": 168945156,
+      "change_24h": -6.26299,
+      "image": "https://coin-images.coingecko.com/coins/images/37444/large/svl.jpeg?1714443652"
+    },
+    {
+      "name": "Succinct",
+      "symbol": "PROVE",
+      "price": 0.859648,
+      "market_cap": 167746496,
+      "change_24h": 1.39061,
+      "image": "https://coin-images.coingecko.com/coins/images/67905/large/succinct-logo.png?1754228574"
+    },
+    {
+      "name": "Prom",
+      "symbol": "PROM",
+      "price": 9.17,
+      "market_cap": 167396036,
+      "change_24h": -1.35169,
+      "image": "https://coin-images.coingecko.com/coins/images/8825/large/Ticker.png?1696508978"
+    },
+    {
+      "name": "Crypto.com Staked ETH",
+      "symbol": "CDCETH",
+      "price": 4573.52,
+      "market_cap": 167206805,
+      "change_24h": 0.47459,
+      "image": "https://coin-images.coingecko.com/coins/images/33537/large/CDCETH-1.png?1702366745"
+    },
+    {
+      "name": "Metal Blockchain",
+      "symbol": "METAL",
+      "price": 0.327946,
+      "market_cap": 166486443,
+      "change_24h": 7.48794,
+      "image": "https://coin-images.coingecko.com/coins/images/27222/large/MB-Logo.png?1710514210"
+    },
+    {
+      "name": "MAG7.ssi",
+      "symbol": "MAG7.SSI",
+      "price": 0.968931,
+      "market_cap": 165786812,
+      "change_24h": 3.05539,
+      "image": "https://coin-images.coingecko.com/coins/images/52962/large/mag7.png?1734863745"
+    },
+    {
+      "name": "Holo",
+      "symbol": "HOT",
+      "price": 0.000933,
+      "market_cap": 165718233,
+      "change_24h": 2.42168,
+      "image": "https://coin-images.coingecko.com/coins/images/3348/large/hot-mark-med.png?1747766692"
+    },
+    {
+      "name": "Threshold Network",
+      "symbol": "T",
+      "price": 0.01609645,
+      "market_cap": 163189449,
+      "change_24h": 2.77605,
+      "image": "https://coin-images.coingecko.com/coins/images/22228/large/nFPNiSbL_400x400.jpg?1696521570"
+    },
+    {
+      "name": "Kinesis Gold",
+      "symbol": "KAU",
+      "price": 113.65,
+      "market_cap": 163127859,
+      "change_24h": 1.70874,
+      "image": "https://coin-images.coingecko.com/coins/images/29788/large/kau-currency-ticker.png?1696528718"
+    },
+    {
+      "name": "Non-Playable Coin",
+      "symbol": "NPC",
+      "price": 0.02028237,
+      "market_cap": 162996681,
+      "change_24h": 5.46164,
+      "image": "https://coin-images.coingecko.com/coins/images/31193/large/NPC_200x200.png?1696530021"
+    },
+    {
+      "name": "cETH",
+      "symbol": "CETH",
+      "price": 87.02,
+      "market_cap": 162361721,
+      "change_24h": 0.82133,
+      "image": "https://coin-images.coingecko.com/coins/images/10643/large/ceth.png?1696510617"
+    },
+    {
+      "name": "KOGE",
+      "symbol": "KOGE",
+      "price": 48.01,
+      "market_cap": 162227370,
+      "change_24h": -0.00589,
+      "image": "https://coin-images.coingecko.com/coins/images/13827/large/bnb48.png?1696513570"
+    },
+    {
+      "name": "Function \u0192BTC",
+      "symbol": "FBTC",
+      "price": 111264,
+      "market_cap": 160616857,
+      "change_24h": 1.28805,
+      "image": "https://coin-images.coingecko.com/coins/images/39182/large/fbtc.png?1740123952"
+    },
+    {
+      "name": "YieldFi yToken",
+      "symbol": "YUSD",
+      "price": 1.11,
+      "market_cap": 159367368,
+      "change_24h": 1.44761,
+      "image": "https://coin-images.coingecko.com/coins/images/53607/large/yUSD.png?1739862886"
+    },
+    {
+      "name": "Stargate Finance",
+      "symbol": "STG",
+      "price": 0.161927,
+      "market_cap": 157393387,
+      "change_24h": 3.51881,
+      "image": "https://coin-images.coingecko.com/coins/images/24413/large/STG_LOGO.png?1696523595"
+    },
+    {
+      "name": "Kinesis Silver",
+      "symbol": "KAG",
+      "price": 41.14,
+      "market_cap": 157189511,
+      "change_24h": 0.41254,
+      "image": "https://coin-images.coingecko.com/coins/images/29789/large/kag-currency-ticker.png?1696528719"
+    },
+    {
+      "name": "XPR Network",
+      "symbol": "XPR",
+      "price": 0.00558235,
+      "market_cap": 155629388,
+      "change_24h": 4.64864,
+      "image": "https://coin-images.coingecko.com/coins/images/10941/large/XPR.jpg?1696510891"
+    },
+    {
+      "name": "Polymesh",
+      "symbol": "POLYX",
+      "price": 0.129337,
+      "market_cap": 154714479,
+      "change_24h": 2.53175,
+      "image": "https://coin-images.coingecko.com/coins/images/23496/large/Polymesh-symbol.png?1696522706"
+    },
+    {
+      "name": "UXLINK",
+      "symbol": "UXLINK",
+      "price": 0.31834,
+      "market_cap": 152877105,
+      "change_24h": 1.7088,
+      "image": "https://coin-images.coingecko.com/coins/images/39229/large/uxlink.jpg?1721201390"
+    },
+    {
+      "name": "aelf",
+      "symbol": "ELF",
+      "price": 0.192382,
+      "market_cap": 152653152,
+      "change_24h": 1.26736,
+      "image": "https://coin-images.coingecko.com/coins/images/1371/large/aelf-logo.png?1696502429"
+    },
+    {
+      "name": "Merlin Chain",
+      "symbol": "MERL",
+      "price": 0.1609,
+      "market_cap": 152254484,
+      "change_24h": 34.26603,
+      "image": "https://coin-images.coingecko.com/coins/images/37118/large/merlin.jpeg?1713352230"
+    },
+    {
+      "name": "Harmony",
+      "symbol": "ONE",
+      "price": 0.01033857,
+      "market_cap": 152091763,
+      "change_24h": 4.08227,
+      "image": "https://coin-images.coingecko.com/coins/images/4344/large/Y88JAze.png?1696504947"
+    },
+    {
+      "name": "GMX",
+      "symbol": "GMX",
+      "price": 14.72,
+      "market_cap": 151464185,
+      "change_24h": 4.40153,
+      "image": "https://coin-images.coingecko.com/coins/images/18323/large/arbit.png?1696517814"
+    },
+    {
+      "name": "Kamino",
+      "symbol": "KMNO",
+      "price": 0.056061,
+      "market_cap": 151010010,
+      "change_24h": 5.74836,
+      "image": "https://coin-images.coingecko.com/coins/images/35801/large/tP0Lcgwp_400x400.jpg?1709824189"
+    },
+    {
+      "name": "Ankr Network",
+      "symbol": "ANKR",
+      "price": 0.01505729,
+      "market_cap": 150637631,
+      "change_24h": 2.62688,
+      "image": "https://coin-images.coingecko.com/coins/images/4324/large/Ankr_Blue_Symbol.png?1754623142"
+    },
+    {
+      "name": "Camp Network",
+      "symbol": "CAMP",
+      "price": 0.070929,
+      "market_cap": 149668535,
+      "change_24h": -1.03517,
+      "image": "https://coin-images.coingecko.com/coins/images/68465/large/camp.png?1755828258"
+    },
+    {
+      "name": "DigiByte",
+      "symbol": "DGB",
+      "price": 0.00837565,
+      "market_cap": 149267623,
+      "change_24h": 4.35473,
+      "image": "https://coin-images.coingecko.com/coins/images/63/large/digibyte.png?1696501454"
+    },
+    {
+      "name": "MYX Finance",
+      "symbol": "MYX",
+      "price": 1.18,
+      "market_cap": 148051245,
+      "change_24h": 15.47383,
+      "image": "https://coin-images.coingecko.com/coins/images/55506/large/myx.jpg?1746434335"
+    },
+    {
+      "name": "HashKey Platform Token",
+      "symbol": "HSK",
+      "price": 0.474911,
+      "market_cap": 147813916,
+      "change_24h": -1.18853,
+      "image": "https://coin-images.coingecko.com/coins/images/29779/large/HSKlogo.jpg?1719445510"
+    },
+    {
+      "name": "Sushi",
+      "symbol": "SUSHI",
+      "price": 0.763245,
+      "market_cap": 147254051,
+      "change_24h": 6.29717,
+      "image": "https://coin-images.coingecko.com/coins/images/12271/large/512x512_Logo_no_chop.png?1696512101"
+    },
+    {
+      "name": "STASIS EURO",
+      "symbol": "EURS",
+      "price": 1.17,
+      "market_cap": 144774850,
+      "change_24h": 0.04349,
+      "image": "https://coin-images.coingecko.com/coins/images/5164/large/EURS_300x300.png?1696505680"
+    },
+    {
+      "name": "Melania Meme",
+      "symbol": "MELANIA",
+      "price": 0.194852,
+      "market_cap": 144190739,
+      "change_24h": 3.35584,
+      "image": "https://coin-images.coingecko.com/coins/images/53775/large/melania-meme.png?1737329885"
+    },
+    {
+      "name": "Rocket Pool",
+      "symbol": "RPL",
+      "price": 6.64,
+      "market_cap": 144106715,
+      "change_24h": 1.23788,
+      "image": "https://coin-images.coingecko.com/coins/images/2090/large/rocket_pool_%28RPL%29.png?1696503058"
+    },
+    {
+      "name": "LCX",
+      "symbol": "LCX",
+      "price": 0.151268,
+      "market_cap": 142341439,
+      "change_24h": -1.35536,
+      "image": "https://coin-images.coingecko.com/coins/images/9985/large/zRPSu_0o_400x400.jpg?1696510023"
+    },
+    {
+      "name": "Verus",
+      "symbol": "VRSC",
+      "price": 1.79,
+      "market_cap": 141707780,
+      "change_24h": 0.38261,
+      "image": "https://coin-images.coingecko.com/coins/images/6769/large/Screenshot_33.png?1696507103"
+    },
+    {
+      "name": "Neiro",
+      "symbol": "NEIRO",
+      "price": 0.00033617,
+      "market_cap": 141688792,
+      "change_24h": 5.5726,
+      "image": "https://coin-images.coingecko.com/coins/images/39488/large/neiro.jpg?1731449567"
+    },
+    {
+      "name": "MarsMi",
+      "symbol": "MARSMI",
+      "price": 0.139738,
+      "market_cap": 140213833,
+      "change_24h": 5.33179,
+      "image": "https://coin-images.coingecko.com/coins/images/67592/large/MarsMi_200x200.png?1753214052"
+    },
+    {
+      "name": "CoinEx",
+      "symbol": "CET",
+      "price": 0.053361,
+      "market_cap": 140030090,
+      "change_24h": 5.49548,
+      "image": "https://coin-images.coingecko.com/coins/images/4817/large/coinex-token.png?1696505367"
+    },
+    {
+      "name": "Memecoin",
+      "symbol": "MEME",
+      "price": 0.00254713,
+      "market_cap": 139851483,
+      "change_24h": 1.68921,
+      "image": "https://coin-images.coingecko.com/coins/images/32528/large/memecoin_%282%29.png?1698912168"
+    },
+    {
+      "name": "Chia",
+      "symbol": "XCH",
+      "price": 9.5,
+      "market_cap": 138993468,
+      "change_24h": 1.1628,
+      "image": "https://coin-images.coingecko.com/coins/images/15174/large/zV5K5y9f_400x400.png?1696514829"
+    },
+    {
+      "name": "ICON",
+      "symbol": "ICX",
+      "price": 0.128282,
+      "market_cap": 137811979,
+      "change_24h": 3.93275,
+      "image": "https://coin-images.coingecko.com/coins/images/1060/large/ICON-symbol-coingecko_latest.png?1706638336"
+    },
+    {
+      "name": "KUB Coin",
+      "symbol": "KUB",
+      "price": 1.53,
+      "market_cap": 137116348,
+      "change_24h": -1.18958,
+      "image": "https://coin-images.coingecko.com/coins/images/15760/large/KUB_Coin_2025.png?1741751451"
+    },
+    {
+      "name": "Staked HYPE",
+      "symbol": "STHYPE",
+      "price": 44.66,
+      "market_cap": 136769818,
+      "change_24h": 4.60217,
+      "image": "https://coin-images.coingecko.com/coins/images/54509/large/hyperliquid.jpg?1740065301"
+    },
+    {
+      "name": "Osaka Protocol",
+      "symbol": "OSAK",
+      "price": 1.78394e-07,
+      "market_cap": 136610314,
+      "change_24h": 7.52933,
+      "image": "https://coin-images.coingecko.com/coins/images/30911/large/OSAK_LOGO_200x200.png?1723662197"
+    },
+    {
+      "name": "Undeads Games",
+      "symbol": "UDS",
+      "price": 1.33,
+      "market_cap": 136329179,
+      "change_24h": -0.2462,
+      "image": "https://coin-images.coingecko.com/coins/images/36308/large/01_avatar.jpg?1711090303"
+    },
+    {
+      "name": "AltLayer",
+      "symbol": "ALT",
+      "price": 0.03215264,
+      "market_cap": 136310369,
+      "change_24h": 5.62017,
+      "image": "https://coin-images.coingecko.com/coins/images/34608/large/Logomark_200x200.png?1715107868"
+    },
+    {
+      "name": "XYO Network",
+      "symbol": "XYO",
+      "price": 0.00973214,
+      "market_cap": 135752313,
+      "change_24h": 0.9388,
+      "image": "https://coin-images.coingecko.com/coins/images/4519/large/XYO_Network-logo.png?1696505103"
+    },
+    {
+      "name": "Wrapped Centrifuge",
+      "symbol": "WCFG",
+      "price": 0.362866,
+      "market_cap": 135577777,
+      "change_24h": 8.97078,
+      "image": "https://coin-images.coingecko.com/coins/images/17106/large/WCFG.jpg?1696516667"
+    },
+    {
+      "name": "Elixir deUSD",
+      "symbol": "DEUSD",
+      "price": 0.998628,
+      "market_cap": 135419757,
+      "change_24h": -0.13099,
+      "image": "https://coin-images.coingecko.com/coins/images/39494/large/deUSD_Logo_%281%29.png?1723689002"
+    },
+    {
+      "name": "Orca",
+      "symbol": "ORCA",
+      "price": 2.25,
+      "market_cap": 134875832,
+      "change_24h": 4.68064,
+      "image": "https://coin-images.coingecko.com/coins/images/17547/large/Orca_Logo.png?1696517083"
+    },
+    {
+      "name": "ARK",
+      "symbol": "ARK",
+      "price": 38.83,
+      "market_cap": 134759226,
+      "change_24h": 1.31831,
+      "image": "https://coin-images.coingecko.com/coins/images/68794/large/200x200.png?1756618572"
+    },
+    {
+      "name": "Loopring",
+      "symbol": "LRC",
+      "price": 0.107667,
+      "market_cap": 134153476,
+      "change_24h": 7.39618,
+      "image": "https://coin-images.coingecko.com/coins/images/913/large/LRC.png?1696502034"
+    },
+    {
+      "name": "Spiko US T-Bills Money Market Fund",
+      "symbol": "USTBL",
+      "price": 1.057,
+      "market_cap": 133679475,
+      "change_24h": 0.01126,
+      "image": "https://coin-images.coingecko.com/coins/images/39666/large/USTB.png?1723541269"
+    },
+    {
+      "name": "BOOK OF MEME",
+      "symbol": "BOME",
+      "price": 0.00193585,
+      "market_cap": 133597489,
+      "change_24h": 7.90673,
+      "image": "https://coin-images.coingecko.com/coins/images/36071/large/bome.png?1710407255"
+    },
+    {
+      "name": "Yala Stablecoin",
+      "symbol": "YU",
+      "price": 0.99944,
+      "market_cap": 132702327,
+      "change_24h": -0.02278,
+      "image": "https://coin-images.coingecko.com/coins/images/56070/large/YU.png?1748275951"
+    },
+    {
+      "name": "Rollbit Coin",
+      "symbol": "RLB",
+      "price": 0.068086,
+      "market_cap": 132632593,
+      "change_24h": 2.17263,
+      "image": "https://coin-images.coingecko.com/coins/images/24552/large/unziL6wO_400x400.jpg?1696523729"
+    },
+    {
+      "name": "ZIGChain",
+      "symbol": "ZIG",
+      "price": 0.093718,
+      "market_cap": 132042992,
+      "change_24h": 0.77569,
+      "image": "https://coin-images.coingecko.com/coins/images/14796/large/zig.jpg?1731990265"
+    },
+    {
+      "name": "Moo Deng",
+      "symbol": "MOODENG",
+      "price": 0.132868,
+      "market_cap": 131771562,
+      "change_24h": 6.15682,
+      "image": "https://coin-images.coingecko.com/coins/images/50264/large/MOODENG.jpg?1726726975"
+    },
+    {
+      "name": "Conscious Token",
+      "symbol": "CONSCIOUS",
+      "price": 0.280465,
+      "market_cap": 131705056,
+      "change_24h": 0.46279,
+      "image": "https://coin-images.coingecko.com/coins/images/55111/large/conscious_token_logo.png?1743754945"
+    },
+    {
+      "name": "World Mobile Token",
+      "symbol": "WMTX",
+      "price": 0.172269,
+      "market_cap": 131671085,
+      "change_24h": -2.64807,
+      "image": "https://coin-images.coingecko.com/coins/images/17333/large/Token_icon_round_1024.png?1741247846"
+    },
+    {
+      "name": "Api3",
+      "symbol": "API3",
+      "price": 1.021,
+      "market_cap": 130946811,
+      "change_24h": 1.22274,
+      "image": "https://coin-images.coingecko.com/coins/images/13256/large/Api3-Token.png?1742439807"
+    },
+    {
+      "name": "Gems VIP",
+      "symbol": "GEMS",
+      "price": 0.213021,
+      "market_cap": 130418003,
+      "change_24h": 13.00171,
+      "image": "https://coin-images.coingecko.com/coins/images/38725/large/200x200.png?1718478016"
+    },
+    {
+      "name": "Casper Network",
+      "symbol": "CSPR",
+      "price": 0.00972215,
+      "market_cap": 130132752,
+      "change_24h": 1.41213,
+      "image": "https://coin-images.coingecko.com/coins/images/15279/large/Casper_Monogram_Favicon_White_on_Red_Circle_RGB_200px.png?1749832573"
+    },
+    {
+      "name": "DOLA",
+      "symbol": "DOLA",
+      "price": 0.993312,
+      "market_cap": 129773962,
+      "change_24h": -0.14131,
+      "image": "https://coin-images.coingecko.com/coins/images/14287/large/dola.png?1696513984"
+    },
+    {
+      "name": "UCHAIN",
+      "symbol": "UCN",
+      "price": 1295.77,
+      "market_cap": 129587295,
+      "change_24h": 1.90334,
+      "image": "https://coin-images.coingecko.com/coins/images/68692/large/UCHAIN.png?1756280939"
+    },
+    {
+      "name": "Renzo Restaked LST",
+      "symbol": "PZETH",
+      "price": 5139.7,
+      "market_cap": 129508112,
+      "change_24h": -0.46449,
+      "image": "https://coin-images.coingecko.com/coins/images/39124/large/200x200.png?1720629607"
+    },
+    {
+      "name": "Moonwell Flagship ETH (Morpho Vault)",
+      "symbol": "MWETH",
+      "price": 4303.09,
+      "market_cap": 129264853,
+      "change_24h": 0.6606,
+      "image": "https://coin-images.coingecko.com/coins/images/52387/large/ethereum-eth-logo.png?1733265577"
+    },
+    {
+      "name": "Illuvium",
+      "symbol": "ILV",
+      "price": 13.6,
+      "market_cap": 129005436,
+      "change_24h": 3.09817,
+      "image": "https://coin-images.coingecko.com/coins/images/14468/large/logo-200x200.png?1696514154"
+    },
+    {
+      "name": "WOO",
+      "symbol": "WOO",
+      "price": 0.067469,
+      "market_cap": 128742003,
+      "change_24h": 3.51845,
+      "image": "https://coin-images.coingecko.com/coins/images/12921/large/WOO_Logos_2023_Profile_Pic_WOO.png?1696512709"
+    },
+    {
+      "name": "Sologenic",
+      "symbol": "SOLO",
+      "price": 0.321344,
+      "market_cap": 128341653,
+      "change_24h": 3.49997,
+      "image": "https://coin-images.coingecko.com/coins/images/10771/large/solo.png?1696510734"
+    },
+    {
+      "name": "GMT",
+      "symbol": "GMT",
+      "price": 0.04141874,
+      "market_cap": 127861848,
+      "change_24h": 2.74344,
+      "image": "https://coin-images.coingecko.com/coins/images/23597/large/token-gmt-200x200.png?1703153841"
+    },
+    {
+      "name": "Ontology",
+      "symbol": "ONT",
+      "price": 0.139393,
+      "market_cap": 127503916,
+      "change_24h": 0.51846,
+      "image": "https://coin-images.coingecko.com/coins/images/3447/large/ONT.png?1696504138"
+    },
+    {
+      "name": "Band",
+      "symbol": "BAND",
+      "price": 0.776481,
+      "market_cap": 127403527,
+      "change_24h": 3.72076,
+      "image": "https://coin-images.coingecko.com/coins/images/9545/large/Band_Token.png?1754368504"
+    },
+    {
+      "name": "Enjin Coin",
+      "symbol": "ENJ",
+      "price": 0.067643,
+      "market_cap": 126954839,
+      "change_24h": 4.19441,
+      "image": "https://coin-images.coingecko.com/coins/images/1102/large/Symbol_Only_-_Purple.png?1709725966"
+    },
+    {
+      "name": "Phantom Staked SOL",
+      "symbol": "PSOL",
+      "price": 214.93,
+      "market_cap": 126044177,
+      "change_24h": 6.81298,
+      "image": "https://coin-images.coingecko.com/coins/images/55849/large/PSOL.png?1747410026"
+    },
+    {
+      "name": "f(x) Protocol fxUSD",
+      "symbol": "FXUSD",
+      "price": 0.99956,
+      "market_cap": 125747858,
+      "change_24h": -0.02275,
+      "image": "https://coin-images.coingecko.com/coins/images/36202/large/fxUSD.jpg?1710833113"
+    },
+    {
+      "name": "Chintai",
+      "symbol": "CHEX",
+      "price": 0.12544,
+      "market_cap": 124902794,
+      "change_24h": 32.50043,
+      "image": "https://coin-images.coingecko.com/coins/images/10349/large/logo-white-bg-dark.png?1733475849"
+    },
+    {
+      "name": "Mask Network",
+      "symbol": "MASK",
+      "price": 1.24,
+      "market_cap": 124289544,
+      "change_24h": 4.3389,
+      "image": "https://coin-images.coingecko.com/coins/images/14051/large/Mask_Network.jpg?1696513776"
+    },
+    {
+      "name": "Omni Network",
+      "symbol": "OMNI",
+      "price": 3.14,
+      "market_cap": 124203644,
+      "change_24h": 3.74159,
+      "image": "https://coin-images.coingecko.com/coins/images/36465/large/Symbol-Color.png?1711511095"
+    },
+    {
+      "name": "Unit Pump",
+      "symbol": "UPUMP",
+      "price": 0.00388712,
+      "market_cap": 124006337,
+      "change_24h": 16.73777,
+      "image": "https://coin-images.coingecko.com/coins/images/67362/large/pump.jpg?1752548000"
+    },
+    {
+      "name": "Clearpool",
+      "symbol": "CPOOL",
+      "price": 0.153126,
+      "market_cap": 123119106,
+      "change_24h": 7.29266,
+      "image": "https://coin-images.coingecko.com/coins/images/19252/large/photo_2022-08-31_12.45.02.jpeg?1696518697"
+    },
+    {
+      "name": "Horizen",
+      "symbol": "ZEN",
+      "price": 7.09,
+      "market_cap": 123013986,
+      "change_24h": 3.00104,
+      "image": "https://coin-images.coingecko.com/coins/images/691/large/Horizen2.0-logo_icon-on-yellow_%281%29.png?1751696763"
+    },
+    {
+      "name": "Liquid HYPE Yield",
+      "symbol": "LIQUIDHYPE",
+      "price": 44.5,
+      "market_cap": 123005882,
+      "change_24h": 4.37028,
+      "image": "https://coin-images.coingecko.com/coins/images/68444/large/liquidhype.png?1755770963"
+    },
+    {
+      "name": "UMA",
+      "symbol": "UMA",
+      "price": 1.37,
+      "market_cap": 122891819,
+      "change_24h": 2.59905,
+      "image": "https://coin-images.coingecko.com/coins/images/10951/large/UMA.png?1696510900"
+    },
+    {
+      "name": "Osmosis",
+      "symbol": "OSMO",
+      "price": 0.164989,
+      "market_cap": 122542146,
+      "change_24h": 3.56205,
+      "image": "https://coin-images.coingecko.com/coins/images/16724/large/osmo.png?1696516298"
+    },
+    {
+      "name": "ALEO",
+      "symbol": "ALEO",
+      "price": 0.258139,
+      "market_cap": 121145176,
+      "change_24h": -1.09736,
+      "image": "https://coin-images.coingecko.com/coins/images/27916/large/secondary-icon-dark.png?1726770428"
+    },
+    {
+      "name": "aura",
+      "symbol": "AURA",
+      "price": 0.125177,
+      "market_cap": 120713131,
+      "change_24h": 8.85274,
+      "image": "https://coin-images.coingecko.com/coins/images/38376/large/aura_logo_200x200-01-01.png?1751114135"
+    },
+    {
+      "name": "Anzen USDz",
+      "symbol": "USDZ",
+      "price": 0.98837,
+      "market_cap": 120124899,
+      "change_24h": 0.01117,
+      "image": "https://coin-images.coingecko.com/coins/images/38039/large/usdz-image-200x200.png?1716334412"
+    },
+    {
+      "name": "Vana",
+      "symbol": "VANA",
+      "price": 3.88,
+      "market_cap": 119336241,
+      "change_24h": 1.67448,
+      "image": "https://coin-images.coingecko.com/coins/images/51404/large/logo.png?1731086679"
+    },
+    {
+      "name": "crvUSD",
+      "symbol": "CRVUSD",
+      "price": 0.998844,
+      "market_cap": 118459760,
+      "change_24h": -0.11058,
+      "image": "https://coin-images.coingecko.com/coins/images/30118/large/crvusd.jpg?1746670973"
+    },
+    {
+      "name": "PYTHIA",
+      "symbol": "PYTHIA",
+      "price": 0.118881,
+      "market_cap": 118445742,
+      "change_24h": 5.89835,
+      "image": "https://coin-images.coingecko.com/coins/images/53301/large/PYTHIA-Coingecko.png?1736062694"
+    },
+    {
+      "name": "Nano",
+      "symbol": "XNO",
+      "price": 0.885145,
+      "market_cap": 117943798,
+      "change_24h": 2.32042,
+      "image": "https://coin-images.coingecko.com/coins/images/756/large/nano.png?1696501910"
+    },
+    {
+      "name": "COTI",
+      "symbol": "COTI",
+      "price": 0.050502,
+      "market_cap": 117730208,
+      "change_24h": 3.87037,
+      "image": "https://coin-images.coingecko.com/coins/images/2962/large/Coti.png?1696503705"
+    },
+    {
+      "name": "Babylon",
+      "symbol": "BABY",
+      "price": 0.04498663,
+      "market_cap": 117316470,
+      "change_24h": 5.31435,
+      "image": "https://coin-images.coingecko.com/coins/images/55092/large/Baby-Symbol-Mint_%281%29.png?1744788866"
+    },
+    {
+      "name": "Minidoge",
+      "symbol": "MINIDOGE",
+      "price": 1.67584e-07,
+      "market_cap": 117269685,
+      "change_24h": -4.89338,
+      "image": "https://coin-images.coingecko.com/coins/images/67199/large/photo_2024-12-30_14-50-04.jpg?1752056446"
+    },
+    {
+      "name": "Verasity",
+      "symbol": "VRA",
+      "price": 0.00136823,
+      "market_cap": 116922593,
+      "change_24h": 5.25707,
+      "image": "https://coin-images.coingecko.com/coins/images/14025/large/logo_%281%29.png?1716968890"
+    },
+    {
+      "name": "RedStone",
+      "symbol": "RED",
+      "price": 0.414665,
+      "market_cap": 116111868,
+      "change_24h": 0.88664,
+      "image": "https://coin-images.coingecko.com/coins/images/53640/large/RedStone_Logo_New_White.png?1740640919"
+    },
+    {
+      "name": "Degen",
+      "symbol": "DEGEN",
+      "price": 0.00313213,
+      "market_cap": 116042611,
+      "change_24h": 3.15882,
+      "image": "https://coin-images.coingecko.com/coins/images/34515/large/android-chrome-512x512.png?1706198225"
+    },
+    {
+      "name": "Stronghold",
+      "symbol": "SHX",
+      "price": 0.02154183,
+      "market_cap": 115786283,
+      "change_24h": 2.84903,
+      "image": "https://coin-images.coingecko.com/coins/images/7427/large/Blue_Mark_-_White_BG.png?1696507700"
+    },
+    {
+      "name": "Kadena",
+      "symbol": "KDA",
+      "price": 0.349746,
+      "market_cap": 115699915,
+      "change_24h": 4.11877,
+      "image": "https://coin-images.coingecko.com/coins/images/3693/large/Social_-_Profile_Picture.png?1723001308"
+    },
+    {
+      "name": "Ozone Chain",
+      "symbol": "OZO",
+      "price": 0.13373,
+      "market_cap": 115677463,
+      "change_24h": 0.53356,
+      "image": "https://coin-images.coingecko.com/coins/images/31385/large/ozonechain-momogram-200x200.png?1696530201"
+    },
+    {
+      "name": "AI Companions",
+      "symbol": "AIC",
+      "price": 0.114552,
+      "market_cap": 114500417,
+      "change_24h": -2.21361,
+      "image": "https://coin-images.coingecko.com/coins/images/40130/large/AI_Companions.png?1725942702"
+    },
+    {
+      "name": "The Grays Currency",
+      "symbol": "PTGC",
+      "price": 0.00039216,
+      "market_cap": 114392775,
+      "change_24h": -2.61181,
+      "image": "https://coin-images.coingecko.com/coins/images/32933/large/IMG_8413.jpeg?1738402400"
+    },
+    {
+      "name": "Torch of Liberty",
+      "symbol": "LIBERTY",
+      "price": 0.114562,
+      "market_cap": 114283896,
+      "change_24h": -2.05614,
+      "image": "https://coin-images.coingecko.com/coins/images/67783/large/tol.jpg?1753824803"
+    },
+    {
+      "name": "Acet",
+      "symbol": "ACT",
+      "price": 0.066561,
+      "market_cap": 113811389,
+      "change_24h": 1.53268,
+      "image": "https://coin-images.coingecko.com/coins/images/18205/large/ACET-LOGO.png?1696517703"
+    },
+    {
+      "name": "Lorenzo stBTC",
+      "symbol": "STBTC",
+      "price": 110702,
+      "market_cap": 113621655,
+      "change_24h": 2.24515,
+      "image": "https://coin-images.coingecko.com/coins/images/50978/large/a.jpg?1730208372"
+    },
+    {
+      "name": "Solar",
+      "symbol": "SXP",
+      "price": 0.171844,
+      "market_cap": 112330791,
+      "change_24h": 3.12388,
+      "image": "https://coin-images.coingecko.com/coins/images/9368/large/Solar_Blockchain_Foundation_Sun_CG.png?1742975137"
+    },
+    {
+      "name": "Apollo Diversified Credit Securitize Fund",
+      "symbol": "ACRED",
+      "price": 1055.09,
+      "market_cap": 111142627,
+      "change_24h": 0.09706,
+      "image": "https://coin-images.coingecko.com/coins/images/54809/large/ACRED.png?1741801356"
+    },
+    {
+      "name": "Zenrock BTC",
+      "symbol": "ZENBTC",
+      "price": 110814,
+      "market_cap": 111128556,
+      "change_24h": 1.67153,
+      "image": "https://coin-images.coingecko.com/coins/images/55147/large/zen_brandmark_%28blue%29_%281%29.png?1745550508"
+    },
+    {
+      "name": "sBTC",
+      "symbol": "SBTC",
+      "price": 110795,
+      "market_cap": 110795108,
+      "change_24h": 1.10241,
+      "image": "https://coin-images.coingecko.com/coins/images/54285/large/sbtc-logo-orange-bg-white-circle-1000px_2.png?1739000556"
+    },
+    {
+      "name": "Waves",
+      "symbol": "WAVES",
+      "price": 1.11,
+      "market_cap": 110599388,
+      "change_24h": 1.47987,
+      "image": "https://coin-images.coingecko.com/coins/images/425/large/waves.png?1696501700"
+    },
+    {
+      "name": "USDai",
+      "symbol": "USDAI",
+      "price": 1.0,
+      "market_cap": 110221072,
+      "change_24h": 0.31688,
+      "image": "https://coin-images.coingecko.com/coins/images/55857/large/USDai_Token_Full_Glyph.png?1755229050"
+    },
+    {
+      "name": "GOHOME",
+      "symbol": "GOHOME",
+      "price": 209.74,
+      "market_cap": 110127053,
+      "change_24h": 2.56622,
+      "image": "https://coin-images.coingecko.com/coins/images/54909/large/20250314_132950.png?1742455637"
+    },
+    {
+      "name": "io.net",
+      "symbol": "IO",
+      "price": 0.545811,
+      "market_cap": 110126745,
+      "change_24h": 1.57996,
+      "image": "https://coin-images.coingecko.com/coins/images/37754/large/io_blackbg.png?1715446363"
+    },
+    {
+      "name": "Hyperbeat USDT",
+      "symbol": "HBUSDT",
+      "price": 1.025,
+      "market_cap": 110114664,
+      "change_24h": -0.23823,
+      "image": "https://coin-images.coingecko.com/coins/images/67161/large/hyperbeat_usdt.jpg?1751940634"
+    },
+    {
+      "name": "Blast",
+      "symbol": "BLAST",
+      "price": 0.00243319,
+      "market_cap": 109813322,
+      "change_24h": 2.1251,
+      "image": "https://coin-images.coingecko.com/coins/images/35494/large/Blast.jpg?1719385662"
+    },
+    {
+      "name": "Numeraire",
+      "symbol": "NMR",
+      "price": 13.69,
+      "market_cap": 109622470,
+      "change_24h": 1.35368,
+      "image": "https://coin-images.coingecko.com/coins/images/752/large/numeraire.png?1696501906"
+    },
+    {
+      "name": "Swop",
+      "symbol": "SWOP",
+      "price": 0.01095445,
+      "market_cap": 109544213,
+      "change_24h": 0.00043,
+      "image": "https://coin-images.coingecko.com/coins/images/66773/large/Group_1000007182_copy.png?1750487480"
+    },
+    {
+      "name": "Reservoir srUSD",
+      "symbol": "SRUSD",
+      "price": 1.088,
+      "market_cap": 109332133,
+      "change_24h": -0.11133,
+      "image": "https://coin-images.coingecko.com/coins/images/54118/large/srUSD.png?1738313910"
+    },
+    {
+      "name": "Magic Eden",
+      "symbol": "ME",
+      "price": 0.673038,
+      "market_cap": 109115674,
+      "change_24h": 2.75942,
+      "image": "https://coin-images.coingecko.com/coins/images/39850/large/_ME_Profile_Dark_2x.png?1734013082"
+    },
+    {
+      "name": "Amnis Aptos",
+      "symbol": "AMAPT",
+      "price": 4.32,
+      "market_cap": 108836421,
+      "change_24h": 3.81183,
+      "image": "https://coin-images.coingecko.com/coins/images/32567/large/amAPT.png?1730240666"
+    },
+    {
+      "name": "Wrapped Aave Ethereum USDC",
+      "symbol": "WAETHUSDC",
+      "price": 1.14,
+      "market_cap": 107970462,
+      "change_24h": 0.0616,
+      "image": "https://coin-images.coingecko.com/coins/images/68142/large/waEthusdc_64.png?1754915991"
+    },
+    {
+      "name": "Diverge Loop",
+      "symbol": "DLC",
+      "price": 0.121098,
+      "market_cap": 107728954,
+      "change_24h": 3.4022,
+      "image": "https://coin-images.coingecko.com/coins/images/27323/large/dlr.png?1745232682"
+    },
+    {
+      "name": "Solayer",
+      "symbol": "LAYER",
+      "price": 0.512633,
+      "market_cap": 107674293,
+      "change_24h": 2.06673,
+      "image": "https://coin-images.coingecko.com/coins/images/53498/large/Layer_Green.png?1744950002"
+    },
+    {
+      "name": "TDCCP",
+      "symbol": "TDCCP",
+      "price": 0.168872,
+      "market_cap": 106931255,
+      "change_24h": 60.09423,
+      "image": "https://coin-images.coingecko.com/coins/images/55581/large/tdccp-logo.jpg?1746787823"
+    },
+    {
+      "name": "ViciCoin",
+      "symbol": "VCNT",
+      "price": 18.64,
+      "market_cap": 106089784,
+      "change_24h": -0.13026,
+      "image": "https://coin-images.coingecko.com/coins/images/31305/large/ViciCoin_-_small.png?1696530124"
+    },
+    {
+      "name": "Gigachad",
+      "symbol": "GIGA",
+      "price": 0.0109552,
+      "market_cap": 105272072,
+      "change_24h": 6.89046,
+      "image": "https://coin-images.coingecko.com/coins/images/34755/large/IMG_0015.png?1705957165"
+    },
+    {
+      "name": "Caldera",
+      "symbol": "ERA",
+      "price": 0.705948,
+      "market_cap": 105113216,
+      "change_24h": 4.39794,
+      "image": "https://coin-images.coingecko.com/coins/images/54475/large/Token_Logo.png?1749676251"
+    },
+    {
+      "name": "Entangle",
+      "symbol": "NTGL",
+      "price": 0.00017148,
+      "market_cap": 103745321,
+      "change_24h": null,
+      "image": "https://coin-images.coingecko.com/coins/images/34522/large/Logo_-_Icon_Square.png?1733260911"
+    },
+    {
+      "name": "Shuffle",
+      "symbol": "SHFL",
+      "price": 0.317004,
+      "market_cap": 103274131,
+      "change_24h": 2.28823,
+      "image": "https://coin-images.coingecko.com/coins/images/35148/large/shuffle_token_200x200.png?1707552712"
+    },
+    {
+      "name": "Purr",
+      "symbol": "PURR",
+      "price": 0.172243,
+      "market_cap": 102715484,
+      "change_24h": 4.57076,
+      "image": "https://coin-images.coingecko.com/coins/images/37125/large/PURR_CG.png?1713368828"
+    },
+    {
+      "name": "InfiniFi USD",
+      "symbol": "IUSD",
+      "price": 0.999517,
+      "market_cap": 102712496,
+      "change_24h": -0.03882,
+      "image": "https://coin-images.coingecko.com/coins/images/67385/large/iusd.jpg?1752628477"
+    },
+    {
+      "name": "Metis",
+      "symbol": "METIS",
+      "price": 15.61,
+      "market_cap": 102382825,
+      "change_24h": 4.34197,
+      "image": "https://coin-images.coingecko.com/coins/images/15595/large/Metis_Black_Bg.png?1702968192"
+    },
+    {
+      "name": "BitMart",
+      "symbol": "BMX",
+      "price": 0.301219,
+      "market_cap": 102243783,
+      "change_24h": -1.77088,
+      "image": "https://coin-images.coingecko.com/coins/images/5236/large/bitmart-token.png?1696505741"
+    }
+  ]
+}
