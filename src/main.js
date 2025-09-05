@@ -6,8 +6,16 @@ import {
   getCompletePortfolioData,
 } from "../src/APIs/fecth_vps_data";
 
+import { _24hr_percent_change, _24hr_pnl } from "../src/APIs/fecth_vps_data";
+
+console.log(typeof _24hr_percent_change, typeof _24hr_pnl);
+
 //Globall Variables
 let portfolioData = {}; // Store fetched data\
+const change_24hr_pnl = `${_24hr_pnl > 0 ? "+" : ""} ${_24hr_pnl}`;
+const change_24h_percent = `${
+  _24hr_percent_change > 0 ? "+" : ""
+} ${_24hr_percent_change}%`;
 
 //fetch json data from public folder
 const res = await fetch("/top_500_assets.json");
@@ -86,15 +94,22 @@ function updateDOM(hasError = false) {
     ).toFixed(2)}`;
   }
 
-  // PNL - We don't have PNL in merged data, so show placeholder or calculate if needed
+  // PNL
   if (pnlValueEl) {
-    pnlValueEl.innerHTML = "N/A"; // Or calculate based on your needs
+    pnlValueEl.textContent = change_24hr_pnl || "N/A";
+    pnlValueEl.style.color =
+      _24hr_pnl > 0 ? "#0bda35" : _24hr_pnl < 0 ? "#da0b35" : "#d1d5db";
   }
 
-  // 24hr change - We don't have overall 24hr change, so show placeholder
+  // 24hr change
   if (dailychangeEl) {
-    dailychangeEl.innerHTML = "N/A"; // Or calculate average change
-    dailychangeEl.style.color = "#666";
+    dailychangeEl.innerHTML = change_24h_percent || 0;
+    dailychangeEl.style.color =
+      _24hr_percent_change > 0
+        ? "#0bda35"
+        : _24hr_percent_change < 0
+        ? "#da0b35"
+        : "#d1d5db";
   }
 
   // Asset table with merged data

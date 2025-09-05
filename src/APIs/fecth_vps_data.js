@@ -57,6 +57,62 @@ async function fetchExchangeData(exchange, index, total) {
   return { [exchange.key]: { ...data.assets } };
 }
 
+//fecth hourly data
+
+// This cleans out the data and give only the last 2 days data before futher processing in MainHourData
+const RawHourlyData = await fetch_From_VPS("calcs-data");
+console.log(RawHourlyData);
+const hourlyData = RawHourlyData.days;
+const lastTwoDaySnapshot = Object.keys(hourlyData)
+  .slice(-2)
+  .map((days) => ({ [days]: hourlyData[days] }));
+console.log(lastTwoDaySnapshot);
+
+// This varaible contains the last24 hours data (if you dont understand this code in future:: just put a console.log before the chain cantantion and staor the next chain in a variable then repeat the process for the rest chaining methods)
+const MainHourData = lastTwoDaySnapshot
+  .flatMap((dayObj) => {
+    const key = Object.keys(dayObj)[0]; // get the day key
+    return dayObj[key]; // return the nested array
+  })
+  .map((item) => ({
+    time: item.time,
+    total: item.total_portfolio_usd,
+  }))
+  .slice(-24);
+
+console.log("24Hour data ", MainHourData);
+
+// this varibale contains the 24hr totals
+let Twenty_four_totals = MainHourData.map((cur) => cur.total);
+console.log(Twenty_four_totals);
+
+// function to calc the 24hr chnage and 24hr pnl
+function calc_24hr_percent(arr) {
+  const latestTotal = arr[arr.length - 1];
+  const Total_24hr_ago = arr[0];
+  console.log(latestTotal, Total_24hr_ago);
+
+  const _24hr_percent_change =
+    ((latestTotal - Total_24hr_ago) / Total_24hr_ago) * 100;
+
+  return Math.floor(_24hr_percent_change * 100) / 100;
+}
+
+function calc_24hr_pnl(arr) {
+  const latestTotal = arr[arr.length - 1];
+  const Total_24hr_ago = arr[0];
+  const _24hr_pnl = latestTotal - Total_24hr_ago;
+
+  // this is to give the first 2 decimals if i use fixed(2)it wil oundup the number and this can lead to inaccureate figures
+  return Math.floor(_24hr_pnl * 100) / 100;
+}
+
+export const _24hr_percent_change = calc_24hr_percent(Twenty_four_totals);
+export const _24hr_pnl = calc_24hr_pnl(Twenty_four_totals);
+
+console.log(calc_24hr_percent(Twenty_four_totals));
+console.log(calc_24hr_pnl(Twenty_four_totals));
+
 // Fetch all exchanges sequentially with progress
 async function fetchAllExchanges() {
   const assetData = {};
@@ -240,13 +296,13 @@ export async function getCompletePortfolioData() {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     const mergedAssets = mergeAndCalculateAssets(assetData);
-    console.log("Merged assets with calculated totals:", mergedAssets);
+    // console.log("Merged assets with calculated totals:", mergedAssets);
 
     const summary = generatePortfolioSummary(mergedAssets);
-    console.log("Portfolio Summary:", summary);
+    // console.log("Portfolio Summary:", summary);
 
     const multiExchangeAssets = findMultiExchangeAssets(mergedAssets);
-    console.log("Assets found on multiple exchanges:", multiExchangeAssets);
+    // console.log("Assets found on multiple exchanges:", multiExchangeAssets);
 
     // Create final data object
     const processedData = createProcessedDataObject(
@@ -258,7 +314,7 @@ export async function getCompletePortfolioData() {
 
     // Store globally
     finalPortfolioData = processedData;
-    console.log("🚀 Final Portfolio Data Ready:", processedData);
+    // console.log("🚀 Final Portfolio Data Ready:", processedData);
 
     return processedData;
   } catch (error) {

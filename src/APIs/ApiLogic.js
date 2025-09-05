@@ -88,6 +88,3 @@ export async function getAssetList() {
 export function getLastUpdated() {
   return Number(localStorage.getItem("asset_last_updated") || Date.now());
 }
-
-// inttrodce the moda for thr calc output
-// create the maequee

@@ -1,11 +1,11 @@
 "use strict";
 
 import "./main.css";
+import UniversalLoader from "./extras/universal_loader";
 import { getLastUpdated } from "./APIs/ApiLogic";
 
 ///////////////////////////////////////////////////////////////////////
 // code to dynamically implement the mobile nav logic
-
 const buttonEL = document.querySelector(".btn-mobile-nav");
 const headerEl = document.querySelector(".header-sm");
 const profileMobile = document.querySelector("#mobile-profile");
