@@ -1,23 +1,21 @@
 "use strict";
 import "./main.css";
-
 import {
   finalPortfolioData,
   getCompletePortfolioData,
+  _24hr_percent_change,
+  _24hr_pnl,
 } from "../src/APIs/fecth_vps_data";
 
-import { _24hr_percent_change, _24hr_pnl } from "../src/APIs/fecth_vps_data";
-
-console.log(typeof _24hr_percent_change, typeof _24hr_pnl);
-
-//Globall Variables
-let portfolioData = {}; // Store fetched data\
+// Global Variables
+let portfolioData = {}; // Store fetched data
+let isManualRefresh = true; // Flag to track manual vs silent refresh
 const change_24hr_pnl = `${_24hr_pnl > 0 ? "+" : ""} ${_24hr_pnl}`;
 const change_24h_percent = `${
   _24hr_percent_change > 0 ? "+" : ""
 } ${_24hr_percent_change}%`;
 
-//fetch json data from public folder
+// Fetch json data from public folder
 const res = await fetch("/top_500_assets.json");
 const { assets } = await res.json();
 
@@ -55,7 +53,7 @@ function updateDOM(hasError = false) {
   const dailychangeEl = document.getElementById("24hr-change");
   const assetTableEl = document.getElementById("asset-table");
 
-  // sorting the img for each asset in Portfoilio data
+  // Sorting the img for each asset in Portfolio data
   const assetKeys = Object.keys(portfolioData.mergedAssets);
   const assetImgs = {};
 
@@ -83,6 +81,9 @@ function updateDOM(hasError = false) {
           <td class="h-[72px] px-4 py-2 w-[400px]">...</td>
         </tr>
       `;
+    }
+    if (isManualRefresh) {
+      UniversalLoader.hide(); // Hide loader after error rendering
     }
     return;
   }
@@ -152,7 +153,6 @@ function updateDOM(hasError = false) {
       const exchangeBadges = assetInfo.exchanges
         .map((ex) => {
           const exchangeName = ex.exchange;
-          // You can replace these with actual logo images later
           return `<span title="${exchangeName}: ${parseFloat(ex.amount).toFixed(
             8
           )}" class="inline-block mr-1">${
@@ -171,7 +171,7 @@ function updateDOM(hasError = false) {
         .join("");
 
       const row = `<tr class="border-t border-t-tabel-top-border">
-  <td class="h-[72px] px-4 py-2 min-w-[200px]  flex items-center gap-3 ">${asset_profile_pic} ${assetSymbol}</td>
+  <td class="h-[72px] px-4 py-2 min-w-[200px] flex items-center gap-3">${asset_profile_pic} ${assetSymbol}</td>
   <td class="h-[72px] px-4 py-2 w-[400px] text-right">$${assetPrice}</td>
   <td class="h-[72px] px-4 py-2 w-[400px] text-right">${parseFloat(
     assetInfo.totalAmount
@@ -184,6 +184,10 @@ function updateDOM(hasError = false) {
 </tr>`;
       tbody.innerHTML += row;
     }
+  }
+
+  if (isManualRefresh) {
+    UniversalLoader.hide(); // Hide loader after all DOM updates
   }
 }
 
@@ -242,10 +246,9 @@ window.addEventListener("portfolioDataUpdated", (event) => {
         : "#d1d5db";
   }
 
-  // Call your existing updateDOM function to refresh everything else
+  // Call updateDOM to refresh everything else
   updateDOM();
 });
-
 ///////////////////////////////////////////////////////////////////////
 // code to dynamically implement the mobile nav logic
 

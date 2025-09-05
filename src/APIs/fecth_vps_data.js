@@ -5,9 +5,10 @@ import UniversalLoader from "../extras/universal_loader.js";
 export let finalPortfolioData = null;
 export const VPSkey = import.meta.env.VITE_VPS_API_KEY;
 
-//  Silent background refresh variables
+// Silent background refresh variables
 let backgroundRefreshInterval = null;
 const REFRESH_INTERVAL = 60000; // 1 minute
+let isManualRefresh = true; // Flag to track manual vs silent refresh
 
 const EXCHANGES = [
   { name: "Binance", route: "binance-data", key: "binanceAsset" },
@@ -48,6 +49,14 @@ function initializeLoader() {
   });
 }
 
+// Initialize loader at module load time
+initializeLoader();
+
+// Show loader immediately for manual refresh
+if (typeof window !== "undefined") {
+  UniversalLoader.show("Initializing connection...");
+}
+
 // Fetch individual exchange data
 async function fetchExchangeData(exchange, index, total) {
   UniversalLoader.loadingText.textContent = `Loading ${
@@ -62,7 +71,7 @@ async function fetchExchangeData(exchange, index, total) {
   return { [exchange.key]: { ...data.assets } };
 }
 
-//Silent fetch function (no loader, no delays)
+// Silent fetch function (no loader, no delays)
 async function silentFetchExchangeData(exchange) {
   try {
     const data = await fetch_From_VPS(exchange.route);
@@ -86,9 +95,7 @@ async function silentFetchAllExchanges() {
   return assetData;
 }
 
-//fecth hourly data
-
-// This cleans out the data and give only the last 2 days data before futher processing in MainHourData
+// Fetch hourly data
 const RawHourlyData = await fetch_From_VPS("calcs-data");
 console.log(RawHourlyData);
 const hourlyData = RawHourlyData.days;
@@ -97,7 +104,7 @@ const lastTwoDaySnapshot = Object.keys(hourlyData)
   .map((days) => ({ [days]: hourlyData[days] }));
 console.log(lastTwoDaySnapshot);
 
-// This varaible contains the last24 hours data (if you dont understand this code in future:: just put a console.log before the chain cantantion and staor the next chain in a variable then repeat the process for the rest chaining methods)
+// This variable contains the last 24 hours data
 const MainHourData = lastTwoDaySnapshot
   .flatMap((dayObj) => {
     const key = Object.keys(dayObj)[0];
@@ -111,11 +118,11 @@ const MainHourData = lastTwoDaySnapshot
 
 console.log("24Hour data ", MainHourData);
 
-// this varibale contains the 24hr totals
+// This variable contains the 24hr totals
 let Twenty_four_totals = MainHourData.map((cur) => cur.total);
 console.log(Twenty_four_totals);
 
-// function to calc the 24hr chnage and 24hr pnl
+// Function to calc the 24hr change and 24hr pnl
 function calc_24hr_percent(arr) {
   const latestTotal = arr[arr.length - 1];
   const Total_24hr_ago = arr[0];
@@ -132,7 +139,6 @@ function calc_24hr_pnl(arr) {
   const Total_24hr_ago = arr[0];
   const _24hr_pnl = latestTotal - Total_24hr_ago;
 
-  // this is to give the first 2 decimals if i use fixed(2)it wil oundup the number and this can lead to inaccureate figures
   return Math.floor(_24hr_pnl * 100) / 100;
 }
 
@@ -208,10 +214,9 @@ function mergeAndCalculateAssets(assetData) {
       const assetAmount = parseFloat(asset.free || asset.amount || 0);
       const assetValue = asset.usd_value ? parseFloat(asset.usd_value) : 0;
       const assetPrice = asset.price ? parseFloat(asset.price) : null;
-      const asset24hrChange = asset.price_change_24h || 0; // Use correct key from raw data
+      const asset24hrChange = asset.price_change_24h || 0;
 
       if (mergedAssets[assetSymbol]) {
-        // Asset exists, merge data
         const currentTotalAmount = parseFloat(
           mergedAssets[assetSymbol].totalAmount
         );
@@ -227,14 +232,12 @@ function mergeAndCalculateAssets(assetData) {
           ...mergedAssets[assetSymbol],
           totalAmount: newTotalAmount.toFixed(8),
           totalValue: newTotalValue ? newTotalValue.toFixed(2) : null,
-          // Calculate average price: total value / total amount
           price:
             newTotalValue && newTotalAmount > 0
               ? (newTotalValue / newTotalAmount).toFixed(8)
               : assetPrice
               ? assetPrice.toFixed(8)
               : null,
-          // Keep the most recent 24hr change (or use existing if current is 0)
           change24hr:
             asset24hrChange !== 0
               ? asset24hrChange
@@ -250,7 +253,6 @@ function mergeAndCalculateAssets(assetData) {
           ],
         };
       } else {
-        // First time seeing this asset
         const finalPrice = assetPrice
           ? assetPrice.toFixed(8)
           : assetValue && assetAmount > 0
@@ -262,7 +264,7 @@ function mergeAndCalculateAssets(assetData) {
           totalAmount: assetAmount.toFixed(8),
           totalValue: asset.usd_value ? assetValue.toFixed(2) : null,
           price: finalPrice,
-          change24hr: asset24hrChange || 0, // Default to 0 as mentioned
+          change24hr: asset24hrChange || 0,
           exchanges: [
             {
               exchange: getExchangeName(exchangeKey),
@@ -291,17 +293,14 @@ function generatePortfolioSummary(mergedAssets) {
   Object.keys(mergedAssets).forEach((symbol) => {
     const asset = mergedAssets[symbol];
 
-    // Calculate total value
     if (asset.totalValue) {
       summary.totalValue += parseFloat(asset.totalValue);
     }
 
-    // Count by exchange presence
     const exchangeCount = asset.exchanges.length;
     summary.assetsByExchangeCount[exchangeCount] =
       (summary.assetsByExchangeCount[exchangeCount] || 0) + 1;
 
-    // Collect for ranking
     if (asset.totalValue) {
       summary.topAssetsByValue.push({
         symbol,
@@ -311,7 +310,6 @@ function generatePortfolioSummary(mergedAssets) {
     }
   });
 
-  // Sort and limit top assets
   summary.topAssetsByValue.sort((a, b) => b.value - a.value);
   summary.topAssetsByValue = summary.topAssetsByValue.slice(0, 10);
   summary.totalValue = summary.totalValue.toFixed(2);
@@ -346,18 +344,16 @@ function createProcessedDataObject(
 async function performSilentBackgroundRefresh() {
   try {
     console.log("🔄 Silent background refresh...");
+    isManualRefresh = false; // Ensure no loader interference
 
-    // Fetch data silently
     const assetData = await silentFetchAllExchanges();
     const hourlyResult = await silentFetchHourlyData();
 
     if (assetData && Object.keys(assetData).length > 0) {
-      // Use your existing functions to process the data
       const mergedAssets = mergeAndCalculateAssets(assetData);
       const summary = generatePortfolioSummary(mergedAssets);
       const multiExchangeAssets = findMultiExchangeAssets(mergedAssets);
 
-      // Update your existing global variable
       finalPortfolioData = createProcessedDataObject(
         assetData,
         mergedAssets,
@@ -366,9 +362,7 @@ async function performSilentBackgroundRefresh() {
       );
     }
 
-    // Update 24hr data if successful
     if (hourlyResult) {
-      // Update the exported variables with fresh calculations
       _24hr_percent_change = hourlyResult._24hr_percent_change;
       _24hr_pnl = hourlyResult._24hr_pnl;
       console.log(
@@ -381,7 +375,6 @@ async function performSilentBackgroundRefresh() {
 
     console.log("✅ Silent refresh done");
 
-    // Dispatch event to notify UI that data has been updated
     if (typeof window !== "undefined") {
       window.dispatchEvent(
         new CustomEvent("portfolioDataUpdated", {
@@ -409,7 +402,7 @@ function startBackgroundRefresh() {
   console.log("🚀 Background refresh started - every 1 minute");
 }
 
-// Function to stop background refresh (export for manual control if needed)
+// Function to stop background refresh
 export function stopBackgroundRefresh() {
   if (backgroundRefreshInterval) {
     clearInterval(backgroundRefreshInterval);
@@ -421,28 +414,22 @@ export function stopBackgroundRefresh() {
 // Main exported function - orchestrates everything
 export async function getCompletePortfolioData() {
   try {
-    // Initialize loader
-    initializeLoader();
-    UniversalLoader.show("Initializing connection...");
+    if (isManualRefresh) {
+      UniversalLoader.show("Initializing connection...");
+    }
 
-    // Fetch all exchange data
     const assetData = await fetchAllExchanges();
     console.log("Successfully loaded all exchange data:", assetData);
 
-    // Process data
-    UniversalLoader.loadingText.textContent = "Processing portfolio data...";
+    if (isManualRefresh) {
+      UniversalLoader.loadingText.textContent = "Processing portfolio data...";
+    }
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     const mergedAssets = mergeAndCalculateAssets(assetData);
-    // console.log("Merged assets with calculated totals:", mergedAssets);
-
     const summary = generatePortfolioSummary(mergedAssets);
-    // console.log("Portfolio Summary:", summary);
-
     const multiExchangeAssets = findMultiExchangeAssets(mergedAssets);
-    // console.log("Assets found on multiple exchanges:", multiExchangeAssets);
 
-    // Create final data object
     const processedData = createProcessedDataObject(
       assetData,
       mergedAssets,
@@ -450,21 +437,16 @@ export async function getCompletePortfolioData() {
       multiExchangeAssets
     );
 
-    // Store globally
     finalPortfolioData = processedData;
-    // console.log("🚀 Final Portfolio Data Ready:", processedData);
 
     return processedData;
   } catch (error) {
     console.error("Failed to load exchange data:", error);
-
-    // Show error briefly
-    UniversalLoader.loadingText.textContent = "Error loading data...";
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
+    if (isManualRefresh) {
+      UniversalLoader.loadingText.textContent = "Error loading data...";
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
     throw error;
-  } finally {
-    UniversalLoader.hide();
   }
 }
 
@@ -473,18 +455,19 @@ export async function fetchExchangeDataWithProgress() {
   return await getCompletePortfolioData();
 }
 
-// Auto-initialize when module loads - MODIFIED to start background refresh
+// Auto-initialize when module loads
 (async () => {
   try {
     await getCompletePortfolioData();
-    // ADD THIS LINE - Start background refresh after initial load
     startBackgroundRefresh();
   } catch (error) {
     console.error("Auto-initialization failed:", error);
+  } finally {
+    isManualRefresh = false; // Reset for silent refreshes
   }
 })();
 
-// ADD THIS - Clean up on page unload
+// Clean up on page unload
 if (typeof window !== "undefined") {
   window.addEventListener("beforeunload", stopBackgroundRefresh);
 }
