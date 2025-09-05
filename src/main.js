@@ -104,18 +104,20 @@ function updateDOM(hasError = false) {
         : "0.00";
 
       // Get 24hr change from merged asset
+      console.log(assetInfo.change24hr);
       const change24hr = assetInfo.change24hr || 0;
       const changeClass =
-        change24hr > 0
-          ? "change-green"
-          : change24hr < 0
-          ? "change-red"
-          : "text-gray-500";
+        change24hr === 0
+          ? "text-gray-500"
+          : change24hr > 0
+          ? "text-change-green"
+          : "text-change-red";
       const changeDisplay =
         change24hr !== 0
-          ? `${change24hr > 0 ? "+" : "-"}${change24hr.toFixed(2)}%`
+          ? `${change24hr > 0 ? "+" : ""}${change24hr.toFixed(2)}%`
           : "0.00%";
 
+      // change24hr >= 0 ? "text-change-green" : "text-change-red";
       // Create exchange badges/logos
       const exchangeBadges = assetInfo.exchanges
         .map((ex) => {
