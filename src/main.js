@@ -19,7 +19,7 @@ const logoMap = {
   Bitget:
     "<img src='Assets/img/bitget-logo.png' alt='Bitget' class='w-6 h-6 mr-2'>",
   "Gate.io":
-    "<img src='Assets/img/gate_io-logo.svg' alt='Gate' class='w-10 h-10 mr-2'>",
+    "<img src='Assets/img/gate_io-logo.svg' alt='Gate' class='w-14 h-14 mr-2'>",
   Bybit:
     "<img src='Assets/img/bybit-logo.png' alt='Bybit' class='w-8 h-8 mr-2'>",
 };
@@ -124,7 +124,7 @@ function updateDOM(hasError = false) {
       const change24hr = assetInfo.change24hr || 0;
       const changeClass =
         change24hr === 0
-          ? "text-gray-500"
+          ? "text-gray-300"
           : change24hr > 0
           ? "text-change-green"
           : "text-change-red";
@@ -156,16 +156,16 @@ function updateDOM(hasError = false) {
         .join("");
 
       const row = `<tr class="border-t border-t-tabel-top-border">
-  <td class="h-[72px] px-4 py-2 w-[250px] flex items-center gap-3 ">${asset_profile_pic} ${assetSymbol}</td>
-  <td class="h-[72px] px-4 py-2 w-[400px]">$${assetPrice}</td>
-  <td class="h-[72px] px-4 py-2 w-[400px]">${parseFloat(
+  <td class="h-[72px] px-4 py-2 min-w-[200px]  flex items-center gap-3 ">${asset_profile_pic} ${assetSymbol}</td>
+  <td class="h-[72px] px-4 py-2 w-[400px] text-right">$${assetPrice}</td>
+  <td class="h-[72px] px-4 py-2 w-[400px] text-right">${parseFloat(
     assetInfo.totalAmount
   ).toFixed(8)}</td>
-  <td class="h-[72px] px-4 py-2 w-[400px]">$${parseFloat(
+  <td class="h-[72px] px-4 py-2 w-[400px] text-right">$${parseFloat(
     assetInfo.totalValue
   ).toFixed(2)}</td>
-  <td class="h-[72px] px-4 py-2 w-[400px] ${changeClass}">${changeDisplay}</td>
-  <td class="h-[72px] px-4 py-2 w-[400px]"><span class="flex items-center">${exchangeBadges}</span></td>
+  <td class="h-[72px] px-4 py-2 w-[400px] text-right ${changeClass}">${changeDisplay}</td>
+  <td class="h-[72px] px-4 py-2 w-[400px] text-right"><span class="flex gap-2 items-center justify-end">${exchangeBadges}</span></td>
 </tr>`;
       tbody.innerHTML += row;
     }
