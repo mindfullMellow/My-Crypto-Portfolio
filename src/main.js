@@ -6,7 +6,13 @@ import {
   getCompletePortfolioData,
 } from "../src/APIs/fecth_vps_data";
 
-let portfolioData = {}; // Store fetched data
+//Globall Variables
+let portfolioData = {}; // Store fetched data\
+
+//fetch json data from public folder
+const res = await fetch("/top_500_assets.json");
+const { assets } = await res.json();
+
 const logoMap = {
   Binance:
     "<img src='Assets/img/Binance-logo.svg' alt='Binance' class='w-8 h-8 mr-2'>",
@@ -40,6 +46,18 @@ function updateDOM(hasError = false) {
   const pnlValueEl = document.getElementById("pnl-value");
   const dailychangeEl = document.getElementById("24hr-change");
   const assetTableEl = document.getElementById("asset-table");
+
+  // sorting the img for each asset in Portfoilio data
+  const assetKeys = Object.keys(portfolioData.mergedAssets);
+  const assetImgs = {};
+
+  assets.forEach((asset) => {
+    if (assetKeys.includes(asset.symbol)) {
+      assetImgs[
+        asset.symbol
+      ] = `<img src="${asset.image}" alt="${asset.symbol}" class="w-5 h-5 rounded-full">`;
+    }
+  });
 
   if (hasError || !portfolioData.summary) {
     if (totalValueEl) totalValueEl.innerHTML = "Error loading data";
@@ -90,7 +108,6 @@ function updateDOM(hasError = false) {
     );
 
     for (const [assetSymbol, assetInfo] of sortedAssets) {
-      console.log(assetInfo);
       // Skip assets with very low value
       if (parseFloat(assetInfo.totalValue) <= 1) continue;
 
@@ -104,7 +121,6 @@ function updateDOM(hasError = false) {
         : "0.00";
 
       // Get 24hr change from merged asset
-      console.log(assetInfo.change24hr);
       const change24hr = assetInfo.change24hr || 0;
       const changeClass =
         change24hr === 0
@@ -117,7 +133,6 @@ function updateDOM(hasError = false) {
           ? `${change24hr > 0 ? "+" : ""}${change24hr.toFixed(2)}%`
           : "0.00%";
 
-      // change24hr >= 0 ? "text-change-green" : "text-change-red";
       // Create exchange badges/logos
       const exchangeBadges = assetInfo.exchanges
         .map((ex) => {
@@ -131,8 +146,17 @@ function updateDOM(hasError = false) {
         })
         .join("");
 
+      // Create and add the asset PFP
+      const asset_profile_pic = [assetInfo.symbol]
+        .map((sym) => {
+          return `<span title="${sym}" class="inline-block">${
+            assetImgs[sym] || "⚪"
+          }</span>`;
+        })
+        .join("");
+
       const row = `<tr class="border-t border-t-tabel-top-border">
-  <td class="h-[72px] px-4 py-2 w-[400px]">${assetSymbol}</td>
+  <td class="h-[72px] px-4 py-2 w-[250px] flex items-center gap-3 ">${asset_profile_pic} ${assetSymbol}</td>
   <td class="h-[72px] px-4 py-2 w-[400px]">$${assetPrice}</td>
   <td class="h-[72px] px-4 py-2 w-[400px]">${parseFloat(
     assetInfo.totalAmount
