@@ -209,8 +209,42 @@ async function initializePortfolio() {
 // Initial load
 initializePortfolio();
 
-// Refresh every 30 seconds (reduced frequency since we're hitting multiple APIs)
-// setInterval(fetchPortfolio, 30000);
+// Listen for silent data updates and refresh the UI
+window.addEventListener("portfolioDataUpdated", (event) => {
+  console.log("📱 Data updated silently, refreshing UI...");
+
+  // Update the portfolio data reference
+  portfolioData = finalPortfolioData;
+
+  // Recalculate the 24hr change strings with fresh data
+  const fresh_change_24hr_pnl = `${_24hr_pnl > 0 ? "+" : ""} ${_24hr_pnl}`;
+  const fresh_change_24h_percent = `${
+    _24hr_percent_change > 0 ? "+" : ""
+  } ${_24hr_percent_change}%`;
+
+  // Update the DOM elements that use these values
+  const pnlValueEl = document.getElementById("pnl-value");
+  const dailychangeEl = document.getElementById("24hr-change");
+
+  if (pnlValueEl) {
+    pnlValueEl.textContent = fresh_change_24hr_pnl || "N/A";
+    pnlValueEl.style.color =
+      _24hr_pnl > 0 ? "#0bda35" : _24hr_pnl < 0 ? "#da0b35" : "#d1d5db";
+  }
+
+  if (dailychangeEl) {
+    dailychangeEl.innerHTML = fresh_change_24h_percent || 0;
+    dailychangeEl.style.color =
+      _24hr_percent_change > 0
+        ? "#0bda35"
+        : _24hr_percent_change < 0
+        ? "#da0b35"
+        : "#d1d5db";
+  }
+
+  // Call your existing updateDOM function to refresh everything else
+  updateDOM();
+});
 
 ///////////////////////////////////////////////////////////////////////
 // code to dynamically implement the mobile nav logic

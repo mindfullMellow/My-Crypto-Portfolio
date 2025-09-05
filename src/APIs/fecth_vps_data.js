@@ -4,6 +4,11 @@ import UniversalLoader from "../extras/universal_loader.js";
 // Global variables
 export let finalPortfolioData = null;
 export const VPSkey = import.meta.env.VITE_VPS_API_KEY;
+
+//  Silent background refresh variables
+let backgroundRefreshInterval = null;
+const REFRESH_INTERVAL = 60000; // 1 minute
+
 const EXCHANGES = [
   { name: "Binance", route: "binance-data", key: "binanceAsset" },
   { name: "Bitget", route: "bitget-assets", key: "bitgetAsset" },
@@ -57,6 +62,30 @@ async function fetchExchangeData(exchange, index, total) {
   return { [exchange.key]: { ...data.assets } };
 }
 
+//Silent fetch function (no loader, no delays)
+async function silentFetchExchangeData(exchange) {
+  try {
+    const data = await fetch_From_VPS(exchange.route);
+    return { [exchange.key]: { ...data.assets } };
+  } catch (error) {
+    console.warn(`Silent refresh failed for ${exchange.name}:`, error);
+    return null;
+  }
+}
+
+// Silent fetch all exchanges
+async function silentFetchAllExchanges() {
+  const assetData = {};
+
+  for (let i = 0; i < EXCHANGES.length; i++) {
+    const exchangeData = await silentFetchExchangeData(EXCHANGES[i]);
+    if (exchangeData) {
+      Object.assign(assetData, exchangeData);
+    }
+  }
+  return assetData;
+}
+
 //fecth hourly data
 
 // This cleans out the data and give only the last 2 days data before futher processing in MainHourData
@@ -71,8 +100,8 @@ console.log(lastTwoDaySnapshot);
 // This varaible contains the last24 hours data (if you dont understand this code in future:: just put a console.log before the chain cantantion and staor the next chain in a variable then repeat the process for the rest chaining methods)
 const MainHourData = lastTwoDaySnapshot
   .flatMap((dayObj) => {
-    const key = Object.keys(dayObj)[0]; // get the day key
-    return dayObj[key]; // return the nested array
+    const key = Object.keys(dayObj)[0];
+    return dayObj[key];
   })
   .map((item) => ({
     time: item.time,
@@ -107,11 +136,44 @@ function calc_24hr_pnl(arr) {
   return Math.floor(_24hr_pnl * 100) / 100;
 }
 
-export const _24hr_percent_change = calc_24hr_percent(Twenty_four_totals);
-export const _24hr_pnl = calc_24hr_pnl(Twenty_four_totals);
+// Changed from const to let so these variables can be updated during silent background refresh
+export let _24hr_percent_change = calc_24hr_percent(Twenty_four_totals);
+export let _24hr_pnl = calc_24hr_pnl(Twenty_four_totals);
 
 console.log(calc_24hr_percent(Twenty_four_totals));
 console.log(calc_24hr_pnl(Twenty_four_totals));
+
+// Silent hourly data fetch
+async function silentFetchHourlyData() {
+  try {
+    const RawHourlyData = await fetch_From_VPS("calcs-data");
+    const hourlyData = RawHourlyData.days;
+    const lastTwoDaySnapshot = Object.keys(hourlyData)
+      .slice(-2)
+      .map((days) => ({ [days]: hourlyData[days] }));
+
+    const MainHourData = lastTwoDaySnapshot
+      .flatMap((dayObj) => {
+        const key = Object.keys(dayObj)[0];
+        return dayObj[key];
+      })
+      .map((item) => ({
+        time: item.time,
+        total: item.total_portfolio_usd,
+      }))
+      .slice(-24);
+
+    const Twenty_four_totals = MainHourData.map((cur) => cur.total);
+
+    return {
+      _24hr_percent_change: calc_24hr_percent(Twenty_four_totals),
+      _24hr_pnl: calc_24hr_pnl(Twenty_four_totals),
+    };
+  } catch (error) {
+    console.warn("Silent hourly refresh failed:", error);
+    return null;
+  }
+}
 
 // Fetch all exchanges sequentially with progress
 async function fetchAllExchanges() {
@@ -280,6 +342,82 @@ function createProcessedDataObject(
   };
 }
 
+// Main silent background refresh function
+async function performSilentBackgroundRefresh() {
+  try {
+    console.log("🔄 Silent background refresh...");
+
+    // Fetch data silently
+    const assetData = await silentFetchAllExchanges();
+    const hourlyResult = await silentFetchHourlyData();
+
+    if (assetData && Object.keys(assetData).length > 0) {
+      // Use your existing functions to process the data
+      const mergedAssets = mergeAndCalculateAssets(assetData);
+      const summary = generatePortfolioSummary(mergedAssets);
+      const multiExchangeAssets = findMultiExchangeAssets(mergedAssets);
+
+      // Update your existing global variable
+      finalPortfolioData = createProcessedDataObject(
+        assetData,
+        mergedAssets,
+        summary,
+        multiExchangeAssets
+      );
+    }
+
+    // Update 24hr data if successful
+    if (hourlyResult) {
+      // Update the exported variables with fresh calculations
+      _24hr_percent_change = hourlyResult._24hr_percent_change;
+      _24hr_pnl = hourlyResult._24hr_pnl;
+      console.log(
+        "Updated 24hr data - Percent:",
+        _24hr_percent_change,
+        "%, PNL:",
+        _24hr_pnl
+      );
+    }
+
+    console.log("✅ Silent refresh done");
+
+    // Dispatch event to notify UI that data has been updated
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("portfolioDataUpdated", {
+          detail: {
+            timestamp: new Date().toISOString(),
+            hasNewData: true,
+          },
+        })
+      );
+    }
+  } catch (error) {
+    console.warn("Silent refresh error:", error);
+  }
+}
+
+// Function to start background refresh
+function startBackgroundRefresh() {
+  if (backgroundRefreshInterval) {
+    clearInterval(backgroundRefreshInterval);
+  }
+  backgroundRefreshInterval = setInterval(
+    performSilentBackgroundRefresh,
+    REFRESH_INTERVAL
+  );
+  console.log("🚀 Background refresh started - every 1 minute");
+}
+
+// Function to stop background refresh (export for manual control if needed)
+export function stopBackgroundRefresh() {
+  if (backgroundRefreshInterval) {
+    clearInterval(backgroundRefreshInterval);
+    backgroundRefreshInterval = null;
+    console.log("⏹️ Background refresh stopped");
+  }
+}
+
 // Main exported function - orchestrates everything
 export async function getCompletePortfolioData() {
   try {
@@ -335,11 +473,18 @@ export async function fetchExchangeDataWithProgress() {
   return await getCompletePortfolioData();
 }
 
-// Auto-initialize when module loads
+// Auto-initialize when module loads - MODIFIED to start background refresh
 (async () => {
   try {
     await getCompletePortfolioData();
+    // ADD THIS LINE - Start background refresh after initial load
+    startBackgroundRefresh();
   } catch (error) {
     console.error("Auto-initialization failed:", error);
   }
 })();
+
+// ADD THIS - Clean up on page unload
+if (typeof window !== "undefined") {
+  window.addEventListener("beforeunload", stopBackgroundRefresh);
+}
